@@ -1,0 +1,24 @@
+eval("\$_SESSION[\"vrp_count\"] = 7;");
+eval("\$_SESSION[\"vr0_reslt\"] = True;");
+eval("\$_SESSION[\"vr0_error\"] = \"\";");
+eval("\$_SESSION[\"vr0_score\"] = 20;");
+eval("\$_SESSION[\"vr1_reslt\"] = True;");
+eval("\$_SESSION[\"vr1_error\"] = \"\";");
+eval("\$_SESSION[\"vr1_score\"] = 20;");
+eval("\$_SESSION[\"vr2_reslt\"] = True;");
+eval("\$_SESSION[\"vr2_error\"] = \"\";");
+eval("\$_SESSION[\"vr2_score\"] = 20;");
+eval("\$_SESSION[\"vr3_reslt\"] = False;");
+eval("\$_SESSION[\"vr3_error\"] = \"Form.Text=Зміна напису кнопки master value: Додавання кнопки на форму\";");
+eval("\$_SESSION[\"vr3_score\"] = 20;");
+eval("\$_SESSION[\"vr4_reslt\"] = True;");
+eval("\$_SESSION[\"vr4_error\"] = \"\";");
+eval("\$_SESSION[\"vr4_score\"] = 20;");
+eval("\$_SESSION[\"vr5_reslt\"] = True;");
+eval("\$_SESSION[\"vr5_error\"] = \"\";");
+eval("\$_SESSION[\"vr5_score\"] = 20;");
+eval("\$_SESSION[\"vr6_reslt\"] = False;");
+eval("\$_SESSION[\"vr6_error\"] = \"button1.Text=NewButton master value: button1\";");
+eval("\$_SESSION[\"vr6_score\"] = 20;");
+eval("\$_SESSION[\"vr_percent\"] = 71;");
+
