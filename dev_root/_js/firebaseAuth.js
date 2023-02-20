@@ -30,11 +30,39 @@ const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 // sets pop up language
 auth.useDeviceLanguage();
+console.log("bruh");
+const registerBtn = document.querySelector("#signUpBtn");
+const selector = document.querySelector("#regClass");
+registerBtn.addEventListener("click", register);
 
 checkUserOnLoad();
 
 //import {checkUserOnSignIn, tasksLoad, checkUserVersion} from "./firebaseFirestore.js";
+function showModalRegister(){
+    let lessonsList = document.getElementById('userResult');
+    
+}
 
+
+
+async function register(){
+
+    signInWithPopup(auth, provider)
+    .then((result) => {
+        // успішна авторизація
+        const user = result.user;
+
+        createUser(user.uid, user.displayName, "11");
+        localStorage.setItem("userDataPath", user.uid);
+        // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
+        // що створює зайвий запит до бази даних
+        // window.location.reload();
+    }).catch((error) => {
+        // помилка при авторизації
+        console.log("clicked the X or this:" + error);
+
+    });
+}
 
 // відповідає за появу вікна для авторизації через гугл аккаунт 
 export async function popupGoogle(){
@@ -42,12 +70,6 @@ export async function popupGoogle(){
     .then((result) => {
         // успішна авторизація
         const user = result.user;
-        checkUserOnSignIn(user.uid)
-        .then( returnValue => {
-            if(!returnValue){
-                createUser(user.uid, user.displayName);
-            }
-        });
         localStorage.setItem("userDataPath", user.uid);
         // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
         // що створює зайвий запит до бази даних
@@ -67,10 +89,9 @@ export async function popupGoogle(){
 export async function checkUserOnLoad(){
     onAuthStateChanged(auth, async function(user) {
         const btn = document.getElementById("loginBtn");
-
         if (user) {
             const uid = user.uid;
-            //showModalResults(uid);
+            // showModalResults(uid);
             // Якщо дійдуть руки, то буде перевірка версії через localStorage, а саме:
             // при вході користувача його документ зберігається локально, тоді
             // при зміні документу (наприклад при виконанні завданнь) потрібно буде
@@ -94,6 +115,8 @@ export async function checkUserOnLoad(){
             btn.innerText = "Вийти";
 
             btn.addEventListener("click", signOutVar, {once: true});
+                        
+            document.getElementById("signUpBtn").addEventListener("click", ()=> console.log("bruh"));
             
             // завантажує опції з документу користувача
 
@@ -106,6 +129,7 @@ export async function checkUserOnLoad(){
             const userName = document.getElementById("userName");
             userName.innerText = user.displayName;
             document.getElementById("userNameModal").innerText = user.displayName;
+            showModalResults(uid);
             
             
         } else {
@@ -175,10 +199,12 @@ export async function checkUserVersion(uid, userDoc, templateDoc){
 // Створення нового користувача та копіювання бази даних з шаблону template 
 // uid - отримуємо з LocalStorage
 // userName - отримуємо  при авторизації з Гугл аккаунту
-async function createUser(uid, userName){
+async function createUser(uid, userName, userClass){
     const template = (await getDoc( doc(db, "main", "template"))).data();
     template.userName = userName;
     template.uid = uid;
+    console.log(userClass);
+        template.class = userClass;
     const ref = doc(db, "main", uid);
     await setDoc(ref, template); 
     //console.log("ok");
@@ -296,7 +322,7 @@ async function showModalResults(uid){
     const templateDoc = await getDoc(docRef);
     
         if (templateDoc.exists) {
-            //console.log("Document data:", doc.data());
+            // console.log("Document data:", templateDoc.data());
             
             var tasksList = templateDoc.data().tasks;
             Object.entries(tasksList).sort().forEach(property => {

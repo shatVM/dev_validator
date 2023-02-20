@@ -305,12 +305,11 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
   </div>
 </div>
 	
-<!-- test trigger -->
-<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
 
 <!-- modal msg start ------------------------------------>
 <div class="container">
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="myModalSuccess" role="dialog">
     <div class="modal-dialog">
     
       <!-- content-->
@@ -380,9 +379,10 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
 	// // для того щоб, посилати змінні в назву значення в цьому об'єкті,
 	// // усю назву потрібно закрити в "[]" (приклад:
 	// // ["theObjectName" + "theNestedObject" + "propertyName")
+	console.log(percent);
 	const taskedPath = { [`${taskedDefaultPath}.${lessonName}.${taskNumber}`]: percent }
 	// const omegaTaskedPath = theTaskToUpdate(taskPath, 3, "tasks", percent);
-	if(percent !== "undefined" && percent !== 0){
+	if(percent !== undefined && percent !== 0){
 		testSend(taskedPath);
 	}
   	
@@ -431,7 +431,7 @@ if(isset($_SESSION["vr_percent"])){
   if($_SESSION["vr_percent"] == 100){
     //destory session vars with validation results:
     //show completed screen:
-    echo("$('#myModal').modal('show');");
+    echo("$('#myModalSuccess').modal('show');");
   }
   //zero the score to prevent new modal screen:
   $_SESSION["vr_percent"] = "0";

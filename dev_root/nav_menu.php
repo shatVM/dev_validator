@@ -31,7 +31,12 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
         <li><a href="/validator/index.php">Всі завдання</a>
         <li><a href="#" id="userName" data-toggle="modal" data-target="#myModal">Невідомий користувач</a>
         </li>
-        <li><a href="#" id="loginBtn" class=" btn-info" type="button">Увійти </a>
+        <li><a href="#" id="loginBtn" class=" btn-info" type="button">Увійти </a></li>
+        <li>
+          <a href="#" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalReg" style="margin-left: 150px">Зареєструватися</a>  
+          <!-- <a href="#"  class=" btn-info" style="margin-left: 100px" type="button" data-target="#myModalReg">Зареєструватися</a> -->
+        </li>
+        
         
 
 
@@ -40,7 +45,7 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
         
       </ul>
 	  <!-- test trigger -->
-<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
 
 <!-- modal msg start ------------------------------------>
 <div class="container">
@@ -56,11 +61,47 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
         </div>
         <div class="modal-body modal-task-complete">
         <div class="user-result " id="userResult">
-
+        
         </div>
         </div>
         <div class="modal-footer">
-		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';">Всі завдання</button>
+		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';"></button>
+		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='history.go(1);'>Закрити</button>
+        </div>
+      </div>
+   
+    </div>
+  </div>
+  
+</div>
+<!-- modal msg end -------------------------------------->
+
+<!-- modal msg REG start ------------------------------------>
+<div class="container">
+  <div class="modal fade" id="myModalReg" role="dialog">
+
+    <div class="modal-dialog">
+        
+      <!-- content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="">Реєстрації:</h4>
+        </div>
+        <div class="modal-body modal-task-complete">
+        <div class="user-result " id="userReg">
+        
+          <select id="regClass" style="block">
+            <option value="11-А">11-А</option>
+            <option value="11-Б">11-Б</option>
+            <option value="11-В">11-В</option>
+            <option value="11-Г">11-Г</option>
+          </select>
+        <p>Після реєстрації увійдіть на сайт!</p>
+        </div>
+        </div>
+        <div class="modal-footer">
+		  <button type="button" class="btn btn-info" data-dismiss="modal" id="signUpBtn">OK</button>
 		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='history.go(1);'>Закрити</button>
         </div>
       </div>
