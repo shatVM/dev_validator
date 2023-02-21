@@ -307,33 +307,7 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
 	
 
 
-<!-- modal msg start ------------------------------------>
-<div class="container">
-  <div class="modal fade" id="myModalSuccess" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Вітаємо із маленькою перемогою!</h4>
-        </div>
-        <div class="modal-body modal-task-complete">
-		  <div class='task-completed-img'><img src='../../_img/task-completed.png' /></div>
-          <div>Завдання виконано на 100%!</div>
-		  <div>Програмуй наступне!</div>
-        </div>
-        <div class="modal-footer">
-		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';">Всі завдання</button>
-		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='history.go(1);'>Закрити</button>
-        </div>
-      </div>
-   
-    </div>
-  </div>
-  
-</div>
-<!-- modal msg end -------------------------------------->
+
 
 <!-- js ------------------------------------------------->
 <script type="module">

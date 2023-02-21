@@ -29,11 +29,12 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
 	    <img class='nav-logo' alt="C#" src='<?php echo($s_rip); ?>' />
         <li><a href="/">Головна</a></li>
         <li><a href="/validator/index.php">Всі завдання</a>
+        <li><a href="#" id="rank" class="btn-info" type="button" data-toggle="modal" data-target="#myModalRank">Рейтинг </a></li>
         <li><a href="#" id="userName" data-toggle="modal" data-target="#myModal">Невідомий користувач</a>
         </li>
         <li><a href="#" id="loginBtn" class=" btn-info" type="button">Увійти </a></li>
         <li>
-          <a href="#" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalReg" style="margin-left: 150px">Зареєструватися</a>  
+          <a href="#" id="btnReg" type="button" class="btn-info" data-toggle="modal" data-target="#myModalReg">Зареєструватися</a>  
           <!-- <a href="#"  class=" btn-info" style="margin-left: 100px" type="button" data-target="#myModalReg">Зареєструватися</a> -->
         </li>
         
@@ -44,10 +45,11 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
 		
         
       </ul>
-	  <!-- test trigger -->
+	  <!-- test trigger  для відображення модального вікна-->
+    <!-- за потрібне вікно відповідає data-target="#myModalReg" -->
+    <!-- <a href="#" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalReg" style="margin-left: 150px">Зареєструватися</a>  -->
 
-
-<!-- modal msg start ------------------------------------>
+<!-- modal USERRESULT msg start ------------------------------------>
 <div class="container">
   <div class="modal fade" id="myModal" role="dialog">
 
@@ -65,7 +67,7 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
         </div>
         </div>
         <div class="modal-footer">
-		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';"></button>
+		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';">Всі завдання</button>
 		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='history.go(1);'>Закрити</button>
         </div>
       </div>
@@ -74,9 +76,9 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
   </div>
   
 </div>
-<!-- modal msg end -------------------------------------->
+<!-- modal USERRESULTmsg end -------------------------------------->
 
-<!-- modal msg REG start ------------------------------------>
+<!-- modal REGISTRATION msg start ------------------------------------>
 <div class="container">
   <div class="modal fade" id="myModalReg" role="dialog">
 
@@ -110,8 +112,63 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
   </div>
   
 </div>
-<!-- modal msg end -------------------------------------->
+<!-- modal REGISTRATION msg end -------------------------------------->
 
+<!-- modal SUCCESS msg start ------------------------------------>
+<div class="container">
+  <div class="modal fade" id="myModalSuccess" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Вітаємо із маленькою перемогою!</h4>
+        </div>
+        <div class="modal-body modal-task-complete">
+		  <div class='task-completed-img'><img src='../../_img/task-completed.png' /></div>
+          <div>Завдання виконано на 100%!</div>
+		  <div>Програмуй наступне!</div>
+        </div>
+        <div class="modal-footer">
+		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';">Всі завдання</button>
+		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='history.go(1);'>Закрити</button>
+        </div>
+      </div>
+   
+    </div>
+  </div>
+  
+</div>
+<!-- modal SUCCESS msg end -------------------------------------->
+
+<!-- modal RANK msg start ------------------------------------>
+<div class="container">
+  <div class="modal fade" id="myModalRank" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Рейтинг</h4>
+        </div>
+        <div class="modal-body modal-task-complete">
+		  <div class='task-completed-img'><img src='../../_img/task-completed.png' /></div>
+          <div>Завдання виконано на 100%!</div>
+		  <div>Програмуй наступне!</div>
+        </div>
+        <div class="modal-footer">
+		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';">Всі завдання</button>
+		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='history.go(1);'>Закрити</button>
+        </div>
+      </div>
+   
+    </div>
+  </div>
+  
+</div>
+<!-- modal RANK msg end -------------------------------------->
 
 	  <!--
 	  <?php if(isset($_SESSION["s_user_email"])) : ?>
