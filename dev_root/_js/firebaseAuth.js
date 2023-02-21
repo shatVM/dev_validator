@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut,
+  signOut
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import {
   doc,
@@ -16,6 +16,10 @@ import {
   updateDoc,
   getFirestore,
   setDoc,
+  collection,
+  query, 
+  where, 
+  getDocs
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -45,20 +49,24 @@ const provider = new GoogleAuthProvider();
 // sets pop up language
 auth.useDeviceLanguage();
 
+//Кнопка ОК на модальному вікні
+document.querySelector("#signUpBtn").addEventListener("click", register);
 
-const registerBtn = document.querySelector("#signUpBtn");
-const regClass = document.querySelector("#regClass");
-registerBtn.addEventListener("click", register);
+
 
 checkUserOnLoad();
 
 async function register() {
   signInWithPopup(auth, provider)
-    .then((result) => {
+    .then(async result => {
       // успішна авторизація
       const user = result.user;
-      
-      createUser(user.uid, user.displayName, regClass.value);
+      const docBool = (await getDoc(doc(db,"main", user.uid))).exists();
+      if(!docBool){
+        createUser(user.uid, user.displayName, regClass.value);
+      }else if(docBool){
+        updateDoc(doc(db,"main", user.uid), { class: regClass.value});
+      }
       localStorage.setItem("userDataPath", user.uid);
       // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
       // що створює зайвий запит до бази даних
@@ -98,6 +106,16 @@ export async function checkUserOnLoad() {
 
     //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
     document.getElementById("btnReg").style.display = "none";
+    
+    //відображає плаваючу кнопку по відправці програм 
+
+    // на головній сторінці немає btnUploadSquare, щоб його ховати
+    try{
+      document.getElementById('btnUploadSquare').style.display = "inline-block";
+    }catch{
+    }
+
+    showRating();
 
     if (user) {
       const uid = user.uid;
@@ -150,6 +168,13 @@ export async function checkUserOnLoad() {
       btn.addEventListener("click", popupGoogle, { once: true });
       console.log("user is not signed in");
 
+      // приховує плаваючу кнопку по відправці програм 
+      try{
+        document.getElementById('btnUploadSquare').style.display = "none";
+      }catch{
+
+      }
+      
       //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
       document.getElementById("btnReg").style.display = "block";
 
@@ -409,7 +434,10 @@ async function testGet(defOutObj, taskTheme, task) {
   // defOutObj - об'єкт в які владені теми завданнь
   // taskTheme - тема завдань (з номером на початку)
   // task -  номер завдання
-  const uid = localStorage.getItem("userDataPath");
+  let uid = localStorage.getItem("userDataPath");
+  if(!uid){
+    uid = "template";
+  }
   const toReturn = (await getDoc(doc(db, "main", uid))).data()[defOutObj][
     taskTheme
   ][task];
@@ -454,3 +482,33 @@ export async function checkUserVersion(uid, userDoc, templateDoc) {
     }
   }
 // [END] перевірка версії ______________________________________
+
+
+// [START]______________________________________
+
+
+
+// [END]  ______________________________________
+
+// document.querySelector("#rank").addEventListener("click", showRating);
+// showRating();
+// [START] Рейтинг______________________________________
+async function showRating(){
+  //const userClass = "11-А";
+  // отримаує чергу для запиту документів з бази данних
+  const q = query(collection(db, "main") );
+  // where("class", "==", userClass)
+  // запитує документи з бази данних та повертає у вигляді масиву документів
+  const querySnapshot = await getDocs(q);
+  // на кожний документ в масиві виконується ця функція створення вікна учня
+  querySnapshot.forEach((doc) => {
+    // console.log((doc.data()).userName);
+    const userDoc = doc.data();
+    const parentNode = document.querySelector("#userList");
+    let userDiv = document.createElement("div");
+    userDiv.innerText = userDoc.userName;
+    userDiv.className = "divLessons";
+    parentNode.insertAdjacentElement("beforeend", userDiv);
+  });
+}
+// [END]  ______________________________________

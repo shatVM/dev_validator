@@ -126,7 +126,9 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
           <h4 class="modal-title">Вітаємо із маленькою перемогою!</h4>
         </div>
         <div class="modal-body modal-task-complete">
-		  <div class='task-completed-img'><img src='../../_img/task-completed.png' /></div>
+		  <!-- <div class='task-completed-img'><img id='imgSuccess' src='../../_img/task-completed.png' /></div> -->
+
+		  <div class='task-completed-img'><img id='imgSuccess' src='' /></div>
           <div>Завдання виконано на 100%!</div>
 		  <div>Програмуй наступне!</div>
         </div>
@@ -154,12 +156,13 @@ $s_rip =$countUp."_img/c-sharp-logo4.png";
           <h4 class="modal-title">Рейтинг</h4>
         </div>
         <div class="modal-body modal-task-complete">
-		  <div class='task-completed-img'><img src='../../_img/task-completed.png' /></div>
-          <div>Завдання виконано на 100%!</div>
-		  <div>Програмуй наступне!</div>
+		  
+          <div id='userList'>
+
+          </div>
+		  
         </div>
         <div class="modal-footer">
-		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';">Всі завдання</button>
 		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='history.go(1);'>Закрити</button>
         </div>
       </div>

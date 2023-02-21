@@ -40,7 +40,7 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
 		<!-- task display code start ---------------------------------------->
 		
 		<!-- square btn - main uploader --> 
-		<div class='upload_square_btn'>
+		<div id='btnUploadSquare' class='upload_square_btn' >
 			<a href="#section1"><img class='hvr-pulse-grow' src='../../_img/up-arrow.png' onclick=""></a>		
 		  <div class='upload_square_btn_upper'></div>
 		  <img class='hvr-pulse-grow' src='../../_img/upload-square.png' onclick="$('#fileToUpload').trigger('click');">
@@ -353,7 +353,7 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
 	// // для того щоб, посилати змінні в назву значення в цьому об'єкті,
 	// // усю назву потрібно закрити в "[]" (приклад:
 	// // ["theObjectName" + "theNestedObject" + "propertyName")
-	console.log(percent);
+	//console.log(percent);
 	const taskedPath = { [`${taskedDefaultPath}.${lessonName}.${taskNumber}`]: percent }
 	// const omegaTaskedPath = theTaskToUpdate(taskPath, 3, "tasks", percent);
 	if(percent !== undefined && percent !== 0){
