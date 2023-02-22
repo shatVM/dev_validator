@@ -131,10 +131,10 @@ namespace uts_tests
             string s_result = _validate_task(s_task_id, s_task_exe_ft);
         }
         [TestMethod]
-        public void tm_02_Form_Load_01()
+        public void tm_02_Event_01()
         {
-            string s_task_id = "02_Form_Load_01";
-            string s_task_exe_ft = "Form_Load_01.exe";
+            string s_task_id = "02_Event_01";
+            string s_task_exe_ft = "Event_01.exe";
             string s_result = _validate_task(s_task_id, s_task_exe_ft);
         }
         [TestMethod]
