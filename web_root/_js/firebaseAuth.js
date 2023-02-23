@@ -505,8 +505,17 @@ async function showRating(){
     // console.log((doc.data()).userName);
     const userDoc = doc.data();
     const parentNode = document.querySelector("#userList");
+    const initialValue = 0;
+    const array1 = Object.entries(userDoc.tasks["01_Form"]);
+    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
+    const sumWithInitial = array1.reduce(
+      (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+      initialValue
+    );
     let userDiv = document.createElement("div");
     userDiv.innerText = userDoc.userName;
+    userDiv.innerText += " 00_Form: " + Math.round(sumWithInitial/array1.length) + "%" ;
+    console.log( Math.round(sumWithInitial));
     userDiv.className = "divLessons";
     parentNode.insertAdjacentElement("beforeend", userDiv);
   });
