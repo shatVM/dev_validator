@@ -179,7 +179,7 @@
             // 
             // pb_PictureKinetic
             // 
-            this.pb_PictureKinetic.BackgroundImage = global::_08_Energy.Properties.Resources.kin;
+            this.pb_PictureKinetic.BackgroundImage = global::Physics_01.Properties.Resources.kin;
             this.pb_PictureKinetic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pb_PictureKinetic.Location = new System.Drawing.Point(22, 128);
             this.pb_PictureKinetic.Name = "pb_PictureKinetic";

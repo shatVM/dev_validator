@@ -85,7 +85,8 @@ include_once("main_config.php");
           </div>
 
           <!-- help block start -->  
-          <a class="btn btn-info btn-lg btn-block" href="" role="button" target="_blank">Читати навчальний матеріал</a>
+          
+          <a class="btn btn-info btn-lg btn-block" href="https://docs.google.com/document/d/1T8I-HevkhMQY_aLrZXjiMH2FOfuQ-tVGnf5RUuqdLq0/edit?usp=sharing" role="button" target="_blank">Читати навчальний матеріал</a>
           <a class="btn btn-info btn-lg btn-block" href="https://www.youtube.com/playlist?list=PLgNmtqlNFVjpYzErepZF2E8Mc4R27yXYf" role="button" target="_blank">Переглянути відеоуроки</a>
           <a class="btn btn-info btn-lg btn-block" href="http://informatics.in.ua/" role="button" target="_blank">Сайт Інформатика в школі</a>
           <!-- help block end -->          

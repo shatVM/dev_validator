@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut
+  signOut,
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import {
   doc,
@@ -17,9 +17,9 @@ import {
   getFirestore,
   setDoc,
   collection,
-  query, 
-  where, 
-  getDocs
+  query,
+  where,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -52,20 +52,18 @@ auth.useDeviceLanguage();
 //Кнопка ОК на модальному вікні
 document.querySelector("#signUpBtn").addEventListener("click", register);
 
-
-
 checkUserOnLoad();
 
 async function register() {
   signInWithPopup(auth, provider)
-    .then(async result => {
+    .then(async (result) => {
       // успішна авторизація
       const user = result.user;
-      const docBool = (await getDoc(doc(db,"main", user.uid))).exists();
-      if(!docBool){
+      const docBool = (await getDoc(doc(db, "main", user.uid))).exists();
+      if (!docBool) {
         createUser(user.uid, user.displayName, regClass.value);
-      }else if(docBool){
-        updateDoc(doc(db,"main", user.uid), { class: regClass.value});
+      } else if (docBool) {
+        updateDoc(doc(db, "main", user.uid), { class: regClass.value });
       }
       localStorage.setItem("userDataPath", user.uid);
       // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
@@ -106,14 +104,13 @@ export async function checkUserOnLoad() {
 
     //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
     document.getElementById("btnReg").style.display = "none";
-    
-    //відображає плаваючу кнопку по відправці програм 
+
+    //відображає плаваючу кнопку по відправці програм
 
     // на головній сторінці немає btnUploadSquare, щоб його ховати
-    try{
-      document.getElementById('btnUploadSquare').style.display = "inline-block";
-    }catch{
-    }
+    try {
+      document.getElementById("btnUploadSquare").style.display = "inline-block";
+    } catch {}
 
     showRating();
 
@@ -132,7 +129,7 @@ export async function checkUserOnLoad() {
 
       // перевіряє версійність
       const returnValue = await checkUserVersion(uid);
-      //console.log(returnValue);      
+      //console.log(returnValue);
       const correctVersion = returnValue[0]; // boolean
       const userDoc = returnValue[1];
       const templateDoc = returnValue[2];
@@ -168,13 +165,11 @@ export async function checkUserOnLoad() {
       btn.addEventListener("click", popupGoogle, { once: true });
       console.log("user is not signed in");
 
-      // приховує плаваючу кнопку по відправці програм 
-      try{
-        document.getElementById('btnUploadSquare').style.display = "none";
-      }catch{
+      // приховує плаваючу кнопку по відправці програм
+      try {
+        document.getElementById("btnUploadSquare").style.display = "none";
+      } catch {}
 
-      }
-      
       //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
       document.getElementById("btnReg").style.display = "block";
 
@@ -214,8 +209,6 @@ const signOutVar = async function () {
 //         return true;
 //     }
 // };
-
-
 
 // createUser("21321321", "hgfhgfhg");
 // Створення нового користувача та копіювання бази даних з шаблону template
@@ -332,6 +325,7 @@ if (!uid) {
 // }
 
 //[START] побудова та відображення модального вікна з результатами ------------------------------------------------------------------------------------
+
 //Get all documents in a collection
 async function showModalResults(uid) {
   // const docRef = db.collection("main").doc(uid);
@@ -422,6 +416,10 @@ async function showModalResults(uid) {
 }
 // [END] ------------------------------------------------------------------------------------
 
+
+
+
+
 async function testSend(input) {
   const uid = localStorage.getItem("userDataPath");
   // const userDoc = (await getDoc(doc(db,"main", uid))).data();
@@ -435,7 +433,7 @@ async function testGet(defOutObj, taskTheme, task) {
   // taskTheme - тема завдань (з номером на початку)
   // task -  номер завдання
   let uid = localStorage.getItem("userDataPath");
-  if(!uid){
+  if (!uid) {
     uid = "template";
   }
   const toReturn = (await getDoc(doc(db, "main", uid))).data()[defOutObj][
@@ -443,81 +441,217 @@ async function testGet(defOutObj, taskTheme, task) {
   ][task];
   return toReturn;
 }
+
 export { testSend, testGet };
 
-// signOutVar();
+
+
+
 
 // [START]перевірка версії______________________________________
+
 // Перевіряє версію документу користувача
 // додатково є можливість надати об'єкт даних користувача та об'єкт шаблону
 // для того щоб за можливості не робити зайвого запиту до бази даних
 export async function checkUserVersion(uid, userDoc, templateDoc) {
-    // uid - айді користувача
-    // userDoc - об'єкт даних користувача
-    // templateDoc - об'єкт шаблонних даних
-    if (!uid && !userDoc) {
-      console.error("to check version you have to provide uid or userDoc");
+  // uid - айді користувача
+  // userDoc - об'єкт даних користувача
+  // templateDoc - об'єкт шаблонних даних
+  if (!uid && !userDoc) {
+    console.error("to check version you have to provide uid or userDoc");
+    return;
+  }
+  if (!userDoc) {
+    try {
+      userDoc = (await getDoc(doc(db, "main", uid))).data();
+    } catch (err) {
+      console.error(err);
       return;
     }
-    if (!userDoc) {
-      try {
-        userDoc = (await getDoc(doc(db, "main", uid))).data();
-      } catch (err) {
-        console.error(err);
-        return;
-      }
-    }
-    if (!templateDoc) {
-      try {
-        templateDoc = (await getDoc(doc(db, "main", "template"))).data();
-      } catch (err) {
-        console.error(err);
-        return;
-      }
-    }
-    if (templateDoc.version == userDoc.version) {
-      return [true, userDoc, templateDoc];
-    } else {
-      return [false, userDoc, templateDoc];
+  }
+  if (!templateDoc) {
+    try {
+      templateDoc = (await getDoc(doc(db, "main", "template"))).data();
+    } catch (err) {
+      console.error(err);
+      return;
     }
   }
+  if (templateDoc.version == userDoc.version) {
+    return [true, userDoc, templateDoc];
+  } else {
+    return [false, userDoc, templateDoc];
+  }
+}
 // [END] перевірка версії ______________________________________
 
 
-// [START]______________________________________
 
+//отримуємо Назви тем  з шаблону
+  const docRef = doc(db, "main", "template");
+  const templateDoc = await getDoc(docRef);
+  var tasksList =  templateDoc.data().tasks;
 
+  console.log(tasksList);
+  console.log("-----------------------------------------------");
+ let t = Object.entries(tasksList);
+ 
+ let tt = Object.entries(t);
+ console.log(tt);
 
-// [END]  ______________________________________
+  Object.entries(tasksList)
+  .sort()
+  .forEach((property) => {
+    //console.log(property[0]);
+    //getAverageUserResult(property[0]);
+    //const array1 = Object.entries(userDoc.tasks[property[0]]);
+    
+  })
+  
 
-// document.querySelector("#rank").addEventListener("click", showRating);
-// showRating();
 // [START] Рейтинг______________________________________
-async function showRating(){
+async function showRating() {  
+  
+    
+
   //const userClass = "11-А";
   // отримаує чергу для запиту документів з бази данних
-  const q = query(collection(db, "main") );
+  const q = query(collection(db, "main"));
+  
   // where("class", "==", userClass)
   // запитує документи з бази данних та повертає у вигляді масиву документів
   const querySnapshot = await getDocs(q);
+  //console.log(querySnapshot);
+  
+  
   // на кожний документ в масиві виконується ця функція створення вікна учня
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((doc) =>  {
     // console.log((doc.data()).userName);
     const userDoc = doc.data();
-    const parentNode = document.querySelector("#userList");
+    //console.log(userDoc);
+    
     const initialValue = 0;
-    const array1 = Object.entries(userDoc.tasks["01_Form"]);
+
+  const array1 = Object.entries(userDoc.tasks["01_Form"]);
+    try {
+      
+    } catch {
+
+    }
+  
+    //const array1 = Object.entries(userDoc.tasks["01_Form"]);
+    //console.log(userDoc.tasks);
+    //---------------------------------------------
+    // const array1 = Object.entries(userDoc.tasks[0]);
     // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
-    const sumWithInitial = array1.reduce(
-      (accumulator, currentValue) => accumulator + Number(currentValue[1]),
-      initialValue
-    );
+    // const sumWithInitial = array1.reduce(
+    //   (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+    //   initialValue
+    // );
+    //--------------------------------------------
+
+
+
+
+    //const array2 = Object.entries(userDoc.tasks["02_Event"]);
+    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
+    //let sumWithInitial = getAverageUserResult(array1);
+    //console.log( Math.round(sumWithInitial));
+
+    //функція обрахунку суми всіх значень по заданій назві завданню
+    function getAverageUserResult(array) {
+      return array.reduce(
+        (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+        initialValue
+      );
+    }
+
+    ////контейнер для відображення результатів
+    const parentNode = document.querySelector("#userList");
+
     let userDiv = document.createElement("div");
-    userDiv.innerText = userDoc.userName;
-    userDiv.innerText += " 00_Form: " + Math.round(sumWithInitial/array1.length) + "%" ;
-    console.log( Math.round(sumWithInitial));
-    userDiv.className = "divLessons";
+    userDiv.className = "userResult";
     parentNode.insertAdjacentElement("beforeend", userDiv);
+
+    //Відображення Прізвища та імені
+    let divUserName = document.createElement("div");
+    divUserName.className = "userName";
+    divUserName.innerHTML = userDoc.userName;
+    userDiv.insertAdjacentElement("afterbegin", divUserName);
+
+    //Відображення Класу
+    let divUserClass = document.createElement("div");
+    divUserClass.className = "userClass";
+    divUserClass.innerHTML = userDoc.class;
+    userDiv.insertAdjacentElement("beforeend", divUserClass);
+
+    //контейнер для відображення результатів завдань
+
+    let divLesson = document.createElement("div");
+    divLesson.className = "divLesson";
+    userDiv.insertAdjacentElement("beforeend", divLesson);
+    //userDiv.innerText = userDoc.userName;
+
+    
+    //графічне відображення прогресу https://ru.stackoverflow.com/questions/110066/%D0%9A%D0%B0%D0%BA-%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D1%84%D0%BE%D0%BD-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0-div-html-%D0%BD%D0%B5-%D0%B4%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B0
+    //https://developer.mozilla.org/ru/docs/Web/HTML/Element/progress
+    //<label for="file"></label>
+
+    let progress = document.createElement("progress");
+    progress.min = 0;
+    progress.max = 100;
+    progress.value = Math.round(getAverageUserResult(array1)/array1.length);
+    //progress.innerText = Math.round(sumWithInitial/array1.length) + "%";
+    divLesson.insertAdjacentElement("beforeend", progress);
+
+    //результат виконання набору завдань 1
+    let divLessonResult = document.createElement("div");
+    divLessonResult.innerText = Math.round(getAverageUserResult(array1)/array1.length) + "%";
+    divLesson.insertAdjacentElement("beforeend", divLessonResult);
+
+    //результат виконання набору завдань 2
+    //let divLessonResult2 = document.createElement("div");
+    // divLessonResult2.innerText = Math.round(sumWithInitial/array1.length) + "%";
+    // divLesson.insertAdjacentElement("beforeend", divLessonResult2);
+
+    //userDiv.innerText += " Form: " + Math.round(sumWithInitial/array1.length) + "%" ;
+    //console.log( Math.round(sumWithInitial));
+    //userDiv.className = "divLessons";
+    //parentNode.insertAdjacentElement("beforeend", userDiv);
   });
 }
 // [END]  ______________________________________
+
+
+
+//отримати всю базу даних
+
+const q = (doc(db, "main","template"));
+
+const querySnapshot = await getDoc(q);
+
+
+let us = []; 
+
+  const userDoc = querySnapshot.data();
+  //console.log(userDoc.tasks["01_Form"]);
+  us.push(userDoc);
+  console.log(us);
+//   //console.log(Object.entries(userDoc.tasks["03_Button"]));
+
+//   let t = Object.entries(userDoc.tasks);
+//   t.forEach((task) => {
+//     //console.log(task[0]);
+//   });
+
+//   //отримуємо назви полів в базі даниїх
+//   //const array1 = Object.entries(userDoc[1]);
+//   // const array1 = Object.entries(userDoc.uid);
+
+//   // const array1 = Object.entries(userDoc.class["11"]);
+//   //console.log(array1);
+// });
+
+
+//Видалення докумнтів з бази даних РОЗІБРАТИСЯ
+//https://ru.stackoverflow.com/questions/1000534/%D0%9A%D0%B0%D0%BA-%D1%83%D0%B4%D0%B0%D0%BB%D0%B8%D1%82%D1%8C-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82-%D0%B8%D0%B7-firebase-%D0%BF%D0%BE-%D0%B5%D0%B3%D0%BE-id-%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8

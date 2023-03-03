@@ -148,7 +148,7 @@
             // pb_BattleField
             // 
             this.pb_BattleField.BackColor = System.Drawing.Color.Black;
-            this.pb_BattleField.BackgroundImage = global::_06_Lines.Properties.Resources.sea;
+            this.pb_BattleField.BackgroundImage = global::Graphics_02.Properties.Resources.sea;
             this.pb_BattleField.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pb_BattleField.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.pb_BattleField.Location = new System.Drawing.Point(250, 0);
