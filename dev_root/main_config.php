@@ -1,7 +1,7 @@
 <?php
 $b_is_local = true;
 //$s_domain = "https://c-validator.com/"; //remote server
-$s_domain = "http://10.14.33.5/";  //local server
+$s_domain = "https://dev-validator.ztu.edu.ua/";  //local server
 $b_use_access_wall = true;   //login required
 $b_do_debug = false;		 //do debug global
 
@@ -10,7 +10,7 @@ $s_v_app_root = $s_web_root."validator".DIRECTORY_SEPARATOR;
 
 if($b_is_local == true){
   //$s_domain = "https://c-validator.com/"; //remote server
-  $s_domain = "http://10.14.33.5/";   //local server
+  $s_domain = "https://127.0.0.1/";   //local server
   $_SESSION["s_domain"] = $s_domain;
   $_SESSION["s_project_url"] = $s_domain . "/validator/";
   $b_use_access_wall = false;

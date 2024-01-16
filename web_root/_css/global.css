@@ -397,3 +397,57 @@ progress {
     border: 0px solid black;
     box-sizing: border-box;
   }
+
+
+  /* Модальне вікно рейтингу користувача */
+  #userList{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+  }
+
+
+
+  .userResult{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    border: 1px solid rgba(43, 19, 19, 0.15);    
+    width: 100%;
+  }
+
+  .userResult div {
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: center; */
+    padding: 5px;
+  }
+
+
+  .userName{
+    text-align: left;
+    width: 250px;
+    background-color: rgba(196, 196, 196, 0.15);
+
+
+  }
+
+  .userClass {
+    width: 70px;
+  }
+
+  .divLesson{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  .divLesson div{ 
+    top: 0px;
+    width: 70px;
+    margin-right: 5px;
+    background-color: rgba(196, 196, 196, 0.15);
+  }

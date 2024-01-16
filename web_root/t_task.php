@@ -40,7 +40,7 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
 		<!-- task display code start ---------------------------------------->
 		
 		<!-- square btn - main uploader --> 
-		<div class='upload_square_btn'>
+		<div id='btnUploadSquare' class='upload_square_btn' >
 			<a href="#section1"><img class='hvr-pulse-grow' src='../../_img/up-arrow.png' onclick=""></a>		
 		  <div class='upload_square_btn_upper'></div>
 		  <img class='hvr-pulse-grow' src='../../_img/upload-square.png' onclick="$('#fileToUpload').trigger('click');">
@@ -305,36 +305,9 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
   </div>
 </div>
 	
-<!-- test trigger -->
-<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
-<!-- modal msg start ------------------------------------>
-<div class="container">
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Вітаємо із маленькою перемогою!</h4>
-        </div>
-        <div class="modal-body modal-task-complete">
-		  <div class='task-completed-img'><img src='../../_img/task-completed.png' /></div>
-          <div>Завдання виконано на 100%!</div>
-		  <div>Програмуй наступне!</div>
-        </div>
-        <div class="modal-footer">
-		  <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.href='../../index.php';">Всі завдання</button>
-		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='history.go(1);'>Закрити</button>
-        </div>
-      </div>
-   
-    </div>
-  </div>
-  
-</div>
-<!-- modal msg end -------------------------------------->
+
+
 
 <!-- js ------------------------------------------------->
 <script type="module">
@@ -380,9 +353,10 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
 	// // для того щоб, посилати змінні в назву значення в цьому об'єкті,
 	// // усю назву потрібно закрити в "[]" (приклад:
 	// // ["theObjectName" + "theNestedObject" + "propertyName")
+	//console.log(percent);
 	const taskedPath = { [`${taskedDefaultPath}.${lessonName}.${taskNumber}`]: percent }
 	// const omegaTaskedPath = theTaskToUpdate(taskPath, 3, "tasks", percent);
-	if(percent !== "undefined" && percent !== 0){
+	if(percent !== undefined && percent !== 0){
 		testSend(taskedPath);
 	}
   	
@@ -431,7 +405,7 @@ if(isset($_SESSION["vr_percent"])){
   if($_SESSION["vr_percent"] == 100){
     //destory session vars with validation results:
     //show completed screen:
-    echo("$('#myModal').modal('show');");
+    echo("$('#myModalSuccess').modal('show');");
   }
   //zero the score to prevent new modal screen:
   $_SESSION["vr_percent"] = "0";
