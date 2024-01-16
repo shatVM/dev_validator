@@ -517,28 +517,41 @@ async function showRating() {
   //const userClass = "11-А";
   // отримаує чергу для запиту документів з бази данних
   const q = query(collection(db, "main"));
+  
   // where("class", "==", userClass)
   // запитує документи з бази данних та повертає у вигляді масиву документів
   const querySnapshot = await getDocs(q);
-
+  //console.log(querySnapshot);
+  
+  
   // на кожний документ в масиві виконується ця функція створення вікна учня
   querySnapshot.forEach((doc) =>  {
     // console.log((doc.data()).userName);
     const userDoc = doc.data();
-
+    //console.log(userDoc);
+    
     const initialValue = 0;
 
-  
-    const array1 = Object.entries(userDoc.tasks["01_Form"]);
-    //console.log(userDoc.tasks);
-
-
-
+  const array1 = Object.entries(userDoc.tasks["01_Form"]);
     try {
       
     } catch {
 
     }
+  
+    //const array1 = Object.entries(userDoc.tasks["01_Form"]);
+    //console.log(userDoc.tasks);
+    //---------------------------------------------
+    // const array1 = Object.entries(userDoc.tasks[0]);
+    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
+    // const sumWithInitial = array1.reduce(
+    //   (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+    //   initialValue
+    // );
+    //--------------------------------------------
+
+
+
 
     //const array2 = Object.entries(userDoc.tasks["02_Event"]);
     // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
@@ -587,13 +600,13 @@ async function showRating() {
     let progress = document.createElement("progress");
     progress.min = 0;
     progress.max = 100;
-    //progress.value = Math.round(sumWithInitial/array1.length);
+    progress.value = Math.round(getAverageUserResult(array1)/array1.length);
     //progress.innerText = Math.round(sumWithInitial/array1.length) + "%";
     divLesson.insertAdjacentElement("beforeend", progress);
 
     //результат виконання набору завдань 1
     let divLessonResult = document.createElement("div");
-    divLessonResult.innerText = Math.round(getAverageUserResult(array1)) + "%";
+    divLessonResult.innerText = Math.round(getAverageUserResult(array1)/array1.length) + "%";
     divLesson.insertAdjacentElement("beforeend", divLessonResult);
 
     //результат виконання набору завдань 2
@@ -612,14 +625,18 @@ async function showRating() {
 
 
 //отримати всю базу даних
-const q = query(collection(db, "main"));
-const querySnapshot = await getDocs(q);
 
-//  
-// querySnapshot.forEach((doc) => {
-//   const userDoc = doc.data();
-//   //console.log(userDoc.userName);
+const q = (doc(db, "main","template"));
 
+const querySnapshot = await getDoc(q);
+
+
+let us = []; 
+
+  const userDoc = querySnapshot.data();
+  //console.log(userDoc.tasks["01_Form"]);
+  us.push(userDoc);
+  console.log(us);
 //   //console.log(Object.entries(userDoc.tasks["03_Button"]));
 
 //   let t = Object.entries(userDoc.tasks);
@@ -635,3 +652,6 @@ const querySnapshot = await getDocs(q);
 //   //console.log(array1);
 // });
 
+
+//Видалення докумнтів з бази даних РОЗІБРАТИСЯ
+//https://ru.stackoverflow.com/questions/1000534/%D0%9A%D0%B0%D0%BA-%D1%83%D0%B4%D0%B0%D0%BB%D0%B8%D1%82%D1%8C-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82-%D0%B8%D0%B7-firebase-%D0%BF%D0%BE-%D0%B5%D0%B3%D0%BE-id-%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8
