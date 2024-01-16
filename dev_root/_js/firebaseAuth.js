@@ -110,7 +110,7 @@ export async function checkUserOnLoad() {
     // на головній сторінці немає btnUploadSquare, щоб його ховати
     try {
       document.getElementById("btnUploadSquare").style.display = "inline-block";
-    } catch { }
+    } catch {}
 
     showRating();
 
@@ -157,18 +157,18 @@ export async function checkUserOnLoad() {
       const userName = document.getElementById("userName");
       userName.innerText = user.displayName;
       document.getElementById("userNameModal").innerText = user.displayName;
-      showModalResults(uid, '');
+      showModalResults(uid, "");
     } else {
-      showModalResults("template", '');
+      showModalResults("template", "");
       // тепер кнопка відповідає за вхід користувача
       btn.innerText = "Увійти";
       btn.addEventListener("click", popupGoogle, { once: true });
-      console.log("user is not signed in");
+      //console.log("user is not signed in");
 
       // приховує плаваючу кнопку по відправці програм
       try {
         document.getElementById("btnUploadSquare").style.display = "none";
-      } catch { }
+      } catch {}
 
       //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
       document.getElementById("btnReg").style.display = "block";
@@ -324,34 +324,34 @@ if (!uid) {
 
 // }
 
-
-
-//[START] фільтрація класів за вибором 
+//[START] фільтрація класів за вибором
 function showResultOfSelectedClass() {
-  document.getElementById('selectClass').addEventListener('change', function (event) {
-    var selectedValue = event.target.value;
-   // console.log(selectedValue);
+  document
+    .getElementById("selectClass")
+    .addEventListener("change", function (event) {
+      var selectedValue = event.target.value;
+      // console.log(selectedValue);
 
-    // Отримуємо всі елементи з класом "userResult"
-    var userResults = document.querySelectorAll('.userResult');
-    //console.log(userResults);
-    // Перебираємо кожен елемент
-    userResults.forEach(function (userResult) {
-      userResult.style.display = 'none';
-      // Отримуємо елемент з класом "userClass" в кожному блоку "userResult"
-      var userClassElement = userResult.querySelector('.userClass');
+      // Отримуємо всі елементи з класом "userResult"
+      var userResults = document.querySelectorAll(".userResult");
+      //console.log(userResults);
+      // Перебираємо кожен елемент
+      userResults.forEach(function (userResult) {
+        userResult.style.display = "none";
+        // Отримуємо елемент з класом "userClass" в кожному блоку "userResult"
+        var userClassElement = userResult.querySelector(".userClass");
 
-      // Перевіряємо, чи має "userClass" значення "11-А"
-      if (selectedValue === "Всі") {
-        userResult.style.display = 'flex';
-      }
+        // Перевіряємо, чи має "userClass" значення "11-А"
+        if (selectedValue === "Всі") {
+          userResult.style.display = "flex";
+        }
 
-      if (userClassElement.textContent.trim() === selectedValue) {
-        // Якщо так, відображаємо блок
-        userResult.style.display = 'flex';
-      }
+        if (userClassElement.textContent.trim() === selectedValue) {
+          // Якщо так, відображаємо блок
+          userResult.style.display = "flex";
+        }
+      });
     });
-  });
 }
 //[END] фільтрація класів за вибором
 
@@ -360,8 +360,6 @@ function showResultOfSelectedClass() {
 //Get all documents in a collection
 async function showModalResults(uid, selectedClass) {
   //
-  showResultOfSelectedClass()
-
 
   // selectedClass = document.getElementById('selectClass')
   // //console.log('-------------selectedClass')
@@ -458,10 +456,6 @@ async function showModalResults(uid, selectedClass) {
 }
 // [END] ------------------------------------------------------------------------------------
 
-
-
-
-
 async function testSend(input) {
   const uid = localStorage.getItem("userDataPath");
   // const userDoc = (await getDoc(doc(db,"main", uid))).data();
@@ -478,12 +472,13 @@ async function testGet(defOutObj, taskTheme, task) {
   if (!uid) {
     uid = "template";
   }
-  const toReturn = (await getDoc(doc(db, "main", uid))).data()[defOutObj][taskTheme][task];
+  const toReturn = (await getDoc(doc(db, "main", uid))).data()[defOutObj][
+    taskTheme
+  ][task];
   return toReturn;
 }
 
 export { testSend, testGet };
-
 
 // [START]перевірка версії______________________________________
 
@@ -522,19 +517,17 @@ export async function checkUserVersion(uid, userDoc, templateDoc) {
 }
 // [END] перевірка версії ______________________________________
 
-
-
 //отримуємо Назви тем  з шаблону
 const docRef = doc(db, "main", "template");
 const templateDoc = await getDoc(docRef);
 var tasksList = templateDoc.data().tasks;
 
-console.log(tasksList);
-console.log("-----------------------------------------------");
-let t = Object.entries(tasksList);
+//console.log(tasksList);
+//console.log("-----------------------------------------------");
+//let t = Object.entries(tasksList);
 
-let tt = Object.entries(t);
-console.log(tt);
+//let tt = Object.entries(t);
+//console.log(tt);
 
 Object.entries(tasksList)
   .sort()
@@ -542,16 +535,25 @@ Object.entries(tasksList)
     //console.log(property[0]);
     //getAverageUserResult(property[0]);
     //const array1 = Object.entries(userDoc.tasks[property[0]]);
-
-  })
-
+  });
 
 // [START] Рейтинг______________________________________
 async function showRating() {
+  showResultOfSelectedClass();
 
+  //----------------
+  const docRef = doc(db, "main", uid);
+  const templateDoc = await getDoc(docRef);
 
+  if (templateDoc.exists) {
+    // console.log("Document data:", templateDoc.data());
 
-  
+    var tasksList = templateDoc.data().tasks;
+    //console.log('tasksList',tasksList)
+    
+  }
+  //----------------
+
   // отримаує чергу для запиту документів з бази данних
   const q = query(collection(db, "main"));
 
@@ -560,6 +562,40 @@ async function showRating() {
   const querySnapshot = await getDocs(q);
   //console.log(querySnapshot);
 
+  ////контейнер для відображення результатів
+  const parentNode = document.querySelector("#userList");
+  //побудова заголовку таблиці
+  let userDiv = document.createElement("div");
+    userDiv.className = "userResult";
+    parentNode.insertAdjacentElement("beforeend", userDiv);
+
+    //Відображення Прізвища та імені
+    let divUserName = document.createElement("div");
+    divUserName.className = "userName";
+    divUserName.innerHTML = "Користувач";
+    userDiv.insertAdjacentElement("afterbegin", divUserName);
+
+    //Відображення Класу
+    let divUserClass = document.createElement("div");
+    divUserClass.className = "userClass";
+    divUserClass.innerHTML = "Клас";
+    userDiv.insertAdjacentElement("beforeend", divUserClass);
+    //
+    Object.entries(tasksList)
+    .sort()
+    .forEach((property) => {
+      console.log(property[0]);
+      let divLesson = document.createElement("div");
+    divLesson.className = "divLesson";
+    divLesson.innerText = property[0]
+
+    userDiv.insertAdjacentElement("beforeend", divLesson);
+      //результат виконання набору завдань 1
+    // let divLessonResult = document.createElement("div");
+    // divLessonResult.innerText = property[0]
+      
+    // divLesson.insertAdjacentElement("beforeend", divLessonResult);
+    })
 
   // на кожний документ в масиві виконується ця функція створення вікна учня
   querySnapshot.forEach((doc) => {
@@ -568,43 +604,7 @@ async function showRating() {
     //console.log(userDoc);
 
     const initialValue = 0;
-
-    const array1 = Object.entries(userDoc.tasks["01_Form"]);
-    try {
-
-    } catch {
-
-    }
-
-    //const array1 = Object.entries(userDoc.tasks["01_Form"]);
-    //console.log(userDoc.tasks);
-    //---------------------------------------------
-    // const array1 = Object.entries(userDoc.tasks[0]);
-    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
-    // const sumWithInitial = array1.reduce(
-    //   (accumulator, currentValue) => accumulator + Number(currentValue[1]),
-    //   initialValue
-    // );
-    //--------------------------------------------
-
-
-
-
-    //const array2 = Object.entries(userDoc.tasks["02_Event"]);
-    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
-    //let sumWithInitial = getAverageUserResult(array1);
-    //console.log( Math.round(sumWithInitial));
-
-    //функція обрахунку суми всіх значень по заданій назві завданню
-    function getAverageUserResult(array) {
-      return array.reduce(
-        (accumulator, currentValue) => accumulator + Number(currentValue[1]),
-        initialValue
-      );
-    }
-
-    ////контейнер для відображення результатів
-    const parentNode = document.querySelector("#userList");
+    
 
     let userDiv = document.createElement("div");
     userDiv.className = "userResult";
@@ -621,6 +621,45 @@ async function showRating() {
     divUserClass.className = "userClass";
     divUserClass.innerHTML = userDoc.class;
     userDiv.insertAdjacentElement("beforeend", divUserClass);
+    //
+    Object.entries(tasksList)
+    .sort()
+    .forEach((property) => {
+      console.log(property[0]);
+
+      //let lessonsList = document.getElementById("userResult");
+    
+    //const array1 = Object.entries(userDoc.tasks["01_Form"]);
+    const array1 = Object.entries(userDoc.tasks[property[0]]);
+
+    try {
+    } catch {}
+
+    //const array1 = Object.entries(userDoc.tasks["01_Form"]);
+    //console.log(userDoc.tasks);
+    //---------------------------------------------
+    // const array1 = Object.entries(userDoc.tasks[0]);
+    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
+    // const sumWithInitial = array1.reduce(
+    //   (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+    //   initialValue
+    // );
+    //--------------------------------------------
+
+    //const array2 = Object.entries(userDoc.tasks["02_Event"]);
+    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
+    //let sumWithInitial = getAverageUserResult(array1);
+    //console.log( Math.round(sumWithInitial));
+
+    //функція обрахунку суми всіх значень по заданій назві завданню
+    function getAverageUserResult(array) {
+      return array.reduce(
+        (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+        initialValue
+      );
+    }
+
+
 
     //контейнер для відображення результатів завдань
 
@@ -628,7 +667,6 @@ async function showRating() {
     divLesson.className = "divLesson";
     userDiv.insertAdjacentElement("beforeend", divLesson);
     //userDiv.innerText = userDoc.userName;
-
 
     //графічне відображення прогресу https://ru.stackoverflow.com/questions/110066/%D0%9A%D0%B0%D0%BA-%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D1%84%D0%BE%D0%BD-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0-div-html-%D0%BD%D0%B5-%D0%B4%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B0
     //https://developer.mozilla.org/ru/docs/Web/HTML/Element/progress
@@ -643,7 +681,8 @@ async function showRating() {
 
     //результат виконання набору завдань 1
     let divLessonResult = document.createElement("div");
-    divLessonResult.innerText = Math.round(getAverageUserResult(array1) / array1.length) + "%";
+    divLessonResult.innerText =
+      Math.round(getAverageUserResult(array1) / array1.length) + "%";
     divLesson.insertAdjacentElement("beforeend", divLessonResult);
 
     //результат виконання набору завдань 2
@@ -656,24 +695,22 @@ async function showRating() {
     //userDiv.className = "divLessons";
     //parentNode.insertAdjacentElement("beforeend", userDiv);
   });
+  });
 }
 // [END]  ______________________________________
 
-
-
 //отримати всю базу даних
 
-const q = (doc(db, "main", "template"));
+const q = doc(db, "main", "template");
 
 const querySnapshot = await getDoc(q);
-
 
 let us = [];
 
 const userDoc = querySnapshot.data();
 //console.log(userDoc.tasks["01_Form"]);
 us.push(userDoc);
-console.log(us);
+//console.log(us);
 //   //console.log(Object.entries(userDoc.tasks["03_Button"]));
 
 //   let t = Object.entries(userDoc.tasks);
@@ -688,7 +725,6 @@ console.log(us);
 //   // const array1 = Object.entries(userDoc.class["11"]);
 //   //console.log(array1);
 // });
-
 
 //Видалення докумнтів з бази даних РОЗІБРАТИСЯ
 //https://ru.stackoverflow.com/questions/1000534/%D0%9A%D0%B0%D0%BA-%D1%83%D0%B4%D0%B0%D0%BB%D0%B8%D1%82%D1%8C-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82-%D0%B8%D0%B7-firebase-%D0%BF%D0%BE-%D0%B5%D0%B3%D0%BE-id-%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8
