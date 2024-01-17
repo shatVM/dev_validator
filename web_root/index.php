@@ -1,4 +1,4 @@
-﻿<?php
+﻿﻿<?php
 session_start();
 //utf8 support:
 header('Content-Type: text/html; charset=utf-8');
@@ -36,6 +36,16 @@ include_once("main_config.php");
           <h2>Доступні завдання:</h2>
 
           <div class="panel-group" id="collapse-group">
+
+            <!-- task Lesson_00 block start -->
+            <?php
+              include("tasks_list/00_Lesson.php");
+            ?>
+
+            <!-- task Season_01 block start -->
+            <?php
+              include("tasks_list/00_Seasons_v.1.php");
+            ?>
 
             <!-- task Forms block start -->
             <?php

@@ -72,7 +72,7 @@ async function register() {
     })
     .catch((error) => {
       // помилка при авторизації
-      //console.log("clicked the X or this:" + error);
+      console.log("clicked the X or this:" + error);
     });
 }
 
@@ -110,7 +110,7 @@ export async function checkUserOnLoad() {
     // на головній сторінці немає btnUploadSquare, щоб його ховати
     try {
       document.getElementById("btnUploadSquare").style.display = "inline-block";
-    } catch {}
+    } catch { }
 
     showRating();
 
@@ -168,7 +168,7 @@ export async function checkUserOnLoad() {
       // приховує плаваючу кнопку по відправці програм
       try {
         document.getElementById("btnUploadSquare").style.display = "none";
-      } catch {}
+      } catch { }
 
       //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
       document.getElementById("btnReg").style.display = "block";
@@ -541,16 +541,22 @@ Object.entries(tasksList)
 async function showRating() {
   showResultOfSelectedClass();
 
-  //----------------
-  const docRef = doc(db, "main", uid);
-  const templateDoc = await getDoc(docRef);
+  if (uid.exists) {
+    //----------------
+    const docRef = doc(db, "main", uid);
+    const templateDoc = await getDoc(docRef);
+  }
+  else {
+    //----------------
+    const docRef = doc(db, "main", "template");
+    const templateDoc = await getDoc(docRef);
+  }
 
   if (templateDoc.exists) {
     // console.log("Document data:", templateDoc.data());
-
     var tasksList = templateDoc.data().tasks;
     //console.log('tasksList',tasksList)
-    
+
   }
   //----------------
 
@@ -564,37 +570,43 @@ async function showRating() {
 
   ////контейнер для відображення результатів
   const parentNode = document.querySelector("#userList");
+
   //побудова заголовку таблиці
   let userDiv = document.createElement("div");
-    userDiv.className = "userResult";
-    parentNode.insertAdjacentElement("beforeend", userDiv);
+  userDiv.className = "userResult";
+  parentNode.insertAdjacentElement("beforeend", userDiv);
 
-    //Відображення Прізвища та імені
-    let divUserName = document.createElement("div");
-    divUserName.className = "userName";
-    divUserName.innerHTML = "Користувач";
-    userDiv.insertAdjacentElement("afterbegin", divUserName);
+  //Відображення Прізвища та імені
+  let divUserName = document.createElement("div");
+  divUserName.className = "userName";
+  divUserName.innerHTML = "Користувач";
+  userDiv.insertAdjacentElement("afterbegin", divUserName);
 
-    //Відображення Класу
-    let divUserClass = document.createElement("div");
-    divUserClass.className = "userClass";
-    divUserClass.innerHTML = "Клас";
-    userDiv.insertAdjacentElement("beforeend", divUserClass);
-    //
-    Object.entries(tasksList)
+  //Відображення Класу
+  let divUserClass = document.createElement("div");
+  divUserClass.className = "userClass";
+  divUserClass.innerHTML = "Клас";
+  userDiv.insertAdjacentElement("beforeend", divUserClass);
+
+  //Відображення заголовку зі списком уроків
+  Object.entries(tasksList)
     .sort()
     .forEach((property) => {
-      console.log(property[0]);
+      //console.log(property[0]);
       let divLesson = document.createElement("div");
-    divLesson.className = "divLesson";
-    divLesson.innerText = property[0]
+      divLesson.className = "divTaskResult";
+      divLesson.innerText = property[0]
+      userDiv.insertAdjacentElement("beforeend", divLesson);
 
-    userDiv.insertAdjacentElement("beforeend", divLesson);
+      //графічне відображення прогресу https://ru.stackoverflow.com/questions/110066/%D0%9A%D0%B0%D0%BA-%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D1%84%D0%BE%D0%BD-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0-div-html-%D0%BD%D0%B5-%D0%B4%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B0
+      //https://developer.mozilla.org/ru/docs/Web/HTML/Element/progress
+      //<label for="file"></label>       
+
       //результат виконання набору завдань 1
-    // let divLessonResult = document.createElement("div");
-    // divLessonResult.innerText = property[0]
-      
-    // divLesson.insertAdjacentElement("beforeend", divLessonResult);
+      //let divLessonResult = document.createElement("div");
+
+      //divLessonResult.innerText = property[0]
+      //divLesson.insertAdjacentElement("beforeend", divLessonResult);
     })
 
   // на кожний документ в масиві виконується ця функція створення вікна учня
@@ -604,97 +616,86 @@ async function showRating() {
     //console.log(userDoc);
 
     const initialValue = 0;
-    
+
 
     let userDiv = document.createElement("div");
     userDiv.className = "userResult";
     parentNode.insertAdjacentElement("beforeend", userDiv);
 
-    //Відображення Прізвища та імені
+    //Відображення Прізвища та імені користувача
     let divUserName = document.createElement("div");
     divUserName.className = "userName";
     divUserName.innerHTML = userDoc.userName;
     userDiv.insertAdjacentElement("afterbegin", divUserName);
 
-    //Відображення Класу
+    //Відображення Класу користувача
     let divUserClass = document.createElement("div");
     divUserClass.className = "userClass";
     divUserClass.innerHTML = userDoc.class;
     userDiv.insertAdjacentElement("beforeend", divUserClass);
     //
     Object.entries(tasksList)
-    .sort()
-    .forEach((property) => {
-      console.log(property[0]);
+      .sort()
+      .forEach((property) => {
 
-      //let lessonsList = document.getElementById("userResult");
-    
-    //const array1 = Object.entries(userDoc.tasks["01_Form"]);
-    const array1 = Object.entries(userDoc.tasks[property[0]]);
+        const array1 = Object.entries(userDoc.tasks[property[0]]);
 
-    try {
-    } catch {}
+        //const array1 = Object.entries(userDoc.tasks["01_Form"]);
+        //console.log(userDoc.tasks);
+        //---------------------------------------------
+        // const array1 = Object.entries(userDoc.tasks[0]);
+        // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
+        // const sumWithInitial = array1.reduce(
+        //   (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+        //   initialValue
+        // );
+        //--------------------------------------------
 
-    //const array1 = Object.entries(userDoc.tasks["01_Form"]);
-    //console.log(userDoc.tasks);
-    //---------------------------------------------
-    // const array1 = Object.entries(userDoc.tasks[0]);
-    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
-    // const sumWithInitial = array1.reduce(
-    //   (accumulator, currentValue) => accumulator + Number(currentValue[1]),
-    //   initialValue
-    // );
-    //--------------------------------------------
+        //const array2 = Object.entries(userDoc.tasks["02_Event"]);
+        // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
+        //let sumWithInitial = getAverageUserResult(array1);
+        //console.log( Math.round(sumWithInitial));
 
-    //const array2 = Object.entries(userDoc.tasks["02_Event"]);
-    // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
-    //let sumWithInitial = getAverageUserResult(array1);
-    //console.log( Math.round(sumWithInitial));
-
-    //функція обрахунку суми всіх значень по заданій назві завданню
-    function getAverageUserResult(array) {
-      return array.reduce(
-        (accumulator, currentValue) => accumulator + Number(currentValue[1]),
-        initialValue
-      );
-    }
+        //функція обрахунку суми всіх значень по заданій назві завданню
+        function getAverageUserResult(array) {
+          return array.reduce(
+            (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+            initialValue
+          );
+        }
 
 
+        //контейнер для відображення результатів виконання завдань учнем
 
-    //контейнер для відображення результатів завдань
+        let divLesson = document.createElement("div");
+        divLesson.className = "divTaskResult";
+        userDiv.insertAdjacentElement("beforeend", divLesson);
+        //userDiv.innerText = userDoc.userName;
 
-    let divLesson = document.createElement("div");
-    divLesson.className = "divLesson";
-    userDiv.insertAdjacentElement("beforeend", divLesson);
-    //userDiv.innerText = userDoc.userName;
 
-    //графічне відображення прогресу https://ru.stackoverflow.com/questions/110066/%D0%9A%D0%B0%D0%BA-%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D1%84%D0%BE%D0%BD-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0-div-html-%D0%BD%D0%B5-%D0%B4%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B0
-    //https://developer.mozilla.org/ru/docs/Web/HTML/Element/progress
-    //<label for="file"></label>
+        //результат виконання набору завдань 1
+        // let divLessonResult = document.createElement("div");
+        // divLessonResult.innerText =
+        //   Math.round(getAverageUserResult(array1) / array1.length) + "%";
+        // divLesson.insertAdjacentElement("beforeend", divLessonResult);
+        //результат виконання завдання
+        let h5TaskResult = document.createElement("h5");
+        h5TaskResult.innerHTML = Math.round(getAverageUserResult(array1) / array1.length) + "%";
+        divLesson.insertAdjacentElement("beforeend", h5TaskResult);
 
-    let progress = document.createElement("progress");
-    progress.min = 0;
-    progress.max = 100;
-    progress.value = Math.round(getAverageUserResult(array1) / array1.length);
-    //progress.innerText = Math.round(sumWithInitial/array1.length) + "%";
-    divLesson.insertAdjacentElement("beforeend", progress);
+        //графічне відображення прогресу https://ru.stackoverflow.com/questions/110066/%D0%9A%D0%B0%D0%BA-%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D1%84%D0%BE%D0%BD-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0-div-html-%D0%BD%D0%B5-%D0%B4%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B0
+        //https://developer.mozilla.org/ru/docs/Web/HTML/Element/progress
+        //<label for="file"></label>
+        let progress = document.createElement("progress");
+        progress.min = 0;
+        progress.max = 100;
+        progress.value = Math.round(getAverageUserResult(array1) / array1.length);
+        //progress.innerText = Math.round(sumWithInitial/array1.length) + "%";
+        divLesson.insertAdjacentElement("beforeend", progress);
 
-    //результат виконання набору завдань 1
-    let divLessonResult = document.createElement("div");
-    divLessonResult.innerText =
-      Math.round(getAverageUserResult(array1) / array1.length) + "%";
-    divLesson.insertAdjacentElement("beforeend", divLessonResult);
 
-    //результат виконання набору завдань 2
-    //let divLessonResult2 = document.createElement("div");
-    // divLessonResult2.innerText = Math.round(sumWithInitial/array1.length) + "%";
-    // divLesson.insertAdjacentElement("beforeend", divLessonResult2);
 
-    //userDiv.innerText += " Form: " + Math.round(sumWithInitial/array1.length) + "%" ;
-    //console.log( Math.round(sumWithInitial));
-    //userDiv.className = "divLessons";
-    //parentNode.insertAdjacentElement("beforeend", userDiv);
-  });
+      });
   });
 }
 // [END]  ______________________________________
