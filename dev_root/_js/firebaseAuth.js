@@ -20,6 +20,7 @@ import {
   query,
   where,
   getDocs,
+  orderBy,
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -50,279 +51,342 @@ const provider = new GoogleAuthProvider();
 auth.useDeviceLanguage();
 
 //Кнопка ОК на модальному вікні
-document.querySelector("#signUpBtn").addEventListener("click", register);
+//document.querySelector('#signUpBtn').addEventListener('click', register);
 
-checkUserOnLoad();
+//[START]  функція авторизації яка має працювали лише на головній сторінці index.html
 
-async function register() {
-  signInWithPopup(auth, provider)
-    .then(async (result) => {
-      // успішна авторизація
-      const user = result.user;
-      const docBool = (await getDoc(doc(db, "main", user.uid))).exists();
-      if (!docBool) {
-        createUser(user.uid, user.displayName, regClass.value);
-      } else if (docBool) {
-        updateDoc(doc(db, "main", user.uid), { class: regClass.value });
-      }
-      localStorage.setItem("userDataPath", user.uid);
-      // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
-      // що створює зайвий запит до бази даних
-      // window.location.reload();
-    })
-    .catch((error) => {
-      // помилка при авторизації
-      console.log("clicked the X or this:" + error);
-    });
-}
+//   checkUserOnLoad();
 
-// відповідає за появу вікна для авторизації через гугл аккаунт
-export async function popupGoogle() {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // успішна авторизація
-      const user = result.user;
-      localStorage.setItem("userDataPath", user.uid);
-      // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
-      // що створює зайвий запит до бази даних
-      window.location.reload();
-    })
-    .catch((error) => {
-      // помилка при авторизації
-      //console.log("clicked the X or this:" + error);
-      const btn = document.getElementById("loginBtn");
-      btn.addEventListener("click", popupGoogle, { once: true });
-    });
-}
+// async function register() {
+//   signInWithPopup(auth, provider)
+//     .then(async (result) => {
+//       // успішна авторизація
+//       const user = result.user;
+//       const docBool = (await getDoc(doc(db, 'main', user.uid))).exists();
+//       if (!docBool) {
+//         createUser(user.uid, user.displayName, regClass.value);
+//       } else if (docBool) {
+//         updateDoc(doc(db, 'main', user.uid), { class: regClass.value });
+//       }
+//       localStorage.setItem('userDataPath', user.uid);
+//       // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
+//       // що створює зайвий запит до бази даних
+//       // window.location.reload();
+//     })
+//     .catch((error) => {
+//       // помилка при авторизації
+//       console.log('clicked the X or this:' + error);
+//     });
+// }
 
-// спрацьовує на завантаженні сторінки
-// перевіряє чи ввійшов користувач у систему
-// перевіряє версію уже ввійшовшого користувача
-export async function checkUserOnLoad() {
-  onAuthStateChanged(auth, async function (user) {
-    const btn = document.getElementById("loginBtn");
+// // відповідає за появу вікна для авторизації через гугл аккаунт
+// export async function popupGoogle() {
+//   signInWithPopup(auth, provider)
+//     .then((result) => {
+//       // успішна авторизація
+//       const user = result.user;
+//       localStorage.setItem('userDataPath', user.uid);
+//       // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
+//       // що створює зайвий запит до бази даних
+//       window.location.reload();
+//     })
+//     .catch((error) => {
+//       // помилка при авторизації
+//       //console.log('clicked the X or this:' + error);
+//       const btn = document.getElementById('loginBtn');
+//       btn.addEventListener('click', popupGoogle, { once: true });
+//     });
+// }
 
-    //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
-    document.getElementById("btnReg").style.display = "none";
+// // спрацьовує на завантаженні сторінки
+// // перевіряє чи ввійшов користувач у систему
+// // перевіряє версію уже ввійшовшого користувача
+// export async function checkUserOnLoad() {
+//   onAuthStateChanged(auth, async function (user) {
+//     const btn = document.getElementById('loginBtn');
 
-    //відображає плаваючу кнопку по відправці програм
+//     //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
+//     document.getElementById('btnReg').style.display = 'none';
 
-    // на головній сторінці немає btnUploadSquare, щоб його ховати
-    try {
-      document.getElementById("btnUploadSquare").style.display = "inline-block";
-    } catch { }
+//     //відображає плаваючу кнопку по відправці програм
 
-    showRating();
+//     // на головній сторінці немає btnUploadSquare, щоб його ховати
+//     try {
+//       document.getElementById('btnUploadSquare').style.display = 'inline-block';
+//     } catch { }
 
-    if (user) {
-      const uid = user.uid;
-      // showModalResults(uid);
-      // Якщо дійдуть руки, то буде перевірка версії через localStorage, а саме:
-      // при вході користувача його документ зберігається локально, тоді
-      // при зміні документу (наприклад при виконанні завданнь) потрібно буде
-      // крім оновлення документу в базі даних, ще й оновляти локальний документ
-      // ЗАВДЯКИ чому при перевірці версії запит документу користувача йде в локальне сховище,
-      // що в свою чергу зменшує загальну кількість запитів на один при перевірці версії
-      // АЛЕ перевірка версії відбувається досить часто (кожний раз коли спрацьовує onAuthStateChanged),
-      // тому це може того вартувати
-      // const userDocLocal = JSON.parse(localStorage.getItem("userData"));
+//     showRating();
 
-      // перевіряє версійність
-      const returnValue = await checkUserVersion(uid);
-      //console.log(returnValue);
-      const correctVersion = returnValue[0]; // boolean
-      const userDoc = returnValue[1];
-      const templateDoc = returnValue[2];
-      if (!correctVersion) {
-        await mergeDocs(uid, userDoc, templateDoc);
-      }
+//     if (user) {
+//       const uid = user.uid;
+//
+//       // Якщо дійдуть руки, то буде перевірка версії через localStorage, а саме:
+//       // при вході користувача його документ зберігається локально, тоді
+//       // при зміні документу (наприклад при виконанні завданнь) потрібно буде
+//       // крім оновлення документу в базі даних, ще й оновляти локальний документ
+//       // ЗАВДЯКИ чому при перевірці версії запит документу користувача йде в локальне сховище,
+//       // що в свою чергу зменшує загальну кількість запитів на один при перевірці версії
+//       // АЛЕ перевірка версії відбувається досить часто (кожний раз коли спрацьовує onAuthStateChanged),
+//       // тому це може того вартувати
+//       // const userDocLocal = JSON.parse(localStorage.getItem('userData'));
 
-      // тепер кнопка відповідає за вихід користувача
-      btn.innerText = "Вийти";
+//       // перевіряє версійність
+//       const returnValue = await checkUserVersion(uid);
+//       //console.log(returnValue);
+//       const correctVersion = returnValue[0]; // boolean
+//       const userDoc = returnValue[1];
+//       const templateDoc = returnValue[2];
+//       if (!correctVersion) {
+//         await mergeDocs(uid, userDoc, templateDoc);
+//       }
 
-      btn.addEventListener("click", signOutVar, { once: true });
+//       // тепер кнопка відповідає за вихід користувача
+//       btn.innerText = 'Вийти';
 
-      document
-        .getElementById("signUpBtn")
-        .addEventListener("click", () => console.log("bruh"));
+//       btn.addEventListener('click', signOutVar, { once: true });
 
-      // завантажує опції з документу користувача
+//       document
+//         .getElementById('signUpBtn')
+//         .addEventListener('click', () => console.log('bruh'));
 
-      // checkUserVersion(null, null, uid, false);
-      const select = document.getElementById("task");
-      const obj = "option";
-      // tasksLoad(select, obj, uid);
+//       // завантажує опції з документу користувача
 
-      //виведення даних користувача в меню та модальне вікно
-      const userName = document.getElementById("userName");
-      userName.innerText = user.displayName;
-      document.getElementById("userNameModal").innerText = user.displayName;
-      showModalResults(uid, "");
-    } else {
-      showModalResults("template", "");
-      // тепер кнопка відповідає за вхід користувача
-      btn.innerText = "Увійти";
-      btn.addEventListener("click", popupGoogle, { once: true });
-      //console.log("user is not signed in");
+//       // checkUserVersion(null, null, uid, false);
+//       const select = document.getElementById('task');
+//       const obj = 'option';
+//       // tasksLoad(select, obj, uid);
 
-      // приховує плаваючу кнопку по відправці програм
-      try {
-        document.getElementById("btnUploadSquare").style.display = "none";
-      } catch { }
+//       //виведення даних користувача в меню та модальне вікно
+//       const userName = document.getElementById('userName');
+//       userName.innerText = user.displayName;
+//       document.getElementById('userNameModal').innerText = user.displayName;
+//
+//     } else {
+//
+//       // тепер кнопка відповідає за вхід користувача
+//       btn.innerText = 'Увійти';
+//       btn.addEventListener('click', popupGoogle, { once: true });
+//       //console.log('user is not signed in');
 
-      //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
-      document.getElementById("btnReg").style.display = "block";
+//       // приховує плаваючу кнопку по відправці програм
+//       try {
+//         document.getElementById('btnUploadSquare').style.display = 'none';
+//       } catch { }
 
-      // завантажує опціїї з шаблонного документу
-      //const select = document.getElementById("task");
-      //const obj = "option";
-      // tasksLoad(select, obj, "template");
-    }
-  });
-}
+//       //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
+//       document.getElementById('btnReg').style.display = 'block';
 
-// [START] вихід користувача
-const signOutVar = async function () {
-  signOut(auth)
-    .then(() => {
-      localStorage.clear();
-      window.location.reload();
-      // showModalResults("template");
-      // future popUp here
-    })
-    .catch((error) => {
-      // future error popUp here
-    });
-};
-// [END] вихід користувача
-
-// Атавізм рудимент
-// Перевіряє чи існує документ користувача в базі даних
-// Повертає Promise
-// export async function checkUserOnSignIn(uid){
-//     // uid - посилання на документ (userId), отримане при авторизації
-//     const theDoc = (await getDoc( doc(db, "main", uid) )).exists();
-
-//     if(!theDoc){
-//         return false;
-//     }else{
-//         return true;
+//       // завантажує опціїї з шаблонного документу
+//       //const select = document.getElementById('task');
+//       //const obj = 'option';
+//       // tasksLoad(select, obj, 'template');
 //     }
+//   });
+// }
+
+// // [START] вихід користувача
+// const signOutVar = async function () {
+//   signOut(auth)
+//     .then(() => {
+//       localStorage.clear();
+//       window.location.reload();
+//
+//       // future popUp here
+//     })
+//     .catch((error) => {
+//       // future error popUp here
+//     });
 // };
+// // [END] вихід користувача
 
-// createUser("21321321", "hgfhgfhg");
-// Створення нового користувача та копіювання бази даних з шаблону template
-// uid - отримуємо з LocalStorage
-// userName - отримуємо  при авторизації з Гугл аккаунту
-async function createUser(uid, userName, userClass) {
-  const template = (await getDoc(doc(db, "main", "template"))).data();
-  template.userName = userName;
-  template.uid = uid;
-  //console.log(userClass);
-  template.class = userClass;
-  const ref = doc(db, "main", uid);
-  await setDoc(ref, template);
-  //console.log("ok");
-}
+// // Атавізм рудимент
+// // Перевіряє чи існує документ користувача в базі даних
+// // Повертає Promise
+// // export async function checkUserOnSignIn(uid){
+// //     // uid - посилання на документ (userId), отримане при авторизації
+// //     const theDoc = (await getDoc( doc(db, 'main', uid) )).exists();
 
-// З'єднує два документи (користувача та шаблону).
-// Функція потрібена для версійності.
-export async function mergeDocs(uid, userDoc, templateDoc) {
-  if (!uid && !userDoc) {
-    console.error(
-      "to merge template into userDoc you have to provide uid or userDoc"
-    );
-    return;
-  }
-  if (!userDoc) {
-    userDoc = (await getDoc(doc(db, "main", uid))).data();
-  }
-  if (!templateDoc) {
-    templateDoc = (await getDoc(doc(db, "main", template))).data();
-    // із-за мутації шаблоного документу після з'єднання
-    // змінюється і його версія на ту що була в користувача,
-    // тому її збережено в примітивну змінну
-  }
-  var templateVersion = templateDoc.version;
-  const mergedObject = mergeObjects(templateDoc, userDoc);
-  mergedObject.version = templateVersion;
-  // return mergeObjects(templateDoc, userDoc);
-  await setDoc(doc(db, "main", uid), mergedObject);
-}
+// //     if(!theDoc){
+// //         return false;
+// //     }else{
+// //         return true;
+// //     }
+// // };
 
-// нажаль ця функція зміннює вхідні об'єкти
-// (наразі проблем з цим немає, але можуть виникнути у майбутньому)
-// я намагався зробити її через функційне програмування,
-// але мені не вистачає часу це доробити, тому поки що залишив так
-export function mergeObjects(mergeFrom, mergeIn) {
-  // mergeFrom - шаблон з новими властивостями
-  // mergeIn - об'єкт зі значеннями, які потрібно зберегти
-  // проходиться по кожній властивості mergeFrom
-  // (припускається, що mergeFrom має більше властивостей, ніж mergeIn)
-  // console.log(mergeFrom,mergeIn);
-  Object.entries(mergeFrom).forEach((property) => {
-    const mergeInPropertyObj = mergeIn[property[0]];
-    const mergeFromPropertyObj = property[1];
-    if (
-      typeof property == "object" &&
-      typeof mergeFromPropertyObj == "object" &&
-      !Array.isArray(mergeFromPropertyObj) &&
-      property !== null &&
-      mergeInPropertyObj
-    ) {
-      // якщо властивість має непримітивне значення (об'єкт)
-      // та якщо ця властивість має теж ім'я, що й у mergeIn
-      // якщо значення другого об'єкту існує
-      // поєднує вкладені об'єкти
-      mergeObjects(mergeFromPropertyObj, mergeInPropertyObj);
-    } else if (Array.isArray(mergeFromPropertyObj)) {
-      // якщо властивість має непримітивне значення (масив)
-      // надає властивості шаблонного об'єкту масив неповторних значень
-      mergeFrom[property[0]] = mergeUnique(
-        mergeFromPropertyObj,
-        mergeInPropertyObj
-      );
-    } else if (
-      mergeInPropertyObj !== undefined &&
-      mergeInPropertyObj !== null
-    ) {
-      // якщо властивість має примітивне значення
-      // якщо значення другого об'єкту існує
-      // надає властивості шаблонного об'єкту значення другого об'єкту
-      mergeFrom[property[0]] = mergeInPropertyObj;
-    }
-  });
-  // повертає зміненний шаблонний об'єкт
-  return mergeFrom;
-}
+// // createUser('21321321', 'hgfhgfhg');
+// // Створення нового користувача та копіювання бази даних з шаблону template
+// // uid - отримуємо з LocalStorage
+// // userName - отримуємо  при авторизації з Гугл аккаунту
+// async function createUser(uid, userName, userClass) {
+//   const template = (await getDoc(doc(db, 'main', 'template'))).data();
+//   template.userName = userName;
+//   template.uid = uid;
+//   //console.log(userClass);
+//   template.class = userClass;
+//   const ref = doc(db, 'main', uid);
+//   await setDoc(ref, template);
+//   //console.log('ok');
+// }
 
-// поєднує унікальні елементи в масиві
-// (на майбутнє, якщо прийдеться використовувати масиви)
-// вкрадено з https://stackoverflow.com/a/44464083
-function mergeUnique(arr1, arr2) {
-  return arr1.concat(
-    arr2.filter(function (item) {
-      return arr1.indexOf(item) === -1;
-    })
-  );
-}
+// // З'єднує два документи (користувача та шаблону).
+// // Функція потрібена для версійності.
+// export async function mergeDocs(uid, userDoc, templateDoc) {
+//   if (!uid && !userDoc) {
+//     console.error(
+//       'to merge template into userDoc you have to provide uid or userDoc'
+//     );
+//     return;
+//   }
+//   if (!userDoc) {
+//     userDoc = (await getDoc(doc(db, 'main', uid))).data();
+//   }
+//   if (!templateDoc) {
+//     templateDoc = (await getDoc(doc(db, 'main', template))).data();
+//     // із-за мутації шаблоного документу після з'єднання
+//     // змінюється і його версія на ту що була в користувача,
+//     // тому її збережено в примітивну змінну
+//   }
+//   var templateVersion = templateDoc.version;
+//   const mergedObject = mergeObjects(templateDoc, userDoc);
+//   mergedObject.version = templateVersion;
+//   // return mergeObjects(templateDoc, userDoc);
+//   await setDoc(doc(db, 'main', uid), mergedObject);
+// }
 
-// ------------------------------------------------------------------------------------
+// // нажаль ця функція зміннює вхідні об'єкти
+// // (наразі проблем з цим немає, але можуть виникнути у майбутньому)
+// // я намагався зробити її через функційне програмування,
+// // але мені не вистачає часу це доробити, тому поки що залишив так
+// export function mergeObjects(mergeFrom, mergeIn) {
+//   // mergeFrom - шаблон з новими властивостями
+//   // mergeIn - об'єкт зі значеннями, які потрібно зберегти
+//   // проходиться по кожній властивості mergeFrom
+//   // (припускається, що mergeFrom має більше властивостей, ніж mergeIn)
+//   // console.log(mergeFrom,mergeIn);
+//   Object.entries(mergeFrom).forEach((property) => {
+//     const mergeInPropertyObj = mergeIn[property[0]];
+//     const mergeFromPropertyObj = property[1];
+//     if (
+//       typeof property == 'object' &&
+//       typeof mergeFromPropertyObj == 'object' &&
+//       !Array.isArray(mergeFromPropertyObj) &&
+//       property !== null &&
+//       mergeInPropertyObj
+//     ) {
+//       // якщо властивість має непримітивне значення (об'єкт)
+//       // та якщо ця властивість має теж ім'я, що й у mergeIn
+//       // якщо значення другого об'єкту існує
+//       // поєднує вкладені об'єкти
+//       mergeObjects(mergeFromPropertyObj, mergeInPropertyObj);
+//     } else if (Array.isArray(mergeFromPropertyObj)) {
+//       // якщо властивість має непримітивне значення (масив)
+//       // надає властивості шаблонного об'єкту масив неповторних значень
+//       mergeFrom[property[0]] = mergeUnique(
+//         mergeFromPropertyObj,
+//         mergeInPropertyObj
+//       );
+//     } else if (
+//       mergeInPropertyObj !== undefined &&
+//       mergeInPropertyObj !== null
+//     ) {
+//       // якщо властивість має примітивне значення
+//       // якщо значення другого об'єкту існує
+//       // надає властивості шаблонного об'єкту значення другого об'єкту
+//       mergeFrom[property[0]] = mergeInPropertyObj;
+//     }
+//   });
+//   // повертає зміненний шаблонний об'єкт
+//   return mergeFrom;
+// }
+
+// // поєднує унікальні елементи в масиві
+// // (на майбутнє, якщо прийдеться використовувати масиви)
+// // вкрадено з https://stackoverflow.com/a/44464083
+// function mergeUnique(arr1, arr2) {
+//   return arr1.concat(
+//     arr2.filter(function (item) {
+//       return arr1.indexOf(item) === -1;
+//     })
+//   );
+// }
+
+// // ------------------------------------------------------------------------------------
+
+// //import {checkUserOnSignIn, tasksLoad, checkUserVersion} from './firebaseFirestore.js';
+// //для відображення результатів роботи
+// // function showModalRegister(){
+// //     let lessonsList = document.getElementById('userResult');
+
+// // }
+
+// // [START]перевірка версії______________________________________
+
+// // Перевіряє версію документу користувача
+// // додатково є можливість надати об'єкт даних користувача та об'єкт шаблону
+// // для того щоб за можливості не робити зайвого запиту до бази даних
+// export async function checkUserVersion(uid, userDoc, templateDoc) {
+//   // uid - айді користувача
+//   // userDoc - об'єкт даних користувача
+//   // templateDoc - об'єкт шаблонних даних
+//   if (!uid && !userDoc) {
+//     console.error('to check version you have to provide uid or userDoc');
+//     return;
+//   }
+//   if (!userDoc) {
+//     try {
+//       userDoc = (await getDoc(doc(db, 'main', uid))).data();
+//     } catch (err) {
+//       console.error(err);
+//       return;
+//     }
+//   }
+//   if (!templateDoc) {
+//     try {
+//       templateDoc = (await getDoc(doc(db, 'main', 'template'))).data();
+//     } catch (err) {
+//       console.error(err);
+//       return;
+//     }
+//   }
+//   if (templateDoc.version == userDoc.version) {
+//     return [true, userDoc, templateDoc];
+//   } else {
+//     return [false, userDoc, templateDoc];
+//   }
+// }
+// // [END] перевірка версії ______________________________________
+
+// // [END]
 
 //Робота з базою даних
 
 let uid = localStorage.getItem("userDataPath");
-
+//console.log(uid);
 if (!uid) {
   uid = "template";
 }
 
-//import {checkUserOnSignIn, tasksLoad, checkUserVersion} from "./firebaseFirestore.js";
-//для відображення результатів роботи
-// function showModalRegister(){
-//     let lessonsList = document.getElementById('userResult');
+//виведення даних користувача в меню
 
-// }
+document.getElementById("userName").innerText = localStorage.getItem("userName")
+  ? localStorage.getItem("userName")
+  : "Невідомий користувач";
+document.getElementById("userPhoto").src = localStorage.getItem("userPhoto")
+  ? localStorage.getItem("userPhoto")
+  : "_img/anonymous.png";
+
+//виклик модального вікна з результатами користувача та внесення в нього його даних (імені, фото та інше)
+document.getElementById("userName").addEventListener("click", () => {
+  showModalResults(uid);
+});
+
+//Виклик модального вікна з рейтингом усіх користувачів
+document.getElementById("rank").addEventListener("click", () => {
+  if (uid == "Rq6LCl02TifWTeBdg5O1eChD8pU2") {
+    showRating();
+  } else {
+  }
+});
 
 //[START] фільтрація класів за вибором
 function showResultOfSelectedClass() {
@@ -332,16 +396,16 @@ function showResultOfSelectedClass() {
       var selectedValue = event.target.value;
       // console.log(selectedValue);
 
-      // Отримуємо всі елементи з класом "userResult"
+      // Отримуємо всі елементи з класом 'userResult'
       var userResults = document.querySelectorAll(".userResult");
       //console.log(userResults);
       // Перебираємо кожен елемент
       userResults.forEach(function (userResult) {
         userResult.style.display = "none";
-        // Отримуємо елемент з класом "userClass" в кожному блоку "userResult"
+        // Отримуємо елемент з класом 'userClass' в кожному блоку 'userResult'
         var userClassElement = userResult.querySelector(".userClass");
 
-        // Перевіряємо, чи має "userClass" значення "11-А"
+        // Перевіряємо, чи має 'userClass' значення '11-А'
         if (selectedValue === "Всі") {
           userResult.style.display = "flex";
         }
@@ -355,11 +419,21 @@ function showResultOfSelectedClass() {
 }
 //[END] фільтрація класів за вибором
 
-//[START] побудова та відображення модального вікна з результатами ------------------------------------------------------------------------------------
-
+//[START] побудова та відображення модального вікна з результатами всіх користувачів
 //Get all documents in a collection
-async function showModalResults(uid, selectedClass) {
+// async function showModalResults(uid, selectedClass) {
+async function showModalResults(uid) {
   //
+  document.getElementById("userNameModal").innerText = localStorage.getItem(
+    "userName"
+  )
+    ? localStorage.getItem("userName")
+    : "Невідомий користувач";
+  document.getElementById("userPhotoModal").src = localStorage.getItem(
+    "userPhoto"
+  )
+    ? localStorage.getItem("userPhoto")
+    : "_img/anonymous.png";
 
   // selectedClass = document.getElementById('selectClass')
   // //console.log('-------------selectedClass')
@@ -368,12 +442,12 @@ async function showModalResults(uid, selectedClass) {
   //   console.log(event.target.value)
   // })
   //
-  // const docRef = db.collection("main").doc(uid);
+  // const docRef = db.collection('main').doc(uid);
   const docRef = doc(db, "main", uid);
   const templateDoc = await getDoc(docRef);
 
   if (templateDoc.exists) {
-    // console.log("Document data:", templateDoc.data());
+    // console.log('Document data:', templateDoc.data());
 
     var tasksList = templateDoc.data().tasks;
     Object.entries(tasksList)
@@ -407,9 +481,7 @@ async function showModalResults(uid, selectedClass) {
           .sort()
           .forEach((property) => {
             //посилання на завдання
-
             let aTask = document.createElement("a");
-
             //умова на шлях до різних папок
             let path = window.location.href;
             let file = path.substring(path.length, path.length - 8);
@@ -445,8 +517,7 @@ async function showModalResults(uid, selectedClass) {
             progress.max = 100;
             progress.value = property[1];
             divTaskResult.insertAdjacentElement("beforeend", progress);
-
-            //console.log(property[0],":", property[1]);
+            //console.log(property[0],':', property[1]);
           });
       });
   } else {
@@ -458,7 +529,7 @@ async function showModalResults(uid, selectedClass) {
 
 async function testSend(input) {
   const uid = localStorage.getItem("userDataPath");
-  // const userDoc = (await getDoc(doc(db,"main", uid))).data();
+  // const userDoc = (await getDoc(doc(db,'main', uid))).data();
   await updateDoc(doc(db, "main", uid), input);
   // console.log(result);
 }
@@ -480,90 +551,49 @@ async function testGet(defOutObj, taskTheme, task) {
 
 export { testSend, testGet };
 
-// [START]перевірка версії______________________________________
-
-// Перевіряє версію документу користувача
-// додатково є можливість надати об'єкт даних користувача та об'єкт шаблону
-// для того щоб за можливості не робити зайвого запиту до бази даних
-export async function checkUserVersion(uid, userDoc, templateDoc) {
-  // uid - айді користувача
-  // userDoc - об'єкт даних користувача
-  // templateDoc - об'єкт шаблонних даних
-  if (!uid && !userDoc) {
-    console.error("to check version you have to provide uid or userDoc");
-    return;
-  }
-  if (!userDoc) {
-    try {
-      userDoc = (await getDoc(doc(db, "main", uid))).data();
-    } catch (err) {
-      console.error(err);
-      return;
-    }
-  }
-  if (!templateDoc) {
-    try {
-      templateDoc = (await getDoc(doc(db, "main", "template"))).data();
-    } catch (err) {
-      console.error(err);
-      return;
-    }
-  }
-  if (templateDoc.version == userDoc.version) {
-    return [true, userDoc, templateDoc];
-  } else {
-    return [false, userDoc, templateDoc];
-  }
-}
-// [END] перевірка версії ______________________________________
-
 //отримуємо Назви тем  з шаблону
-const docRef = doc(db, "main", "template");
-const templateDoc = await getDoc(docRef);
-var tasksList = templateDoc.data().tasks;
+//const docRef = doc(db, 'main', 'template');
+//const templateDoc = await getDoc(docRef);
+//var tasksList = templateDoc.data().tasks;
 
 //console.log(tasksList);
-//console.log("-----------------------------------------------");
+//console.log('-----------------------------------------------');
 //let t = Object.entries(tasksList);
 
 //let tt = Object.entries(t);
 //console.log(tt);
 
-Object.entries(tasksList)
-  .sort()
-  .forEach((property) => {
-    //console.log(property[0]);
-    //getAverageUserResult(property[0]);
-    //const array1 = Object.entries(userDoc.tasks[property[0]]);
-  });
+//Object.entries(tasksList).sort().forEach((property) => {
+//console.log(property[0]);
+//getAverageUserResult(property[0]);
+//const array1 = Object.entries(userDoc.tasks[property[0]]);
+// });
 
 // [START] Рейтинг______________________________________
 async function showRating() {
   showResultOfSelectedClass();
 
-  if (uid.exists) {
-    //----------------
-    const docRef = doc(db, "main", uid);
-    const templateDoc = await getDoc(docRef);
-  }
-  else {
-    //----------------
-    const docRef = doc(db, "main", "template");
-    const templateDoc = await getDoc(docRef);
-  }
+  // if (uid.exists) {
+  //   //----------------
+  //   const docRef = doc(db, 'main', uid);
+  //   const templateDoc = await getDoc(docRef);
+  // } else
+
+  //----------------
+  const docRef = doc(db, "main", "template");
+  const templateDoc = await getDoc(docRef);
 
   if (templateDoc.exists) {
-    // console.log("Document data:", templateDoc.data());
+    // console.log('Document data:', templateDoc.data());
     var tasksList = templateDoc.data().tasks;
-    //console.log('tasksList',tasksList)
-
+    //console.log("tasksList", tasksList);
   }
   //----------------
 
   // отримаує чергу для запиту документів з бази данних
-  const q = query(collection(db, "main"));
+  const q = query(collection(db, "main"),orderBy('userName'));
 
-  // where("class", "==", userClass)
+  // where('class', '==', userClass)
   // запитує документи з бази данних та повертає у вигляді масиву документів
   const querySnapshot = await getDocs(q);
   //console.log(querySnapshot);
@@ -595,28 +625,27 @@ async function showRating() {
       //console.log(property[0]);
       let divLesson = document.createElement("div");
       divLesson.className = "divTaskResult";
-      divLesson.innerText = property[0]
+      divLesson.innerText = property[0];
       userDiv.insertAdjacentElement("beforeend", divLesson);
 
       //графічне відображення прогресу https://ru.stackoverflow.com/questions/110066/%D0%9A%D0%B0%D0%BA-%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D1%84%D0%BE%D0%BD-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0-div-html-%D0%BD%D0%B5-%D0%B4%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B0
       //https://developer.mozilla.org/ru/docs/Web/HTML/Element/progress
-      //<label for="file"></label>       
+      //<label for='file'></label>
 
       //результат виконання набору завдань 1
-      //let divLessonResult = document.createElement("div");
+      //let divLessonResult = document.createElement('div');
 
       //divLessonResult.innerText = property[0]
-      //divLesson.insertAdjacentElement("beforeend", divLessonResult);
-    })
+      //divLesson.insertAdjacentElement('beforeend', divLessonResult);
+    });
 
   // на кожний документ в масиві виконується ця функція створення вікна учня
   querySnapshot.forEach((doc) => {
-    // console.log((doc.data()).userName);
+    //console.log((doc.data()).userName);
     const userDoc = doc.data();
     //console.log(userDoc);
 
     const initialValue = 0;
-
 
     let userDiv = document.createElement("div");
     userDiv.className = "userResult";
@@ -633,14 +662,18 @@ async function showRating() {
     divUserClass.className = "userClass";
     divUserClass.innerHTML = userDoc.class;
     userDiv.insertAdjacentElement("beforeend", divUserClass);
+
     //
     Object.entries(tasksList)
       .sort()
       .forEach((property) => {
-
-        const array1 = Object.entries(userDoc.tasks[property[0]]);
-
-        //const array1 = Object.entries(userDoc.tasks["01_Form"]);
+        console.log(Object.entries(userDoc.tasks[property[0]]))
+          //const array1 = []
+         // if (Object.entries(userDoc.tasks[property[0]])) {
+            const array1 = Object.entries(userDoc.tasks[property[0]])
+          //}
+  
+        //const array1 = Object.entries(userDoc.tasks['01_Form']);
         //console.log(userDoc.tasks);
         //---------------------------------------------
         // const array1 = Object.entries(userDoc.tasks[0]);
@@ -651,7 +684,7 @@ async function showRating() {
         // );
         //--------------------------------------------
 
-        //const array2 = Object.entries(userDoc.tasks["02_Event"]);
+        //const array2 = Object.entries(userDoc.tasks['02_Event']);
         // const array2 = Object.entries(userDoc.tasks).forEach( element => Object.entries(element));
         //let sumWithInitial = getAverageUserResult(array1);
         //console.log( Math.round(sumWithInitial));
@@ -659,11 +692,11 @@ async function showRating() {
         //функція обрахунку суми всіх значень по заданій назві завданню
         function getAverageUserResult(array) {
           return array.reduce(
-            (accumulator, currentValue) => accumulator + Number(currentValue[1]),
+            (accumulator, currentValue) =>
+              accumulator + Number(currentValue[1]),
             initialValue
           );
         }
-
 
         //контейнер для відображення результатів виконання завдань учнем
 
@@ -672,12 +705,11 @@ async function showRating() {
         userDiv.insertAdjacentElement("beforeend", divLesson);
         //userDiv.innerText = userDoc.userName;
 
-
         //результат виконання набору завдань 1
-        // let divLessonResult = document.createElement("div");
+        // let divLessonResult = document.createElement('div');
         // divLessonResult.innerText =
-        //   Math.round(getAverageUserResult(array1) / array1.length) + "%";
-        // divLesson.insertAdjacentElement("beforeend", divLessonResult);
+        //   Math.round(getAverageUserResult(array1) / array1.length) + '%';
+        // divLesson.insertAdjacentElement('beforeend', divLessonResult);
         //результат виконання завдання
         let h5TaskResult = document.createElement("h5");
         h5TaskResult.innerHTML = Math.round(getAverageUserResult(array1) / array1.length) + "%";
@@ -685,16 +717,15 @@ async function showRating() {
 
         //графічне відображення прогресу https://ru.stackoverflow.com/questions/110066/%D0%9A%D0%B0%D0%BA-%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D1%84%D0%BE%D0%BD-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0-div-html-%D0%BD%D0%B5-%D0%B4%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B0
         //https://developer.mozilla.org/ru/docs/Web/HTML/Element/progress
-        //<label for="file"></label>
+        //<label for='file'></label>
         let progress = document.createElement("progress");
         progress.min = 0;
         progress.max = 100;
-        progress.value = Math.round(getAverageUserResult(array1) / array1.length);
-        //progress.innerText = Math.round(sumWithInitial/array1.length) + "%";
+        progress.value = Math.round(
+          getAverageUserResult(array1) / array1.length
+        );
+        //progress.innerText = Math.round(sumWithInitial/array1.length) + '%';
         divLesson.insertAdjacentElement("beforeend", progress);
-
-
-
       });
   });
 }
@@ -709,10 +740,10 @@ const querySnapshot = await getDoc(q);
 let us = [];
 
 const userDoc = querySnapshot.data();
-//console.log(userDoc.tasks["01_Form"]);
+//console.log(userDoc.tasks['01_Form']);
 us.push(userDoc);
 //console.log(us);
-//   //console.log(Object.entries(userDoc.tasks["03_Button"]));
+//   //console.log(Object.entries(userDoc.tasks['03_Button']));
 
 //   let t = Object.entries(userDoc.tasks);
 //   t.forEach((task) => {
@@ -723,7 +754,7 @@ us.push(userDoc);
 //   //const array1 = Object.entries(userDoc[1]);
 //   // const array1 = Object.entries(userDoc.uid);
 
-//   // const array1 = Object.entries(userDoc.class["11"]);
+//   // const array1 = Object.entries(userDoc.class['11']);
 //   //console.log(array1);
 // });
 
