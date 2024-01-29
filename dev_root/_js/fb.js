@@ -35,11 +35,15 @@ const db = getFirestore(app);
 const usersCollection = collection(db,"main")
 const users = await getDocs(usersCollection);
 
-users.docs.forEach((user)=>{
-  mergeStudentManually(user.id)
-  //showUserResult(user.id)
+document.getElementById('mergeStudentsManually').addEventListener('click', () =>{
+  
+  users.docs.forEach((user)=>{
+    mergeStudentManually(user.id)
+    //showUserResult(user.id)
 
-})
+  })
+} 
+
 
 //showUserResult('Rq6LCl02TifWTeBdg5O1eChD8pU2')
 //console.log(db);
