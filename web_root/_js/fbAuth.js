@@ -111,7 +111,7 @@ export async function checkUserOnLoad() {
     const btn = document.getElementById("loginBtn");
 
     //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
-    //document.getElementById("btnReg").style.display = "none";
+    document.getElementById("btnReg").style.display = "none";
 
     
 

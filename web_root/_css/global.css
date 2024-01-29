@@ -7,6 +7,10 @@ html {
   -ms-user-select: none;
   user-select: none;
 }
+body {
+  display: flex;
+  align-items: center;
+}
 
 .btn-browse {
   width: 200px !important;
@@ -77,7 +81,6 @@ html {
   margin-right: auto;
   display: block;
   padding-bottom: 30px;
-
 }
 
 .f_img {
@@ -94,8 +97,8 @@ html {
   font-size: 30px !important;
 }
 
-.navbar-default .navbar-nav>li>a:hover,
-.navbar-default .navbar-nav>li>a:focus {
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
   background-color: black;
   color: white;
 }
@@ -115,7 +118,6 @@ html {
 
 .navbar {
   margin-bottom: 0px;
-
 }
 
 .note {
@@ -161,7 +163,6 @@ html {
   padding-left: 80px;
   text-align: left;
   width: 400px;
-
 }
 
 /* hotfix: https://stackoverflow.com/questions/11235206/twitter-bootstrap-form-file-element-upload-button */
@@ -253,24 +254,33 @@ html {
 }
 
 .progress-bar-striped {
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
   background-size: 5rem 5rem;
 }
 
 .progress-bar {
-  background-color: #C260F0;
+  background-color: #c260f0;
 }
 
 .upload_square_btn_upper {
   text-align: center;
   padding: 4px;
-  color: #7E11B0;
+  color: #7e11b0;
 }
 
 .upload_square_btn_lower {
   text-align: center;
   padding: 4px;
-  color: #7E11B0;
+  color: #7e11b0;
 }
 
 /* Pulse Grow -------------------------------------> */
@@ -378,17 +388,17 @@ html {
 }
 
 .btn_img_watch:before {
-  background-image: url('../../validator/_img/watch-on-youtube-btn.png');
+  background-image: url("../../validator/_img/watch-on-youtube-btn.png");
   float: left;
 }
 
 .btn_img_read:before {
-  background-image: url('../../validator/_img/read-online-btn.png');
+  background-image: url("../../validator/_img/read-online-btn.png");
   float: left;
 }
 
 .btn_img_discuss:before {
-  background-image: url('../../validator/_img/discuss-community-btn.png');
+  background-image: url("../../validator/_img/discuss-community-btn.png");
   float: left;
 }
 
@@ -418,7 +428,6 @@ html {
   width: 90vw;
 }
 
-
 /* https://materializecss.com/ */
 .user-result {
   /* border: 1px solid #000; */
@@ -430,7 +439,6 @@ html {
   display: flex;
   flex-direction: column;
   margin: 5px 0px 0px 0px;
-  
 }
 
 .divLessonName {
@@ -450,8 +458,6 @@ html {
   flex-direction: row;
   flex-wrap: wrap;
 }
-
-
 
 progress {
   /* display: inline-block; */
@@ -474,7 +480,6 @@ progress {
   background: rgb(80, 232, 38);
 } */
 
-
 /* Модальне вікно рейтингу користувача */
 #userList {
   display: flex;
@@ -482,7 +487,6 @@ progress {
   justify-content: start;
   align-items: flex-start;
 }
-
 
 .userResult {
   display: flex;
@@ -493,14 +497,12 @@ progress {
 }
 
 .userResult div {
-
   display: flex;
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
   padding: 0px;
 }
-
 
 .userName {
   text-align: left;
@@ -527,11 +529,11 @@ progress {
 
 .divTaskResult {
   width: 120px;
-  flex: 0 0 auto; 
+  flex: 0 0 auto;
   flex-direction: column;
   flex-wrap: nowrap;
   border: 1px solid #656464;
+  font-size: 14px;
   font-weight: bold;
   margin: 3px 5px 0px 0px;
-
 }

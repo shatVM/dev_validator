@@ -33,17 +33,14 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
           </a></li>
         <li><a href="#" id="userName" data-toggle="modal" data-target="#myModal">Невідомий користувач</a>
         </li>
-        <li><a href="#" id="loginBtn" class=" btn-info" type="button">Увійти </a></li>
-        <li>
-          <a href="#" id="btnReg" type="button" class="btn-info" data-toggle="modal"
-            data-target="#myModalReg">Зареєструватися</a>
+        <li><img src="_img/anonymous.png" id = "userPhoto" alt="" width = "50px" height ="50px" >
+        <!-- <li><a href="#" id="loginBtn" class=" btn-info" type="button">Увійти </a></li> -->
+        <!-- <li> -->
+                    <!-- <a href="#" id="btnReg" type="button" class="btn-info" data-toggle="modal" -->
+            <!-- data-target="#myModalReg">Зареєструватися</a> -->
           <!-- <a href="#"  class=" btn-info" style="margin-left: 100px" type="button" data-target="#myModalReg">Зареєструватися</a> -->
         </li>
 
-
-
-
-        <!-- <li><a href="/validator/progress_chart.php">Графік успіху</a></li> -->
 
 
       </ul>
@@ -62,6 +59,8 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="userNameModal">Користувач:</h4>
+                <img src="_img/anonymous.png" class="modal-title" id="userPhotoModal" width=100px height=100px>
+                <h4 class="modal-title" id="userClassModal">Користувач:</h4>
               </div>
               <div class="modal-body modal-task-complete">
                 <div class="user-result " id="userResult">
@@ -83,12 +82,12 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
       <!-- modal USERRESULTmsg end -------------------------------------->
 
       <!-- modal REGISTRATION msg start ------------------------------------>
-      <div class="container">
+      <!-- <div class="container">
         <div class="modal fade" id="myModalReg" role="dialog">
 
           <div class="modal-dialog">
 
-            <!-- content-->
+             content
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -115,12 +114,13 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
           </div>
         </div>
 
-      </div>
+      </div> -->
       <!-- modal REGISTRATION msg end -------------------------------------->
 
       <!-- modal SUCCESS msg start ------------------------------------>
       <div class="container">
         <div class="modal fade" id="myModalSuccess" role="dialog">
+          
           <div class="modal-dialog">
 
             <!-- content-->
@@ -167,6 +167,7 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
                     <option value="11-Б">11-Б</option>
                     <option value="11-В">11-В</option>
                     <option value="11-Г">11-Г</option>
+                    <option value="Admin">Admin</option>
                   </select>
                 </div>
               </div>
@@ -189,23 +190,7 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
       </div>
       <!-- modal RANK msg end -------------------------------------->
 
-      <!--
-    <?php if (isset($_SESSION["s_user_email"])): ?>
-      <ul class="nav navbar-nav navbar-right">
-      <li><a href="<?php echo ($s_domain . "/validator/logout.php"); ?>">
-        Вийти
-      </a></li>
-      </ul>
-    
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">
-    <?php
-    echo ("Вітаємо, " . $_SESSION["s_user_name"] . "!");
-    ?>
-    </a></li>
-      </ul>
-    <?php endif; ?>
-    -->
+
 
     </div>
 

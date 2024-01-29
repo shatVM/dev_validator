@@ -1,12 +1,15 @@
-eval("\$_SESSION[\"vrp_count\"] = 3;");
+eval("\$_SESSION[\"vrp_count\"] = 4;");
 eval("\$_SESSION[\"vr0_reslt\"] = True;");
 eval("\$_SESSION[\"vr0_error\"] = \"\";");
 eval("\$_SESSION[\"vr0_score\"] = 20;");
-eval("\$_SESSION[\"vr1_reslt\"] = True;");
-eval("\$_SESSION[\"vr1_error\"] = \"\";");
+eval("\$_SESSION[\"vr1_reslt\"] = False;");
+eval("\$_SESSION[\"vr1_error\"] = \"App name=Form_00.exe master value: 1_Winter.exe\";");
 eval("\$_SESSION[\"vr1_score\"] = 20;");
 eval("\$_SESSION[\"vr2_reslt\"] = True;");
 eval("\$_SESSION[\"vr2_error\"] = \"\";");
 eval("\$_SESSION[\"vr2_score\"] = 20;");
-eval("\$_SESSION[\"vr_percent\"] = 100;");
+eval("\$_SESSION[\"vr3_reslt\"] = False;");
+eval("\$_SESSION[\"vr3_error\"] = \"Form.BackColor.Name=Control master value: White\";");
+eval("\$_SESSION[\"vr3_score\"] = 20;");
+eval("\$_SESSION[\"vr_percent\"] = 50;");
 

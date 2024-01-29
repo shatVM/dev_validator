@@ -388,36 +388,7 @@ document.getElementById("rank").addEventListener("click", () => {
   }
 });
 
-//[START] фільтрація класів за вибором
-function showResultOfSelectedClass() {
-  document
-    .getElementById("selectClass")
-    .addEventListener("change", function (event) {
-      var selectedValue = event.target.value;
-      // console.log(selectedValue);
 
-      // Отримуємо всі елементи з класом 'userResult'
-      var userResults = document.querySelectorAll(".userResult");
-      //console.log(userResults);
-      // Перебираємо кожен елемент
-      userResults.forEach(function (userResult) {
-        userResult.style.display = "none";
-        // Отримуємо елемент з класом 'userClass' в кожному блоку 'userResult'
-        var userClassElement = userResult.querySelector(".userClass");
-
-        // Перевіряємо, чи має 'userClass' значення '11-А'
-        if (selectedValue === "Всі") {
-          userResult.style.display = "flex";
-        }
-
-        if (userClassElement.textContent.trim() === selectedValue) {
-          // Якщо так, відображаємо блок
-          userResult.style.display = "flex";
-        }
-      });
-    });
-}
-//[END] фільтрація класів за вибором
 
 //[START] побудова та відображення модального вікна з результатами всіх користувачів
 //Get all documents in a collection
@@ -569,6 +540,37 @@ export { testSend, testGet };
 //const array1 = Object.entries(userDoc.tasks[property[0]]);
 // });
 
+//[START] фільтрація класів за вибором
+function showResultOfSelectedClass() {
+  document
+    .getElementById("selectClass")
+    .addEventListener("change", function (event) {
+      var selectedValue = event.target.value;
+      // console.log(selectedValue);
+
+      // Отримуємо всі елементи з класом 'userResult'
+      var userResults = document.querySelectorAll(".userResult");
+      //console.log(userResults);
+      // Перебираємо кожен елемент
+      userResults.forEach(function (userResult) {
+        userResult.style.display = "none";
+        // Отримуємо елемент з класом 'userClass' в кожному блоку 'userResult'
+        var userClassElement = userResult.querySelector(".userClass");
+
+        // Перевіряємо, чи має 'userClass' значення '11-А'
+        if (selectedValue === "Всі") {
+          userResult.style.display = "flex";
+        }
+
+        if (userClassElement.textContent.trim() === selectedValue) {
+          // Якщо так, відображаємо блок
+          userResult.style.display = "flex";
+        }
+      });
+    });
+}
+//[END] фільтрація класів за вибором
+
 // [START] Рейтинг______________________________________
 async function showRating() {
   showResultOfSelectedClass();
@@ -604,6 +606,7 @@ async function showRating() {
   //побудова заголовку таблиці
   let userDiv = document.createElement("div");
   userDiv.className = "userResult";
+  userDiv.className = "divTasks";
   parentNode.insertAdjacentElement("beforeend", userDiv);
 
   //Відображення Прізвища та імені
@@ -667,7 +670,7 @@ async function showRating() {
     Object.entries(tasksList)
       .sort()
       .forEach((property) => {
-        console.log(Object.entries(userDoc.tasks[property[0]]));
+        //console.log(Object.entries(userDoc.tasks[property[0]]));
         //const array1 = []
         // if (Object.entries(userDoc.tasks[property[0]])) {
         const array1 = Object.entries(userDoc.tasks[property[0]]);
