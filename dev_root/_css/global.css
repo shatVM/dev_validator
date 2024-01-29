@@ -533,6 +533,7 @@ progress {
   flex-direction: column;
   flex-wrap: nowrap;
   border: 1px solid #656464;
+  font-size: 14px;
   font-weight: bold;
   margin: 3px 5px 0px 0px;
 }

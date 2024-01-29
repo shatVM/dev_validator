@@ -1,5 +1,5 @@
 console.log(11);
-
+import {mergeStudentManually} from "./fbAuth.js"
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
 import {
@@ -35,11 +35,13 @@ const db = getFirestore(app);
 const usersCollection = collection(db,"main")
 const users = await getDocs(usersCollection);
 
-// users.docs.forEach((user)=>{
-//   showUserResult(user.id)
-// })
+users.docs.forEach((user)=>{
+  mergeStudentManually(user.id)
+  //showUserResult(user.id)
 
-showUserResult('Rq6LCl02TifWTeBdg5O1eChD8pU2')
+})
+
+//showUserResult('Rq6LCl02TifWTeBdg5O1eChD8pU2')
 //console.log(db);
 
 async function showUserResult(uid){
@@ -56,12 +58,13 @@ async function showUserResult(uid){
   //console.log(userDoc.tasks); 
   //console.log(Object.entries(userDoc.tasks)[0])
   console.log(userDoc)
-
+  console.log("ID: ", userDoc.uid)
   console.log("Name: ", userDoc.userName)
-  console.log("Group: ",userDoc.class)
+  console.log("Group: ",userDoc.userClass)
   console.log("Version: ",userDoc.version)
-  console.log("Email: ",userDoc.email)
-  console.log("Description: ",userDoc.description)
+  console.log("Email: ",userDoc.userEmail)
+  console.log("Description: ",userDoc.userDescription)
+  console.log("Photo: ",userDoc.userPhoto)
 
   // Object.entries(userDoc.tasks).sort().forEach((task)=>{
   //   console.log(task[0]);

@@ -50,7 +50,7 @@ const provider = new GoogleAuthProvider();
 auth.useDeviceLanguage();
 
 //Кнопка ОК на модальному вікні
-document.querySelector("#signUpBtnOK").addEventListener("click", register);
+//document.querySelector("#signUpBtnOK").addEventListener("click", register);
 
 checkUserOnLoad();
 
@@ -177,6 +177,25 @@ export async function checkUserOnLoad() {
     }
   });
 }
+
+//mergeStudentManually('05xYEJI4V6XyJqI48c5lFRam6Gg2')
+//console.log('User' + uid + 'updated from template')
+
+//[START] Примусове оновлення користувача
+export async function mergeStudentManually(uid){
+
+  // перевіряє версійність
+  const returnValue = await checkUserVersion(uid);
+  //console.log(returnValue);
+  const correctVersion = returnValue[0]; // boolean
+  const userDoc = returnValue[1];
+  const templateDoc = returnValue[2];
+  if (!correctVersion) {
+    await mergeDocs(uid, userDoc, templateDoc);
+  }
+  console.log('User ' + uid + ' updated from template')
+}
+//[END]
 
 // [START] вихід користувача
 const signOutVar = async function () {

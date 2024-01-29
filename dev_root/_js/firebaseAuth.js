@@ -591,7 +591,7 @@ async function showRating() {
   //----------------
 
   // отримаує чергу для запиту документів з бази данних
-  const q = query(collection(db, "main"),orderBy('userName'));
+  const q = query(collection(db, "main"), orderBy("userName"));
 
   // where('class', '==', userClass)
   // запитує документи з бази данних та повертає у вигляді масиву документів
@@ -660,19 +660,19 @@ async function showRating() {
     //Відображення Класу користувача
     let divUserClass = document.createElement("div");
     divUserClass.className = "userClass";
-    divUserClass.innerHTML = userDoc.class;
+    divUserClass.innerHTML = userDoc.userClass;
     userDiv.insertAdjacentElement("beforeend", divUserClass);
 
     //
     Object.entries(tasksList)
       .sort()
       .forEach((property) => {
-        console.log(Object.entries(userDoc.tasks[property[0]]))
-          //const array1 = []
-         // if (Object.entries(userDoc.tasks[property[0]])) {
-            const array1 = Object.entries(userDoc.tasks[property[0]])
-          //}
-  
+        console.log(Object.entries(userDoc.tasks[property[0]]));
+        //const array1 = []
+        // if (Object.entries(userDoc.tasks[property[0]])) {
+        const array1 = Object.entries(userDoc.tasks[property[0]]);
+        //}
+
         //const array1 = Object.entries(userDoc.tasks['01_Form']);
         //console.log(userDoc.tasks);
         //---------------------------------------------
@@ -712,7 +712,8 @@ async function showRating() {
         // divLesson.insertAdjacentElement('beforeend', divLessonResult);
         //результат виконання завдання
         let h5TaskResult = document.createElement("h5");
-        h5TaskResult.innerHTML = Math.round(getAverageUserResult(array1) / array1.length) + "%";
+        h5TaskResult.innerHTML =
+          Math.round(getAverageUserResult(array1) / array1.length) + "%";
         divLesson.insertAdjacentElement("beforeend", h5TaskResult);
 
         //графічне відображення прогресу https://ru.stackoverflow.com/questions/110066/%D0%9A%D0%B0%D0%BA-%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D1%84%D0%BE%D0%BD-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0-div-html-%D0%BD%D0%B5-%D0%B4%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B0
