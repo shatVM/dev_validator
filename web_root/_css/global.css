@@ -486,13 +486,14 @@ progress {
   flex-direction: column;
   justify-content: start;
   align-items: flex-start;
+  gap: 5px;
 }
 
 .userResult {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  border: 1px solid rgba(43, 19, 19, 0.15);
+  border: 0px solid rgba(43, 19, 19, 0.15);
   width: 100%;
 }
 
@@ -500,14 +501,14 @@ progress {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: space-around;
   padding: 0px;
 }
 
 .userName {
   text-align: left;
   width: 250px;
-  background-color: rgba(196, 196, 196, 0.15);
+  background-color: rgba(196, 196, 196, 0.25);
 }
 
 .userClass {
