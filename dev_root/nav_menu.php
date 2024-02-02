@@ -61,6 +61,27 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
                 <h4 class="modal-title" id="userNameModal">Користувач:</h4>
                 <img src="_img/anonymous.png" class="modal-title" id="userPhotoModal" width=100px height=100px>
                 <h4 class="modal-title" id="userClassModal">Користувач:</h4>
+
+                 <!--  -->
+            <div class="user-result" id="">
+              <select id="regClass">
+                <option value="11-А">11-А</option>
+                <option value="11-Б">11-Б</option>
+                <option value="11-В">11-В</option>
+                <option value="11-Г">11-Г</option>
+                <option value="Інше">Інше</option>
+              </select>
+              <p>Після вибору класу розпочніть валідацію</p>
+            </div>
+            <button
+              type="button"
+              class="btn btn-info btn-lg btn-block"
+              data-dismiss="modal"
+              id="signUpBtnOK"
+            >
+              OK
+            </button>
+            <!--  -->
               </div>
               <div class="modal-body modal-task-complete">
                 <div class="user-result " id="userResult">
@@ -168,6 +189,7 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
                     <option value="11-В">11-В</option>
                     <option value="11-Г">11-Г</option>
                     <option value="Admin">Admin</option>
+                    <option value="Інше">Інше</option>
                   </select>
                 </div>
               </div>

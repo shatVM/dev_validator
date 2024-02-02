@@ -50,7 +50,7 @@ const provider = new GoogleAuthProvider();
 auth.useDeviceLanguage();
 
 //Кнопка ОК на модальному вікні
-//document.getElementById("signUpBtnOK").addEventListener("click", register);
+document.getElementById("signUpBtnOK").addEventListener("click", register);
 
 checkUserOnLoad();
 
@@ -81,7 +81,7 @@ async function register() {
     })
     .catch((error) => {
       // помилка при авторизації
-      console.log("clicked the X or this:" + error);
+      console.log("clicked the X or error:" + error);
     });
 }
 
@@ -167,7 +167,7 @@ export async function checkUserOnLoad() {
 
       //виведення даних користувача в меню та модальне вікно
       const userName = document.getElementById("userName");
-      userName.innerText = userGoogle.displayName;
+      userName.innerText = swapFirstNameAndLastName(userGoogle.displayName)
       //document.getElementById("userNameModal").innerText = user.displayName;
       //showModalResults(uid, "");
     } else {
@@ -178,7 +178,7 @@ export async function checkUserOnLoad() {
       console.log("user is not signed in");
 
       //якщо користувач не увійшов, то відображаємо кнопку Зареєструватись
-      document.getElementById("btnReg").style.display = "block";
+    //document.getElementById("btnReg").style.display = "block";
     }
   });
 }

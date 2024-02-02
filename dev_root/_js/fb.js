@@ -38,6 +38,7 @@ const users = await getDocs(usersCollection);
 document.getElementById('mergeStudentsManually').addEventListener('click', () =>{
     
   //mergeStudentManually('Rq6LCl02TifWTeBdg5O1eChD8pU2')
+  //iSrX5d6I9MWHQLICICfS6BguWG02
   //showUserResult('Rq6LCl02TifWTeBdg5O1eChD8pU2')  
 
   users.docs.forEach((user)=>{
