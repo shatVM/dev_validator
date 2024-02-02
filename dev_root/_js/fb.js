@@ -36,10 +36,17 @@ const usersCollection = collection(db,"main")
 const users = await getDocs(usersCollection);
 
 document.getElementById('mergeStudentsManually').addEventListener('click', () =>{
-  
+    
+  //mergeStudentManually('Rq6LCl02TifWTeBdg5O1eChD8pU2')
+  //showUserResult('Rq6LCl02TifWTeBdg5O1eChD8pU2')  
+
   users.docs.forEach((user)=>{
     mergeStudentManually(user.id)
     //showUserResult(user.id)
+
+    
+
+    
 
   })
 } )
@@ -61,14 +68,16 @@ async function showUserResult(uid){
   
   //console.log(userDoc.tasks); 
   //console.log(Object.entries(userDoc.tasks)[0])
-  console.log(userDoc)
-  console.log("ID: ", userDoc.uid)
-  console.log("Name: ", userDoc.userName)
-  console.log("Group: ",userDoc.userClass)
-  console.log("Version: ",userDoc.version)
-  console.log("Email: ",userDoc.userEmail)
-  console.log("Description: ",userDoc.userDescription)
-  console.log("Photo: ",userDoc.userPhoto)
+  // console.log(userDoc)
+  // console.log("ID: ", userDoc.uid)
+  // console.log("Name: ", userDoc.userName)
+  // console.log("Version: ",userDoc.version)
+  // console.log("Email: ",userDoc.userEmail)
+  // console.log("Description: ",userDoc.userDescription)
+  // console.log("Photo: ",userDoc.userPhoto)
+  // console.log("userCreationTime: ",userDoc.userCreationTime)
+  // console.log("userLastSignInTime: ",userDoc.userLastSignInTime)
+  // console.log("Group: ",userDoc.userGroup)
 
   // Object.entries(userDoc.tasks).sort().forEach((task)=>{
   //   console.log(task[0]);

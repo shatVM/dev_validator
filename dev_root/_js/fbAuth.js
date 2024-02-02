@@ -50,7 +50,7 @@ const provider = new GoogleAuthProvider();
 auth.useDeviceLanguage();
 
 //Кнопка ОК на модальному вікні
-document.querySelector("#signUpBtnOK").addEventListener("click", register);
+//document.getElementById("signUpBtnOK").addEventListener("click", register);
 
 checkUserOnLoad();
 
@@ -61,20 +61,18 @@ async function register() {
       const userGoogle = result.user;
       //console.log(userGoogle)
       const docBool = (await getDoc(doc(db, "main", userGoogle.uid))).exists();
-      if (!docBool) { 
+      if (!docBool) {
         //createUser(user.uid, user.displayName, regClass.value);
         createUser(userGoogle, regClass.value);
-
       } else if (docBool) {
-        updateDoc(doc(db, "main", userGoogle.uid), { 
-          //Оновлення даних користувача
-          userClass: regClass.value,           
-          userName: swapFirstNameAndLastName(userGoogle.displayName), 
-          userEmail: userGoogle.email,
-          userDescription: userGoogle.displayName + ' '+ userClass,
-          userCreationTime: userGoogle.metadata.creationTime,
-          userLastSignInTime: userGoogle.metadata.lastSignInTime,
-          userPhoto: userGoogle.photoURL,
+        updateDoc(doc(db, "main", userGoogle.uid), {
+          "userGroup": regClass.value,
+          "userName": swapFirstNameAndLastName(userGoogle.displayName),
+          "userEmail": userGoogle.email,
+          "userDescription": swapFirstNameAndLastName(userGoogle.displayName) + " " + regClass.value,
+          "userCreationTime": userGoogle.metadata.creationTime,
+          "userLastSignInTime": userGoogle.metadata.lastSignInTime,
+          "userPhoto": userGoogle.photoURL,
         });
       }
       // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
@@ -99,7 +97,6 @@ export async function popupGoogle() {
       // localStorage.setItem("userEmail", userGoogle.email);
       // localStorage.setItem("userPhoto", userGoogle.photoURL);
 
-      
       // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
       // що створює зайвий запит до бази даних
       //window.location.reload();
@@ -120,18 +117,19 @@ export async function checkUserOnLoad() {
     const btn = document.getElementById("loginBtn");
 
     //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
-    document.getElementById("btnReg").style.display = "none";
-
-    
+    //document.getElementById("btnReg").style.display = "none";
 
     if (userGoogle) {
       const uid = userGoogle.uid;
       //console.log(userGoogle)
       localStorage.setItem("userDataPath", userGoogle.uid);
-      localStorage.setItem("userName", swapFirstNameAndLastName(userGoogle.displayName));
+      localStorage.setItem(
+        "userName",
+        swapFirstNameAndLastName(userGoogle.displayName)
+      );
       localStorage.setItem("userEmail", userGoogle.email);
       localStorage.setItem("userPhoto", userGoogle.photoURL);
-      
+
       // Якщо дійдуть руки, то буде перевірка версії через localStorage, а саме:
       // при вході користувача його документ зберігається локально, тоді
       // при зміні документу (наприклад при виконанні завданнь) потрібно буде
@@ -180,9 +178,7 @@ export async function checkUserOnLoad() {
       console.log("user is not signed in");
 
       //якщо користувач не увійшов, то відображаємо кнопку Зареєструватись
-    document.getElementById("btnReg").style.display = "block";
-
-     
+      document.getElementById("btnReg").style.display = "block";
     }
   });
 }
@@ -191,18 +187,17 @@ export async function checkUserOnLoad() {
 //console.log('User' + uid + 'updated from template')
 
 //[START] Примусове оновлення користувача
-export async function mergeStudentManually(uid){
-
+export async function mergeStudentManually(uid) {
   // перевіряє версійність
   const returnValue = await checkUserVersion(uid);
-  //console.log(returnValue);
+  console.log(returnValue);
   const correctVersion = returnValue[0]; // boolean
   const userDoc = returnValue[1];
   const templateDoc = returnValue[2];
-  if (!correctVersion) {
-    await mergeDocs(uid, userDoc, templateDoc);
-  }
-  console.log('User ' + uid + ' updated from template')
+  //if (!correctVersion) {
+  await mergeDocs(uid, userDoc, templateDoc);
+  console.log("User " + uid + " updated from template");
+  // }
 }
 //[END]
 
@@ -221,41 +216,39 @@ const signOutVar = async function () {
 };
 // [END] вихід користувача
 
-
 function swapFirstNameAndLastName(inputString) {
   // Split the string into first name and last name using space as the delimiter
-  var parts = inputString.split(' ');
+  var parts = inputString.split(" ");
 
   // Check if both elements (first name and last name) are present
   if (parts.length === 2) {
-      // Swap the first name and last name
-      var firstName = parts[0];
-      var lastName = parts[1];
+    // Swap the first name and last name
+    var firstName = parts[0];
+    var lastName = parts[1];
 
-      // Return the string with swapped first name and last name
-      return lastName + ' ' + firstName;
+    // Return the string with swapped first name and last name
+    return lastName + " " + firstName;
   } else {
-      // If the string doesn't have both parts, return an error or null
-      return null;
+    // If the string doesn't have both parts, return an error or null
+    return null;
   }
 }
-
 
 // createUser("21321321", "hgfhgfhg");
 // Створення нового користувача та копіювання бази даних з шаблону template
 // uid - отримуємо з LocalStorage
 // userName - отримуємо  при авторизації з Гугл аккаунту
-async function createUser(userGoogle, userClass) {
+async function createUser(userGoogle, userGroup) {
   const template = (await getDoc(doc(db, "main", "template"))).data();
-  
-  template.uid = userGoogle.uid; 
-  template.userClass = userClass;
-  template.userName = swapFirstNameAndLastName(userGoogle.displayName) 
-  template.userEmail = userGoogle.email
-  template.userDescription = userGoogle.displayName + ' '+ userClass 
-  template.userCreationTime = userGoogle.metadata.creationTime
-  template.userLastSignInTime = userGoogle.metadata.lastSignInTime
-  template.userPhoto = userGoogle.photoURL
+
+  template.uid = userGoogle.uid;
+  template.userGroup = userGroup;
+  template.userName = swapFirstNameAndLastName(userGoogle.displayName);
+  template.userEmail = userGoogle.email;
+  template.userDescription = userGoogle.displayName + " " + userGroup;
+  template.userCreationTime = userGoogle.metadata.creationTime;
+  template.userLastSignInTime = userGoogle.metadata.lastSignInTime;
+  template.userPhoto = userGoogle.photoURL;
 
   console.log(template);
 
@@ -363,9 +356,6 @@ if (!uid) {
 
 // }
 
-
-
-
 // [START]перевірка версії______________________________________
 
 // Перевіряє версію документу користувача
@@ -402,4 +392,3 @@ export async function checkUserVersion(uid, userDoc, templateDoc) {
   }
 }
 // [END] перевірка версії ______________________________________
-

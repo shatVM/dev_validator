@@ -217,12 +217,12 @@ auth.useDeviceLanguage();
 // // Створення нового користувача та копіювання бази даних з шаблону template
 // // uid - отримуємо з LocalStorage
 // // userName - отримуємо  при авторизації з Гугл аккаунту
-// async function createUser(uid, userName, userClass) {
+// async function createUser(uid, userName, userGroup) {
 //   const template = (await getDoc(doc(db, 'main', 'template'))).data();
 //   template.userName = userName;
 //   template.uid = uid;
-//   //console.log(userClass);
-//   template.class = userClass;
+//   //console.log(userGroup);
+//   template.class = userGroup;
 //   const ref = doc(db, 'main', uid);
 //   await setDoc(ref, template);
 //   //console.log('ok');
@@ -554,15 +554,15 @@ function showResultOfSelectedClass() {
       // Перебираємо кожен елемент
       userResults.forEach(function (userResult) {
         userResult.style.display = "none";
-        // Отримуємо елемент з класом 'userClass' в кожному блоку 'userResult'
-        var userClassElement = userResult.querySelector(".userClass");
+        // Отримуємо елемент з класом 'userGroup' в кожному блоку 'userResult'
+        var userGroupElement = userResult.querySelector(".userGroup");
 
-        // Перевіряємо, чи має 'userClass' значення '11-А'
+        // Перевіряємо, чи має 'userGroup' значення '11-А'
         if (selectedValue === "Всі") {
           userResult.style.display = "flex";
         }
 
-        if (userClassElement.textContent.trim() === selectedValue) {
+        if (userGroupElement.textContent.trim() === selectedValue) {
           // Якщо так, відображаємо блок
           userResult.style.display = "flex";
         }
@@ -595,7 +595,7 @@ async function showRating() {
   // отримаує чергу для запиту документів з бази данних
   const q = query(collection(db, "main"), orderBy("userName"));
 
-  // where('class', '==', userClass)
+  // where('class', '==', userGroup)
   // запитує документи з бази данних та повертає у вигляді масиву документів
   const querySnapshot = await getDocs(q);
   //console.log(querySnapshot);
@@ -616,10 +616,10 @@ async function showRating() {
   userDiv.insertAdjacentElement("afterbegin", divUserName);
 
   //Відображення Класу
-  let divUserClass = document.createElement("div");
-  divUserClass.className = "userClass";
-  divUserClass.innerHTML = "Клас";
-  userDiv.insertAdjacentElement("beforeend", divUserClass);
+  let divUserGroup = document.createElement("div");
+  divUserGroup.className = "userGroup";
+  divUserGroup.innerHTML = "Клас";
+  userDiv.insertAdjacentElement("beforeend", divUserGroup);
 
   //Відображення заголовку зі списком уроків
   Object.entries(tasksList)
@@ -661,10 +661,10 @@ async function showRating() {
     userDiv.insertAdjacentElement("afterbegin", divUserName);
 
     //Відображення Класу користувача
-    let divUserClass = document.createElement("div");
-    divUserClass.className = "userClass";
-    divUserClass.innerHTML = userDoc.userClass;
-    userDiv.insertAdjacentElement("beforeend", divUserClass);
+    let divUserGroup = document.createElement("div");
+    divUserGroup.className = "userGroup";
+    divUserGroup.innerHTML = userDoc.userGroup;
+    userDiv.insertAdjacentElement("beforeend", divUserGroup);
 
     //
     Object.entries(tasksList)
