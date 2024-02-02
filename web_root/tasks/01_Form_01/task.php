@@ -8,17 +8,17 @@ $cls_Task->s_title = "Form_01";
 $cls_Task->s_id = "01_Form_01";
 $cls_Task->s_description = "Моя власна програма із Windows формою";
 
-$cls_Task->_add_step("1. Додати новий проект <b>Form_01</b> у створене рішення <b>WindowsForms</b>.");
+$cls_Task->_add_step("Додати новий проект <b>Form_01</b> у створене рішення <b>WindowsForms</b>.");
 $cls_Task->_add_step("https://youtu.be/3eJduWO4EtQ");
-$cls_Task->_add_step("2. Створити Windows форму відповідно таблиці специфікації.");
-$cls_Task->_add_step("3. Вибрати зі списку потрібну для компіляції програму");
-$cls_Task->_add_step("4. Скомпілювати Windows форму, натиснувши зелений трикутник.");
-$cls_Task->_add_step("https://youtu.be/VGgci4rdczI");
-$cls_Task->_add_step("5. Завантажити програму у <b>DEV-VALIDATOR</b>.");
-$cls_Task->_add_step("6. Добитися повної валідації програми.");
-$cls_Task->_add_step("7. Зберегти скріншот <b>[Alt+PrintScreen]</b> результатів у папку <b>Production</b> під іменем <b>Form_01.png</b>");
-$cls_Task->_add_step("8. Скопіювати програму у папку <b>Production</b>.");
-$cls_Task->_add_step("9. Зберегти проект та закрити рішення.");
+$cls_Task->_add_step("Створити Windows форму відповідно таблиці специфікації.");
+$cls_Task->_add_step("Вибрати зі списку потрібну для компіляції програму");
+$cls_Task->_add_step("Скомпілювати Windows форму,вибравши потрібний проект та натиснувши зелений трикутник");
+
+
+$cls_Task->_add_step("Завантажити програму у <b>DEV-VALIDATOR</b>");
+$cls_Task->_add_step("Добитися повної валідації програми");
+
+$cls_Task->_add_step("Зберегти проект");
 
 $cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");
 $cls_Task->_add_property("Availability of Form", "Наявність форми", "");

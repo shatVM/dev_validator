@@ -50,7 +50,7 @@ const provider = new GoogleAuthProvider();
 auth.useDeviceLanguage();
 
 //Кнопка ОК на модальному вікні
-//document.querySelector("#signUpBtnOK").addEventListener("click", register);
+document.querySelector("#signUpBtnOK").addEventListener("click", register);
 
 checkUserOnLoad();
 
@@ -66,7 +66,16 @@ async function register() {
         createUser(userGoogle, regClass.value);
 
       } else if (docBool) {
-        updateDoc(doc(db, "main", userGoogle.uid), { class: regClass.value });
+        updateDoc(doc(db, "main", userGoogle.uid), { 
+          //Оновлення даних користувача
+          userClass: regClass.value,           
+          userName: swapFirstNameAndLastName(userGoogle.displayName), 
+          userEmail: userGoogle.email,
+          userDescription: userGoogle.displayName + ' '+ userClass,
+          userCreationTime: userGoogle.metadata.creationTime,
+          userLastSignInTime: userGoogle.metadata.lastSignInTime,
+          userPhoto: userGoogle.photoURL,
+        });
       }
       // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
       // що створює зайвий запит до бази даних
@@ -111,7 +120,7 @@ export async function checkUserOnLoad() {
     const btn = document.getElementById("loginBtn");
 
     //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
-    document.getElementById("btnReg").style.display = "none";
+    //document.getElementById("btnReg").style.display = "none";
 
     
 

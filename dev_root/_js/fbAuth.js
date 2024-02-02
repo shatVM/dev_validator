@@ -66,7 +66,16 @@ async function register() {
         createUser(userGoogle, regClass.value);
 
       } else if (docBool) {
-        updateDoc(doc(db, "main", userGoogle.uid), { class: regClass.value });
+        updateDoc(doc(db, "main", userGoogle.uid), { 
+          //Оновлення даних користувача
+          userClass: regClass.value,           
+          userName: swapFirstNameAndLastName(userGoogle.displayName), 
+          userEmail: userGoogle.email,
+          userDescription: userGoogle.displayName + ' '+ userClass,
+          userCreationTime: userGoogle.metadata.creationTime,
+          userLastSignInTime: userGoogle.metadata.lastSignInTime,
+          userPhoto: userGoogle.photoURL,
+        });
       }
       // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
       // що створює зайвий запит до бази даних

@@ -42,7 +42,7 @@ document.getElementById('mergeStudentsManually').addEventListener('click', () =>
     //showUserResult(user.id)
 
   })
-} 
+} )
 
 
 //showUserResult('Rq6LCl02TifWTeBdg5O1eChD8pU2')

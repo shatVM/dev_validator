@@ -8,16 +8,15 @@ $cls_Task->s_title = "Form_02";
 $cls_Task->s_id = "01_Form_02";
 $cls_Task->s_description = "Розфарбуйте свою Windows форму";
 
-$cls_Task->_add_step("1. Відкрити створене рішення <b>WindowsForms</b>.");
+$cls_Task->_add_step("Відкрити створене рішення <b>WindowsForms</b>");
 $cls_Task->_add_step("https://youtu.be/hP0UsFULLuU?t=6m58s");
-$cls_Task->_add_step("2. Додати у рішення новий проект <b>Form_02</b>.");
-$cls_Task->_add_step("3. Створити форму відповідно специфікації.");
-$cls_Task->_add_step("4. Завантажити програму у <b>DEV-VALIDATOR</b>.");
-$cls_Task->_add_step("5. Добитися повної валідації програми.");
-$cls_Task->_add_step("6. Зберегти скріншот <b>[Alt+PrintScreen]</b> результатів у папку <b>Production</b>.");
-$cls_Task->_add_step("7. Скопіювати програму у папку <b>Production</b>.");
-$cls_Task->_add_step("8. Спробувати інші кольори на закладках <b>Другой Интернет Система</b>.");
-$cls_Task->_add_step("9. Зберегти проект та закрити рішення.");
+$cls_Task->_add_step("Додати у рішення новий проект <b>Form_02</b>");
+$cls_Task->_add_step("Створити форму відповідно специфікації");
+$cls_Task->_add_step("Завантажити програму у <b>DEV-VALIDATOR</b>");
+$cls_Task->_add_step("Добитися повної валідації програми");
+
+$cls_Task->_add_step("Спробувати інші кольори на закладках");
+$cls_Task->_add_step("Зберегти проект");
 
 $cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");
 $cls_Task->_add_property("Availability of Form", "Наявність форми", "");
