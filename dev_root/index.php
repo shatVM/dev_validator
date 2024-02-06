@@ -39,7 +39,17 @@ include_once("main_config.php");
 
             <!-- task Lesson_00 block start -->
             <?php
-              include("tasks_list/00_Lesson.php");
+              include("tasks_list/00_Lesson_00.php");
+            ?>
+
+            <!-- task Lesson_00 block start -->
+            <?php
+              include("tasks_list/00_Lesson_01.php");
+            ?>
+
+            <!-- task Lesson_00 block start -->
+            <?php
+              include("tasks_list/00_Lesson_02.php");
             ?>
 
             <!-- task Season_01 block start -->

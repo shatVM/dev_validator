@@ -5,15 +5,14 @@ require($s_v_app_root."task_core.php");
 $cls_Task = new cls_Task();
 //-------------------------------------------------->
 //titles:
-$cls_Task->s_title = "Task_01.exe";
-$cls_Task->s_id = "00_Lesson_01";
-$cls_Task->s_description = "Створення простої Windows форми";
+$cls_Task->s_title = "Task_1.exe";
+$cls_Task->s_id = "00_Lesson_02_1";
+$cls_Task->s_description = "Task_1: Натискання на кнопку";
 
 //steps:
-$cls_Task->_add_step("Відкрити проект <b>Lesson_00.sln</b> у власній папці <b>Документи\C#</b>");
-$cls_Task->_add_step("Додати новий проект - <b>File - Add - New project</b>");
+$cls_Task->_add_step("Створити проект <b>Lesson_02.sln</b> у власній папці <b>Документи\C#</b>");
 $cls_Task->_add_step("Вибрати шаблон <b>Windows Forms App (.Net Framework)</b>");
-$cls_Task->_add_step("Назвати проект <b>Task_01</b>");
+$cls_Task->_add_step("Назвати проект <b>Task_1</b>");
 $cls_Task->_add_step("Цей проект буде дочірнім до <b>Lesson_00</b>");
 $cls_Task->_add_step("https://youtu.be/8uyRd-aKlSI");
 $cls_Task->_block_end();

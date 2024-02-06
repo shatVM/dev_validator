@@ -217,12 +217,12 @@ auth.useDeviceLanguage();
 // // Створення нового користувача та копіювання бази даних з шаблону template
 // // uid - отримуємо з LocalStorage
 // // userName - отримуємо  при авторизації з Гугл аккаунту
-// async function createUser(uid, userName, userGroup) {
+// async function createUser(uid, userName, userClass) {
 //   const template = (await getDoc(doc(db, 'main', 'template'))).data();
 //   template.userName = userName;
 //   template.uid = uid;
-//   //console.log(userGroup);
-//   template.class = userGroup;
+//   //console.log(userClass);
+//   template.class = userClass;
 //   const ref = doc(db, 'main', uid);
 //   await setDoc(ref, template);
 //   //console.log('ok');
@@ -367,8 +367,38 @@ if (!uid) {
 }
 
 //виведення даних користувача в меню
+async function getUserData(uid){
+  const q = doc(db, "main", uid);
 
-document.getElementById("userName").innerText = localStorage.getItem("userName")
+  //console.log(q);
+  
+  const querySnapshot = await getDoc(q);
+  
+  //console.log(querySnapshot);
+  
+  const userDoc = querySnapshot.data();
+  
+  //console.log(userDoc.tasks); 
+  //console.log(Object.entries(userDoc.tasks)[0])
+  //console.log(userDoc)
+  //console.log("ID: ", userDoc.uid)
+  //console.log("Name: ", userDoc.userName)
+  //console.log("Group: ",userDoc.userClass)
+  //console.log("Version: ",userDoc.version)
+  //console.log("Email: ",userDoc.userEmail)
+  //console.log("Description: ",userDoc.userDescription)
+  //console.log("Photo: ",userDoc.userPhoto)
+
+  // Object.entries(userDoc.tasks).sort().forEach((task)=>{
+  //   console.log(task[0]);
+  //   (Object.entries(task[1]).sort().forEach((e)=>{
+  //     console.log(e[0]," : ", e[1])
+  //   }));
+  // })
+  return userDoc
+}
+//
+document.getElementById("userName").innerText = localStorage.getItem("userName" +  getUserData(uid).userGroup)
   ? localStorage.getItem("userName")
   : "Невідомий користувач";
 document.getElementById("userPhoto").src = localStorage.getItem("userPhoto")
@@ -554,15 +584,15 @@ function showResultOfSelectedClass() {
       // Перебираємо кожен елемент
       userResults.forEach(function (userResult) {
         userResult.style.display = "none";
-        // Отримуємо елемент з класом 'userGroup' в кожному блоку 'userResult'
-        var userGroupElement = userResult.querySelector(".userGroup");
+        // Отримуємо елемент з класом 'userClass' в кожному блоку 'userResult'
+        var userClassElement = userResult.querySelector(".userClass");
 
-        // Перевіряємо, чи має 'userGroup' значення '11-А'
+        // Перевіряємо, чи має 'userClass' значення '11-А'
         if (selectedValue === "Всі") {
           userResult.style.display = "flex";
         }
 
-        if (userGroupElement.textContent.trim() === selectedValue) {
+        if (userClassElement.textContent.trim() === selectedValue) {
           // Якщо так, відображаємо блок
           userResult.style.display = "flex";
         }
@@ -595,7 +625,7 @@ async function showRating() {
   // отримаує чергу для запиту документів з бази данних
   const q = query(collection(db, "main"), orderBy("userName"));
 
-  // where('class', '==', userGroup)
+  // where('class', '==', userClass)
   // запитує документи з бази данних та повертає у вигляді масиву документів
   const querySnapshot = await getDocs(q);
   //console.log(querySnapshot);
@@ -616,10 +646,10 @@ async function showRating() {
   userDiv.insertAdjacentElement("afterbegin", divUserName);
 
   //Відображення Класу
-  let divUserGroup = document.createElement("div");
-  divUserGroup.className = "userGroup";
-  divUserGroup.innerHTML = "Клас";
-  userDiv.insertAdjacentElement("beforeend", divUserGroup);
+  let divUserClass = document.createElement("div");
+  divUserClass.className = "userClass";
+  divUserClass.innerHTML = "Клас";
+  userDiv.insertAdjacentElement("beforeend", divUserClass);
 
   //Відображення заголовку зі списком уроків
   Object.entries(tasksList)
@@ -661,10 +691,10 @@ async function showRating() {
     userDiv.insertAdjacentElement("afterbegin", divUserName);
 
     //Відображення Класу користувача
-    let divUserGroup = document.createElement("div");
-    divUserGroup.className = "userGroup";
-    divUserGroup.innerHTML = userDoc.userGroup;
-    userDiv.insertAdjacentElement("beforeend", divUserGroup);
+    let divUserClass = document.createElement("div");
+    divUserClass.className = "userClass";
+    divUserClass.innerHTML = userDoc.userClass;
+    userDiv.insertAdjacentElement("beforeend", divUserClass);
 
     //
     Object.entries(tasksList)
@@ -746,7 +776,7 @@ let us = [];
 const userDoc = querySnapshot.data();
 //console.log(userDoc.tasks['01_Form']);
 us.push(userDoc);
-//console.log(us);
+//console.log(userDoc);
 //   //console.log(Object.entries(userDoc.tasks['03_Button']));
 
 //   let t = Object.entries(userDoc.tasks);
