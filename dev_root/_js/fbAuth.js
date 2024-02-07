@@ -44,57 +44,140 @@ const auth = getAuth(app);
 //Підключеня бази даних Firestore
 const db = getFirestore(app);
 
+// google pop up
+const provider = new GoogleAuthProvider();
+// sets pop up language
+auth.useDeviceLanguage();
+
+//[START} визначення основних глобальних контроллерів на сторінці
+
+//Список з вибором класу
+const regClass = document.getElementById("regClass");
+
+//Кнопка входу
+const btnUserLogin = document.getElementById("loginBtn");
+
+//Кнопка відображення даних користувача
+const infoUserName = document.getElementById("userName");
+
+//Кнопка ОК на модальному вікні
+document.getElementById("signUpBtnOK").addEventListener("click", register);
+
+//[END} визначення основних глобальних контроллерів на сторінці
+
+//[START] Глобальні змінні
+let userGoogle
+
+let UsersArrayLocal = []
+
+//let uid = localStorage.getItem("userDataPath");
+// let uid = userGoogle.uid;
 
 
+// if (!uid) {
+//   uid = "template";
+// }
+
+//let uid = userGoogle.uid;
+
+
+// if (!uid) {
+//   uid = "template";
+// }
+//[END] 
+
+checkUserOnLoad();
 
 //[START] отримання даних всіх користувачів в локальне сховище
 async function getFirebaseUsers() {
   const firebaseUsersArray = []
   const usersCollection = collection(db, "main")
-  const users = await getDocs(usersCollection);  
+  const users = await getDocs(usersCollection);
 
   users.docs.sort().forEach((e) => (firebaseUsersArray.push(e.data())))
   //console.log(firebaseUsersArray)
-  return firebaseUsersArray
 
+  let firebaseUsersArraySorted = []
+  firebaseUsersArray.forEach((e) => {
+    //console.log(e)
+    let obj = Object.keys(e).sort().reduce((acc, key) => ({
+      ...acc, [key]: e[key]
+    }), {})
+    firebaseUsersArraySorted.push(obj)
+  })
+  //повертаємо масив об'єктів, які відсортовані за ключами
+  return firebaseUsersArraySorted
 }
-//якщо користувач увійшов то отримуєму всіх користувачів з бази даних в об'єкт firebaseUsersArray
-if (localStorage.getItem("firebaseUsers")) {
-  const firebaseUsersArray = await getFirebaseUsers()
-  localStorage.setItem("firebaseUsersArray",JSON.stringify(firebaseUsersArray))
-  //firebaseUsersArray.sort().forEach((e) => console.log(e))
+
+async function setFirebaseUsersToLocalStorage() {
+  console.log('запуск функції setFirebaseUsersToLocalStorage()')
+  //якщо користувач увійшов то отримуєму всіх користувачів з бази даних в об'єкт firebaseUsersArray
+  if (localStorage.getItem("boolUserLogin")) {
+
+    const UsersArray = await getFirebaseUsers()
+    //console.log(UsersArray)
+
+    //UsersArray.forEach((e) => {
+    //  console.log(e.userName + " " + e.uid + " " + e.userGroup)
+    //})
+
+    //встановлення в опції групи користувача
+
+
+    localStorage.setItem("UsersArray", JSON.stringify(UsersArray))
+    //firebaseUsersArray.sort().forEach((e) => console.log(e))
+    //const firebaseUsersArrayLocal = []
+    // firebaseUsersArrayLocal.push(JSON.parse(localStorage.getItem("firebaseUsersArray")))
+    UsersArrayLocal.push(JSON.parse(localStorage.getItem("UsersArray")))
+    //console.log(UsersArrayLocal)     
+    //сортуванян масиву користувачів по ключам
+    //let firebaseUsersArraySorted = []
+
+    //firebaseUsersArrayLocal[0].forEach((e)=>{
+    //console.log(e)
+    // let obj = Object.keys(e).sort().reduce((acc, key) => ({
+    //  ...acc, [key]: e[key]
+    // }), {})
+    //  firebaseUsersArraySorted.push(obj)
+    //})
+
+    //firebaseUsersArraySorted.forEach((e)=>{
+    //  console.log(e.userName + " " + e.uid)
+    //})
+  }
 }
+
 
 //console.log(await getFirebaseUsers())
 
 //getFirebaseUsers.forEach((e)=>console.log(e))
-const firebaseUsersArray = []
-firebaseUsersArray.push(JSON.parse(localStorage.getItem("firebaseUsersArray")))
+// const firebaseUsersArray = []
+// firebaseUsersArray.push(JSON.parse(localStorage.getItem("firebaseUsersArray")))
 //console.log(firebaseUsersArray[0][0])
 
 //let firebaseUsersArraySorted
 // firebaseUsersArray[0].forEach((e)=>{
-  
+
 //    firebaseUsersArraySorted = (Object.keys(e).sort())
-  
+
 // })
 
 // 
 
-let firebaseUsersArraySorted = []
+// let firebaseUsersArraySorted = []
 
-firebaseUsersArray[0].forEach((e)=>{
-  //console.log(e)
-  let obj = Object.keys(e).sort().reduce((acc, key) => ({
-    ...acc, [key]: e[key]
-  }), {})
-  firebaseUsersArraySorted.push(obj)
-})
+// firebaseUsersArray[0].forEach((e)=>{
+//   //console.log(e)
+//   let obj = Object.keys(e).sort().reduce((acc, key) => ({
+//     ...acc, [key]: e[key]
+//   }), {})
+//   firebaseUsersArraySorted.push(obj)
+// })
 //console.log(firebaseUsersArraySorted)
 
-firebaseUsersArraySorted.forEach((e)=>{
-  console.log(e.userName + " " + e.uid)
-})
+// firebaseUsersArraySorted.forEach((e)=>{
+//   console.log(e.userName + " " + e.uid)
+// })
 
 //[END] отримання даних всіх користувачів в локальне сховище
 
@@ -102,58 +185,52 @@ firebaseUsersArraySorted.forEach((e)=>{
 
 
 
-// google pop up
-const provider = new GoogleAuthProvider();
-// sets pop up language
-auth.useDeviceLanguage();
-
-//Кнопка ОК на модальному вікні
-document.querySelector("#signUpBtnOK").addEventListener("click", register);
-const regClass = document.getElementById("regClass");
-
-checkUserOnLoad();
 
 async function register() {
-  signInWithPopup(auth, provider)
-    .then(async (result) => {
-      // успішна авторизація
-      const userGoogle = result.user;
-      //console.log(userGoogle)
-      const firebaseUserDoc = await getDoc(doc(db, "main", userGoogle.uid));
-      const docBool = firebaseUserDoc.exists();
-      //console.log(firebaseUserDoc.data())
+  //console.log(userGoogle)
+  signInWithPopup(auth, provider).then(async (result) => {
+  // успішна авторизація
+  userGoogle = result.user;
+  //console.log(userGoogle)
+  const firebaseUserDoc = await getDoc(doc(db, "main", userGoogle.uid));
+  const docBool = firebaseUserDoc.exists();
+  //console.log(firebaseUserDoc.data())
 
 
-      //console.log(regClass.value)
-      //const docBool = (await getDoc(doc(db, "main", userGoogle.uid))).exists();
-      if (!docBool) {
-        //createUser(user.uid, user.displayName, regClass.value);
-        createUser(userGoogle, regClass.value);
-        // createUser(userGoogle, regClass.value);
+  //console.log(regClass.value)
+  //const docBool = (await getDoc(doc(db, "main", userGoogle.uid))).exists();
+  if (!docBool) {
+    //createUser(user.uid, user.displayName, regClass.value);
+    createUser(userGoogle, regClass.value);
+    // createUser(userGoogle, regClass.value);
+
+  } else {
 
 
-      } else if (docBool) {
-        console.log(firebaseUserDoc.data())
-
-        updateDoc(doc(db, "main", userGoogle.uid), {
-          //Оновлення даних користувача
-          userGroup: regClass.value,
-          userName: swapFirstNameAndLastName(userGoogle.displayName),
-          userEmail: userGoogle.email,
-          userDescription: userGoogle.displayName + ' ' + regClass.value,
-          userCreationTime: userGoogle.metadata.creationTime,
-          userLastSignInTime: userGoogle.metadata.lastSignInTime,
-          userPhoto: userGoogle.photoURL,
-        });
-      }
-      // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
-      // що створює зайвий запит до бази даних
-      // window.location.reload();
-    })
-    .catch((error) => {
-      // помилка при авторизації
-      console.log("clicked the X or this:" + error);
+    updateDoc(doc(db, "main", userGoogle.uid), {
+      //Оновлення даних користувача
+      userGroup: regClass.value,
+      userName: swapFirstNameAndLastName(userGoogle.displayName),
+      userEmail: userGoogle.email,
+      userDescription: userGoogle.displayName + ' ' + regClass.value,
+      userCreationTime: userGoogle.metadata.creationTime,
+      userLastSignInTime: userGoogle.metadata.lastSignInTime,
+      userPhoto: userGoogle.photoURL,
     });
+    console.log('Дані користувача змінено')
+    localStorage.clear();
+    window.location.reload();
+
+    //console.log(firebaseUserDoc.data())
+  }
+  // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
+  // що створює зайвий запит до бази даних
+  // window.location.reload();
+  //})
+  // .catch((error) => {
+  //   // помилка при авторизації
+  //   console.log("clicked the X or error: " + error);
+   });
 }
 
 // відповідає за появу вікна для авторизації через гугл аккаунт
@@ -161,7 +238,7 @@ export async function popupGoogle() {
   signInWithPopup(auth, provider)
     .then((result) => {
       // успішна авторизація
-      const userGoogle = result.user;
+      userGoogle = result.user;
       // console.log(userGoogle)
       // localStorage.setItem("userDataPath", userGoogle.uid);
       // localStorage.setItem("userName", userGoogle.displayName);
@@ -175,9 +252,9 @@ export async function popupGoogle() {
     })
     .catch((error) => {
       // помилка при авторизації
-      //console.log("clicked the X or this:" + error);
-      const btn = document.getElementById("loginBtn");
-      btn.addEventListener("click", popupGoogle, { once: true });
+      console.log("clicked the X or error:" + error);
+      // const btn = document.getElementById("loginBtn");
+      btnUserLogin.addEventListener("click", popupGoogle, { once: true });
     });
 }
 
@@ -186,22 +263,35 @@ export async function popupGoogle() {
 // перевіряє версію уже ввійшовшого користувача
 export async function checkUserOnLoad() {
   onAuthStateChanged(auth, async function (userGoogle) {
-    const btn = document.getElementById("loginBtn");
-
+    //const btn = document.getElementById("loginBtn");
+    //btnUserLogin.innerText = "Увійти";
     //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
     //document.getElementById("btnReg").style.display = "none";
 
     if (userGoogle) {
+      btnUserLogin.innerText = "Вийти";
+      btnUserLogin.addEventListener("click", signOutVar, { once: true });
 
-      const uid = userGoogle.uid;
+      localStorage.setItem("boolUserLogin", "1")
+      localStorage.setItem("userGoogleLocal", JSON.stringify(userGoogle));
+
+      //infoUserName.innerText = swapFirstNameAndLastName(userGoogle.displayName) + " " + userGoogle.email;
+
+      await setFirebaseUsersToLocalStorage()
 
 
-      //console.log(userGoogle)
-      localStorage.setItem("userDataPath", userGoogle.uid);
-      localStorage.setItem("userName", swapFirstNameAndLastName(userGoogle.displayName));
-      localStorage.setItem("userEmail", userGoogle.email);
-      localStorage.setItem("userPhoto", userGoogle.photoURL);
-      localStorage.setItem("firebaseUsers", "1")
+      //const uid = userGoogle.uid;
+      let userFromUsersArrayLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
+      infoUserName.innerText = userFromUsersArrayLocal.userName + " " + userFromUsersArrayLocal.userGroup + " " + userFromUsersArrayLocal.userEmail;
+
+      console.log(userFromUsersArrayLocal)
+      //localStorage.setItem("userDataPath", userGoogle.uid);
+      //localStorage.setItem("userID", userGoogle.uid);
+
+      //localStorage.setItem("userName", swapFirstNameAndLastName(userGoogle.displayName));
+      //localStorage.setItem("userEmail", userGoogle.email);
+
+
 
       // Якщо дійдуть руки, то буде перевірка версії через localStorage, а саме:
       // при вході користувача його документ зберігається локально, тоді
@@ -224,8 +314,7 @@ export async function checkUserOnLoad() {
       //}
 
       // тепер кнопка відповідає за вихід користувача
-      btn.innerText = "Вийти";
-      btn.addEventListener("click", signOutVar, { once: true });
+
 
       //document.getElementById("signUpBtnOK").addEventListener("click", () => console.log("bruh"));
 
@@ -237,21 +326,16 @@ export async function checkUserOnLoad() {
       // tasksLoad(select, obj, uid);
 
       //виведення даних користувача в меню та модальне вікно
-      const userName = document.getElementById("userName");
-      userName.innerText = userGoogle.displayName;
+      //const userName = document.getElementById("userName");
+
       //document.getElementById("userNameModal").innerText = user.displayName;
       //showModalResults(uid, "");
     } else {
-      //showModalResults("template", "");
+
       // тепер кнопка відповідає за вхід користувача
-      btn.innerText = "Увійти";
-      btn.addEventListener("click", popupGoogle, { once: true });
-      //console.log("user is not signed in");
-
-      //якщо користувач не увійшов, то відображаємо кнопку Зареєструватись
-      //document.getElementById("btnReg").style.display = "block";
-
-
+      btnUserLogin.innerText = "Увійти";
+      btnUserLogin.addEventListener("click", popupGoogle, { once: true });
+      console.log("user is not loggin in");
     }
   });
 }
@@ -290,7 +374,7 @@ const signOutVar = async function () {
 };
 // [END] вихід користувача
 
-
+// [START] Зміна імені та прізвища місцями
 function swapFirstNameAndLastName(inputString) {
   // Split the string into first name and last name using space as the delimiter
   var parts = inputString.split(' ');
@@ -308,10 +392,10 @@ function swapFirstNameAndLastName(inputString) {
     return null;
   }
 }
+// [END] Зміна імені та прізвища місцями
 
 
-// createUser("21321321", "hgfhgfhg");
-// Створення нового користувача та копіювання бази даних з шаблону template
+// [START] Створення нового користувача та копіювання бази даних з шаблону template
 // uid - отримуємо з LocalStorage
 // userName - отримуємо  при авторизації з Гугл аккаунту
 async function createUser(userGoogle, userGroup) {
@@ -330,6 +414,7 @@ async function createUser(userGoogle, userGroup) {
   await setDoc(ref, template);
   console.log("Створено користувача " + template.userName + " з " + template.userGroup + " класу " + template.uid);
 }
+// [END] Створення нового користувача та копіювання бази даних з шаблону template
 
 // З'єднує два документи (користувача та шаблону).
 // Функція потрібена для версійності.
@@ -414,22 +499,6 @@ function mergeUnique(arr1, arr2) {
 }
 
 // ------------------------------------------------------------------------------------
-
-//Робота з базою даних
-
-let uid = localStorage.getItem("userDataPath");
-
-if (!uid) {
-  uid = "template";
-}
-
-//import {checkUserOnSignIn, tasksLoad, checkUserVersion} from "./firebaseFirestore.js";
-//для відображення результатів роботи
-// function showModalRegister(){
-//     let lessonsList = document.getElementById('userResult');
-
-// }
-
 
 
 
