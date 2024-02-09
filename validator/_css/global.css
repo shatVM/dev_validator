@@ -9,6 +9,8 @@ html {
 }
 body {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -61,7 +63,7 @@ body {
 .task_desc_row {
   text-align: left;
   padding: 10px;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .final_result {
@@ -94,7 +96,7 @@ body {
 }
 
 .nav-link {
-  font-size: 30px !important;
+  font-size: 14px !important;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
@@ -113,7 +115,7 @@ body {
 }
 
 .navbar-nav {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .navbar {
@@ -268,19 +270,19 @@ body {
 }
 
 .progress-bar {
-  background-color: #c260f0;
+  background-color: #4da545;
 }
 
 .upload_square_btn_upper {
   text-align: center;
   padding: 4px;
-  color: #7e11b0;
+  color: #4da545;
 }
 
 .upload_square_btn_lower {
   text-align: center;
   padding: 4px;
-  color: #7e11b0;
+  color: #4da545;
 }
 
 /* Pulse Grow -------------------------------------> */
@@ -410,7 +412,7 @@ body {
 }
 
 .btn_help:hover {
-  background-color: #bf00ff;
+  background-color: #4da545;
   border-color: white;
 }
 
@@ -444,7 +446,7 @@ body {
 .divLessonName {
   /* flex: 1 0 50px; */
   background-color: rgb(187, 187, 185);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   display: flex;
   flex-direction: row;
@@ -534,7 +536,7 @@ progress {
   flex-direction: column;
   flex-wrap: nowrap;
   border: 1px solid #656464;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   margin: 3px 5px 0px 0px;
 }

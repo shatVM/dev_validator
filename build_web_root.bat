@@ -17,7 +17,7 @@ rem delpoy validator.exe:
 copy "dev_validator_C\bin\Debug\validator.exe" "web_root\validator.exe"
 
 rem copy all devroot:
-xcopy /S /A /y dev_root\*.* web_root\*.*
+xcopy /S /A /y validator\*.* web_root\*.*
 rem ------------------------------------------------------------------------------->
 rem iterate via all tasks, deploy each of them to web root:
 FOR /f "tokens=*" %%i in ('DIR /a:d /b tasks_source_code\*') DO (

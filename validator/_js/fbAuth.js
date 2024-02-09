@@ -70,6 +70,8 @@ let userGoogle
 
 let UsersArrayLocal = []
 
+let userLocal
+
 //let uid = localStorage.getItem("userDataPath");
 // let uid = userGoogle.uid;
 
@@ -117,9 +119,9 @@ async function setFirebaseUsersToLocalStorage() {
     const UsersArray = await getFirebaseUsers()
     //console.log(UsersArray)
 
-    //UsersArray.forEach((e) => {
-    //  console.log(e.userName + " " + e.uid + " " + e.userGroup)
-    //})
+    // UsersArray.forEach((e) => {
+    // console.log(e.userName + " " + e.uid + " " + e.userGroup)
+    // })
 
     //встановлення в опції групи користувача
 
@@ -129,6 +131,10 @@ async function setFirebaseUsersToLocalStorage() {
     //const firebaseUsersArrayLocal = []
     // firebaseUsersArrayLocal.push(JSON.parse(localStorage.getItem("firebaseUsersArray")))
     UsersArrayLocal.push(JSON.parse(localStorage.getItem("UsersArray")))
+    //console.log(UsersArrayLocal) 
+    UsersArrayLocal[0].forEach((e) => {
+      //console.log(e.userName + " " + e.uid + " " + e.userGroup)
+      })
     //console.log(UsersArrayLocal)     
     //сортуванян масиву користувачів по ключам
     //let firebaseUsersArraySorted = []
@@ -206,20 +212,22 @@ async function register() {
 
   } else {
 
+    console.log('Оновлення даних користувача')
+    console.log(regClass.value)
 
     updateDoc(doc(db, "main", userGoogle.uid), {
-      //Оновлення даних користувача
+      
       userGroup: regClass.value,
       userName: swapFirstNameAndLastName(userGoogle.displayName),
       userEmail: userGoogle.email,
-      userDescription: userGoogle.displayName + ' ' + regClass.value,
+      userDescription: swapFirstNameAndLastName(userGoogle.displayName) + ' ' + regClass.value,
       userCreationTime: userGoogle.metadata.creationTime,
       userLastSignInTime: userGoogle.metadata.lastSignInTime,
       userPhoto: userGoogle.photoURL,
     });
     console.log('Дані користувача змінено')
     localStorage.clear();
-    window.location.reload();
+    //window.location.reload();
 
     //console.log(firebaseUserDoc.data())
   }
@@ -279,12 +287,12 @@ export async function checkUserOnLoad() {
 
       await setFirebaseUsersToLocalStorage()
 
-
+//userLocal
       //const uid = userGoogle.uid;
-      let userFromUsersArrayLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
-      infoUserName.innerText = userFromUsersArrayLocal.userName + " " + userFromUsersArrayLocal.userGroup + " " + userFromUsersArrayLocal.userEmail;
+      let userLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
+      infoUserName.innerText = userLocal.userName + " " + userLocal.userGroup + " " + userLocal.userEmail;
 
-      console.log(userFromUsersArrayLocal)
+      console.log(userLocal)
       //localStorage.setItem("userDataPath", userGoogle.uid);
       //localStorage.setItem("userID", userGoogle.uid);
 
@@ -399,6 +407,7 @@ function swapFirstNameAndLastName(inputString) {
 // uid - отримуємо з LocalStorage
 // userName - отримуємо  при авторизації з Гугл аккаунту
 async function createUser(userGoogle, userGroup) {
+  console.log("Створення користувача запущено...")
   const template = (await getDoc(doc(db, "main", "template"))).data();
 
   template.uid = userGoogle.uid;
@@ -410,7 +419,7 @@ async function createUser(userGoogle, userGroup) {
   template.userLastSignInTime = userGoogle.metadata.lastSignInTime
   template.userPhoto = userGoogle.photoURL
   //console.log(template);
-  const ref = doc(db, "main", uid);
+  const ref = doc(db, "main", userGoogle.uid);
   await setDoc(ref, template);
   console.log("Створено користувача " + template.userName + " з " + template.userGroup + " класу " + template.uid);
 }

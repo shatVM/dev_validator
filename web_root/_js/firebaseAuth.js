@@ -367,22 +367,64 @@ if (!uid) {
 }
 
 //виведення даних користувача в меню
+async function getUserData(uid){
+  const q = doc(db, "main", uid);
 
-document.getElementById("userName").innerText = localStorage.getItem("userName")
-  ? localStorage.getItem("userName")
-  : "Невідомий користувач";
-document.getElementById("userPhoto").src = localStorage.getItem("userPhoto")
-  ? localStorage.getItem("userPhoto")
-  : "_img/anonymous.png";
+  //console.log(q);
+  
+  const querySnapshot = await getDoc(q);
+  
+  //console.log(querySnapshot);
+  
+  const userDoc = querySnapshot.data();
+  
+  //console.log(userDoc.tasks); 
+  //console.log(Object.entries(userDoc.tasks)[0])
+  //console.log(userDoc)
+  //console.log("ID: ", userDoc.uid)
+  //console.log("Name: ", userDoc.userName)
+  //console.log("Group: ",userDoc.userClass)
+  //console.log("Version: ",userDoc.version)
+  //console.log("Email: ",userDoc.userEmail)
+  //console.log("Description: ",userDoc.userDescription)
+  //console.log("Photo: ",userDoc.userPhoto)
+
+  // Object.entries(userDoc.tasks).sort().forEach((task)=>{
+  //   console.log(task[0]);
+  //   (Object.entries(task[1]).sort().forEach((e)=>{
+  //     console.log(e[0]," : ", e[1])
+  //   }));
+  // })
+  return userDoc
+}
+//
+let userGoogle = JSON.parse(localStorage.getItem("userGoogleLocal"))
+//console.log(userGoogle)
+let UsersArrayLocal = []
+
+UsersArrayLocal.push(JSON.parse(localStorage.getItem("UsersArray")))
+//console.log(UsersArrayLocal)
+
+let userFromUsersArrayLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
+//console.log(userFromUsersArrayLocal)
+
+document.getElementById("userName").innerText = userFromUsersArrayLocal.userName + " " + userFromUsersArrayLocal.userGroup + " " + userFromUsersArrayLocal.userEmail;
+//
+// document.getElementById("userName").innerText = localStorage.getItem("userGoogleLocal.displayName" +  getUserData(uid).userGroup)
+//   ? localStorage.getItem("userName")
+//   : "Невідомий користувач";
+ document.getElementById("userPhoto").src = userFromUsersArrayLocal.userPhoto
+   ? userFromUsersArrayLocal.userPhoto
+   : "_img/anonymous.png";
 
 //виклик модального вікна з результатами користувача та внесення в нього його даних (імені, фото та інше)
 document.getElementById("userName").addEventListener("click", () => {
-  showModalResults(uid);
+  showModalResults(userFromUsersArrayLocal.uid);
 });
 
 //Виклик модального вікна з рейтингом усіх користувачів
 document.getElementById("rank").addEventListener("click", () => {
-  if (uid == "Rq6LCl02TifWTeBdg5O1eChD8pU2") {
+  if (userFromUsersArrayLocal.uid == "Rq6LCl02TifWTeBdg5O1eChD8pU2") {
     showRating();
   } else {
   }
@@ -395,15 +437,11 @@ document.getElementById("rank").addEventListener("click", () => {
 // async function showModalResults(uid, selectedClass) {
 async function showModalResults(uid) {
   //
-  document.getElementById("userNameModal").innerText = localStorage.getItem(
-    "userName"
-  )
-    ? localStorage.getItem("userName")
+  document.getElementById("userNameModal").innerText = userFromUsersArrayLocal.userName
+      ? userFromUsersArrayLocal.userName
     : "Невідомий користувач";
-  document.getElementById("userPhotoModal").src = localStorage.getItem(
-    "userPhoto"
-  )
-    ? localStorage.getItem("userPhoto")
+  document.getElementById("userPhotoModal").src = userFromUsersArrayLocal.userPhoto
+    ? userFromUsersArrayLocal.userPhoto
     : "_img/anonymous.png";
 
   // selectedClass = document.getElementById('selectClass')
@@ -510,7 +548,7 @@ async function testGet(defOutObj, taskTheme, task) {
   // defOutObj - об'єкт в які владені теми завданнь
   // taskTheme - тема завдань (з номером на початку)
   // task -  номер завдання
-  let uid = localStorage.getItem("userDataPath");
+  let uid = userFromUsersArrayLocal.uid;
   if (!uid) {
     uid = "template";
   }
@@ -663,7 +701,7 @@ async function showRating() {
     //Відображення Класу користувача
     let divUserClass = document.createElement("div");
     divUserClass.className = "userClass";
-    divUserClass.innerHTML = userDoc.userClass;
+    divUserClass.innerHTML = userDoc.userGroup;
     userDiv.insertAdjacentElement("beforeend", divUserClass);
 
     //
@@ -737,16 +775,16 @@ async function showRating() {
 
 //отримати всю базу даних
 
-const q = doc(db, "main", "template");
+//const q = doc(db, "main", "template");
 
-const querySnapshot = await getDoc(q);
+//const querySnapshot = await getDoc(q);
 
-let us = [];
+//let us = [];
 
-const userDoc = querySnapshot.data();
+//const userDoc = querySnapshot.data();
 //console.log(userDoc.tasks['01_Form']);
-us.push(userDoc);
-//console.log(us);
+//us.push(userDoc);
+//console.log(userDoc);
 //   //console.log(Object.entries(userDoc.tasks['03_Button']));
 
 //   let t = Object.entries(userDoc.tasks);
