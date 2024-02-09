@@ -51,8 +51,11 @@ auth.useDeviceLanguage();
 
 //[START} визначення основних глобальних контроллерів на сторінці
 
-//Список з вибором класу
+//Список з вибором групи
 const regClass = document.getElementById("regClass");
+
+//Список з вибором підгрупи
+const regSubGroup = document.getElementById("regSubGroup");
 
 //Кнопка входу
 const btnUserLogin = document.getElementById("loginBtn");
@@ -72,23 +75,64 @@ let UsersArrayLocal = []
 
 let userLocal
 
-//let uid = localStorage.getItem("userDataPath");
-// let uid = userGoogle.uid;
 
-
-// if (!uid) {
-//   uid = "template";
-// }
-
-//let uid = userGoogle.uid;
-
-
-// if (!uid) {
-//   uid = "template";
-// }
 //[END] 
 
 checkUserOnLoad();
+
+// спрацьовує на завантаженні сторінки перевіряє чи ввійшов користувач у систему перевіряє версію уже ввійшовшого користувача
+export async function checkUserOnLoad() {
+  onAuthStateChanged(auth, async function (userGoogle) {
+
+ console.log('Запуск функції checkUserOnLoad()')
+ //console.log(userGoogle)
+
+    if (userGoogle) {
+
+      localStorage.setItem("boolUserLogin", "1")
+      localStorage.setItem("userGoogleLocal", JSON.stringify(userGoogle));
+
+      btnUserLogin.innerText = "Вийти";
+      btnUserLogin.addEventListener("click", signOutVar, { once: true });
+      
+
+      //infoUserName.innerText = swapFirstNameAndLastName(userGoogle.displayName) + " " + userGoogle.email;
+
+      await setFirebaseUsersToLocalStorage()
+      getUsersFromLocalStorage()
+
+      //userLocal
+      //const uid = userGoogle.uid;
+      // userLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
+      infoUserName.innerText = userLocal.userName + " " + userLocal.userGroup+" "+ userLocal.userSubGroup + " " + userLocal.userEmail;
+      console.log(userLocal)
+
+    } else {
+      // тепер кнопка відповідає за вхід користувача
+      btnUserLogin.innerText = "Увійти";
+      btnUserLogin.addEventListener("click", popupGoogle, { once: true });
+      console.log("user is not loggin in");
+    }
+  });
+}
+
+//Отримання локальних користувачів в масив UsersArrayLocal та окремого користувача в userLocal
+function getUsersFromLocalStorage() {
+  console.log('запуск функції getUsersFromLocalStorage() - Отримання локальних користувачів в масив UsersArrayLocal та окремого користувача в userLocal')
+
+  userGoogle = JSON.parse(localStorage.getItem("userGoogleLocal"))
+  //console.log(userGoogle)
+
+  UsersArrayLocal.push(JSON.parse(localStorage.getItem("UsersArray")))
+  //console.log(UsersArrayLocal) 
+  //UsersArrayLocal[0].forEach((e) => {
+    //console.log(e.userName + " " + e.uid + " " + e.userGroup)
+  //})
+  //отримання локального користувача за uid з локальної бази даних 
+  userLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
+  //console.log(userLocal)
+
+}
 
 //[START] отримання даних всіх користувачів в локальне сховище
 async function getFirebaseUsers() {
@@ -130,11 +174,11 @@ async function setFirebaseUsersToLocalStorage() {
     //firebaseUsersArray.sort().forEach((e) => console.log(e))
     //const firebaseUsersArrayLocal = []
     // firebaseUsersArrayLocal.push(JSON.parse(localStorage.getItem("firebaseUsersArray")))
-    UsersArrayLocal.push(JSON.parse(localStorage.getItem("UsersArray")))
+    //UsersArrayLocal.push(JSON.parse(localStorage.getItem("UsersArray")))
     //console.log(UsersArrayLocal) 
-    UsersArrayLocal[0].forEach((e) => {
+    //UsersArrayLocal[0].forEach((e) => {
       //console.log(e.userName + " " + e.uid + " " + e.userGroup)
-      })
+    //})
     //console.log(UsersArrayLocal)     
     //сортуванян масиву користувачів по ключам
     //let firebaseUsersArraySorted = []
@@ -195,50 +239,52 @@ async function setFirebaseUsersToLocalStorage() {
 async function register() {
   //console.log(userGoogle)
   signInWithPopup(auth, provider).then(async (result) => {
-  // успішна авторизація
-  userGoogle = result.user;
-  //console.log(userGoogle)
-  const firebaseUserDoc = await getDoc(doc(db, "main", userGoogle.uid));
-  const docBool = firebaseUserDoc.exists();
-  //console.log(firebaseUserDoc.data())
-
-
-  //console.log(regClass.value)
-  //const docBool = (await getDoc(doc(db, "main", userGoogle.uid))).exists();
-  if (!docBool) {
-    //createUser(user.uid, user.displayName, regClass.value);
-    createUser(userGoogle, regClass.value);
-    // createUser(userGoogle, regClass.value);
-
-  } else {
-
-    console.log('Оновлення даних користувача')
-    console.log(regClass.value)
-
-    updateDoc(doc(db, "main", userGoogle.uid), {
-      
-      userGroup: regClass.value,
-      userName: swapFirstNameAndLastName(userGoogle.displayName),
-      userEmail: userGoogle.email,
-      userDescription: swapFirstNameAndLastName(userGoogle.displayName) + ' ' + regClass.value,
-      userCreationTime: userGoogle.metadata.creationTime,
-      userLastSignInTime: userGoogle.metadata.lastSignInTime,
-      userPhoto: userGoogle.photoURL,
-    });
-    console.log('Дані користувача змінено')
-    localStorage.clear();
-    //window.location.reload();
-
+    // успішна авторизація
+    userGoogle = result.user;
+    //console.log(userGoogle)
+    const firebaseUserDoc = await getDoc(doc(db, "main", userGoogle.uid));
+    const docBool = firebaseUserDoc.exists();
     //console.log(firebaseUserDoc.data())
-  }
-  // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
-  // що створює зайвий запит до бази даних
-  // window.location.reload();
-  //})
-  // .catch((error) => {
-  //   // помилка при авторизації
-  //   console.log("clicked the X or error: " + error);
-   });
+
+
+    //console.log(regClass.value)
+    //const docBool = (await getDoc(doc(db, "main", userGoogle.uid))).exists();
+    if (!docBool) {
+      //createUser(user.uid, user.displayName, regClass.value);
+      createUser(userGoogle, regClass.value, regSubGroup.value);
+      //console.log(userGoogle, regClass.value, regSubGroup.value);
+
+    } else {
+
+      console.log('Оновлення даних користувача' + userGoogle.userName)
+      console.log(regClass.value)
+      console.log(regSubGroup.value)      
+
+      updateDoc(doc(db, "main", userGoogle.uid), {
+
+        userGroup: regClass.value,
+        userSubGroup: regSubGroup.value,
+        userName: swapFirstNameAndLastName(userGoogle.displayName),
+        userEmail: userGoogle.email,
+        userDescription: swapFirstNameAndLastName(userGoogle.displayName) + ' ' + regClass.value,
+        userCreationTime: userGoogle.metadata.creationTime,
+        userLastSignInTime: userGoogle.metadata.lastSignInTime,
+        userPhoto: userGoogle.photoURL,
+      });
+      console.log('Дані користувача змінено')
+      localStorage.clear();
+      //window.location.reload();
+
+      //console.log(firebaseUserDoc.data())
+    }
+    // із-за перезавнтаження сторінки onAuthStateChanged може спрацювати двічі
+    // що створює зайвий запит до бази даних
+    // window.location.reload();
+    //})
+    // .catch((error) => {
+    //   // помилка при авторизації
+    //   console.log("clicked the X or error: " + error);
+  });
 }
 
 // відповідає за появу вікна для авторизації через гугл аккаунт
@@ -266,87 +312,7 @@ export async function popupGoogle() {
     });
 }
 
-// спрацьовує на завантаженні сторінки
-// перевіряє чи ввійшов користувач у систему
-// перевіряє версію уже ввійшовшого користувача
-export async function checkUserOnLoad() {
-  onAuthStateChanged(auth, async function (userGoogle) {
-    //const btn = document.getElementById("loginBtn");
-    //btnUserLogin.innerText = "Увійти";
-    //якщо користувач увійшов, то приховуємо кнопку Зареєструватись
-    //document.getElementById("btnReg").style.display = "none";
 
-    if (userGoogle) {
-      btnUserLogin.innerText = "Вийти";
-      btnUserLogin.addEventListener("click", signOutVar, { once: true });
-
-      localStorage.setItem("boolUserLogin", "1")
-      localStorage.setItem("userGoogleLocal", JSON.stringify(userGoogle));
-
-      //infoUserName.innerText = swapFirstNameAndLastName(userGoogle.displayName) + " " + userGoogle.email;
-
-      await setFirebaseUsersToLocalStorage()
-
-//userLocal
-      //const uid = userGoogle.uid;
-      let userLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
-      infoUserName.innerText = userLocal.userName + " " + userLocal.userGroup + " " + userLocal.userEmail;
-
-      console.log(userLocal)
-      //localStorage.setItem("userDataPath", userGoogle.uid);
-      //localStorage.setItem("userID", userGoogle.uid);
-
-      //localStorage.setItem("userName", swapFirstNameAndLastName(userGoogle.displayName));
-      //localStorage.setItem("userEmail", userGoogle.email);
-
-
-
-      // Якщо дійдуть руки, то буде перевірка версії через localStorage, а саме:
-      // при вході користувача його документ зберігається локально, тоді
-      // при зміні документу (наприклад при виконанні завданнь) потрібно буде
-      // крім оновлення документу в базі даних, ще й оновляти локальний документ
-      // ЗАВДЯКИ чому при перевірці версії запит документу користувача йде в локальне сховище,
-      // що в свою чергу зменшує загальну кількість запитів на один при перевірці версії
-      // АЛЕ перевірка версії відбувається досить часто (кожний раз коли спрацьовує onAuthStateChanged),
-      // тому це може того вартувати
-      // const userDocLocal = JSON.parse(localStorage.getItem("userData"));
-
-      // перевіряє версійність
-      //const returnValue = await checkUserVersion(uid);
-      //console.log(returnValue);
-      //const correctVersion = returnValue[0]; // boolean
-      //const userDoc = returnValue[1];
-      //const templateDoc = returnValue[2];
-      //if (!correctVersion) {
-      //  await mergeDocs(uid, userDoc, templateDoc);
-      //}
-
-      // тепер кнопка відповідає за вихід користувача
-
-
-      //document.getElementById("signUpBtnOK").addEventListener("click", () => console.log("bruh"));
-
-      // завантажує опції з документу користувача
-
-      // checkUserVersion(null, null, uid, false);
-      //const select = document.getElementById("task");
-      //const obj = "option";
-      // tasksLoad(select, obj, uid);
-
-      //виведення даних користувача в меню та модальне вікно
-      //const userName = document.getElementById("userName");
-
-      //document.getElementById("userNameModal").innerText = user.displayName;
-      //showModalResults(uid, "");
-    } else {
-
-      // тепер кнопка відповідає за вхід користувача
-      btnUserLogin.innerText = "Увійти";
-      btnUserLogin.addEventListener("click", popupGoogle, { once: true });
-      console.log("user is not loggin in");
-    }
-  });
-}
 
 //mergeStudentManually('05xYEJI4V6XyJqI48c5lFRam6Gg2')
 //console.log('User' + uid + 'updated from template')
@@ -406,22 +372,23 @@ function swapFirstNameAndLastName(inputString) {
 // [START] Створення нового користувача та копіювання бази даних з шаблону template
 // uid - отримуємо з LocalStorage
 // userName - отримуємо  при авторизації з Гугл аккаунту
-async function createUser(userGoogle, userGroup) {
+async function createUser(userGoogle, userGroup, regSubGroup) {
   console.log("Створення користувача запущено...")
   const template = (await getDoc(doc(db, "main", "template"))).data();
 
   template.uid = userGoogle.uid;
   template.userGroup = userGroup;
+  template.userSubGroup = regSubGroup;
   template.userName = swapFirstNameAndLastName(userGoogle.displayName)
   template.userEmail = userGoogle.email
-  template.userDescription = userGoogle.displayName + ' ' + userGroup
+  template.userDescription = swapFirstNameAndLastName(userGoogle.displayName) + ' ' + userGroup
   template.userCreationTime = userGoogle.metadata.creationTime
   template.userLastSignInTime = userGoogle.metadata.lastSignInTime
   template.userPhoto = userGoogle.photoURL
   //console.log(template);
   const ref = doc(db, "main", userGoogle.uid);
   await setDoc(ref, template);
-  console.log("Створено користувача " + template.userName + " з " + template.userGroup + " класу " + template.uid);
+  console.log("Створено користувача " + template.userName + " з " + template.userGroup + " групи " + template.userSubGroup + " підгрупи " + template.uid);
 }
 // [END] Створення нового користувача та копіювання бази даних з шаблону template
 

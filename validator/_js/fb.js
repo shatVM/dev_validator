@@ -38,14 +38,14 @@ const users = await getDocs(usersCollection);
 document.getElementById('mergeStudentsManually').addEventListener('click', () =>{
   
   users.docs.forEach((user)=>{
+    console.log('Запущено злиття користувачів з шаблоном')
     mergeStudentManually(user.id)
     //showUserResult(user.id)
 
   })
 })
 
-
-//showUserResult('Rq6LCl02TifWTeBdg5O1eChD8pU2')
+showUserResult('Rq6LCl02TifWTeBdg5O1eChD8pU2')
 //console.log(db);
 
 async function showUserResult(uid){
@@ -61,15 +61,24 @@ async function showUserResult(uid){
   
   //console.log(userDoc.tasks); 
   //console.log(Object.entries(userDoc.tasks)[0])
-  console.log(userDoc)
-  console.log("ID: ", userDoc.uid)
-  console.log("Name: ", userDoc.userName)
-  console.log("Group: ",userDoc.userClass)
-  console.log("Version: ",userDoc.version)
-  console.log("Email: ",userDoc.userEmail)
-  console.log("Description: ",userDoc.userDescription)
-  console.log("Photo: ",userDoc.userPhoto)
+  // console.log(userDoc)
+  // console.log("ID: ", userDoc.uid)
+  // console.log("Name: ", userDoc.userName)
+  // console.log("Group: ",userDoc.userClass)
+  // console.log("Version: ",userDoc.version)
+  // console.log("Email: ",userDoc.userEmail)
+  // console.log("Description: ",userDoc.userDescription)
+  // console.log("Photo: ",userDoc.userPhoto)
 
+  //Виведення даних користувача з Firebase бази даних
+  Object.entries(userDoc).sort().forEach((e)=>{
+    console.log(e[0]," : ", e[1]);
+    // (Object.entries(task[1]).sort().forEach((e)=>{
+    //   console.log(e[0]," : ", e[1])
+    // }));
+  })
+
+  //Виведення результатів користувача з Firebase бази даних
   // Object.entries(userDoc.tasks).sort().forEach((task)=>{
   //   console.log(task[0]);
   //   (Object.entries(task[1]).sort().forEach((e)=>{

@@ -59,7 +59,7 @@ let userLocal
 
 getUsersFromLocalStorage()
 
-
+//Отримання локальних користувачів в масив UsersArrayLocal та окремого користувача в userLocal
 function getUsersFromLocalStorage() {
 
   userGoogle = JSON.parse(localStorage.getItem("userGoogleLocal"))
@@ -72,21 +72,24 @@ function getUsersFromLocalStorage() {
   //отримання локального користувача за uid з локальної бази даних 
   userLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
   //console.log(userLocal)
-  //Виведення імені та групи локального користувача в меню
-  document.getElementById("userName").innerText = userLocal.userName + " " + userLocal.userGroup
-  //Виведення фото локального користувача в меню
-  document.getElementById("userPhoto").src = userLocal.userPhoto
-    ? userLocal.userPhoto
-    : "_img/anonymous.png";
-
-  //результатами користувача та внесення в нього його даних (імені, фото та інше)
-  document.getElementById("userName").addEventListener("click", () => {
-    showModalResults(userLocal.uid);
-  });
+  
 }
 
 
-//Створення події на кнопку Рейтинг модального вікна з рейтингом усіх користувачів
+//Виведення імені та групи локального користувача в меню
+document.getElementById("userName").innerText = userLocal.userName + " " + userLocal.userGroup
+
+//Виведення фото локального користувача в меню
+document.getElementById("userPhoto").src = userLocal.userPhoto
+  ? userLocal.userPhoto
+  : "_img/anonymous.png";
+
+//Створення події на кнопку Користувач для виклику модального вікна результатами користувача та внесення в нього його даних (імені, фото та інше)
+document.getElementById("userName").addEventListener("click", () => {
+  showModalResults(userLocal.uid);
+});
+
+//Створення події на кнопку Рейтинг для виклику модального вікна з рейтингом усіх користувачів
 document.getElementById("rank").addEventListener("click", () => {
   if (userLocal.uid == "Rq6LCl02TifWTeBdg5O1eChD8pU2") {
     showRating();
