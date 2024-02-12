@@ -161,13 +161,21 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Рейтинг</h4>
                 <div class="user-result ">
+                  <span>Група</span>
                   <select id="selectClass" style="block">
                     <option value="Всі">Всі</option>
                     <option value="11-А">11-А</option>
                     <option value="11-Б">11-Б</option>
                     <option value="11-В">11-В</option>
                     <option value="11-Г">11-Г</option>
-                    <option value="Admin">Admin</option>
+                    <option value="Інше">Інше</option>
+                  </select>
+                  <span>Підгрупа</span>
+                  <select id="selectSubGroup" style="block">
+                    <option value="Всі">Всі</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="Інше">Інше</option>                    
                   </select>
                 </div>
               </div>

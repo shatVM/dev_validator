@@ -16,7 +16,9 @@
 	<!-- favicon: -->
 	<link rel="icon" href="<?php echo($_SESSION["s_project_url"]); ?>favicon.ico?v=2" />
 	<!-- main css -->
+	<!-- <link rel="stylesheet" type="text/css" href="_css/global.css"> -->
 	<link rel="stylesheet" type="text/css" href="<?php echo($_SESSION["s_project_url"]); ?>_css/global.css">
+
 
 
 <?php } ?>

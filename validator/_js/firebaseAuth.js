@@ -72,12 +72,12 @@ function getUsersFromLocalStorage() {
   //отримання локального користувача за uid з локальної бази даних 
   userLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
   //console.log(userLocal)
-  
+
 }
 
 
 //Виведення імені та групи локального користувача в меню
-document.getElementById("userName").innerText = userLocal.userName + " " + userLocal.userGroup
+document.getElementById("userName").innerText = userLocal.userName + " " + userLocal.userGroup + " " + userLocal.userSubGroup
 
 //Виведення фото локального користувача в меню
 document.getElementById("userPhoto").src = userLocal.userPhoto
@@ -145,13 +145,13 @@ async function getUserData(uid) {
 
 
 
-//[START] побудова та відображення модального вікна з результатами всіх користувачів
+//[START] побудова та відображення модального вікна з результатами користувача
 //Get all documents in a collection
 // async function showModalResults(uid, selectedClass) {
 async function showModalResults(uid) {
   //
   document.getElementById("userNameModal").innerText = userLocal.userName
-    ? userLocal.userName
+    ? userLocal.userName + " " + userLocal.userGroup + " " + userLocal.userSubGroup
     : "Невідомий користувач";
   document.getElementById("userPhotoModal").src = userLocal.userPhoto
     ? userLocal.userPhoto
@@ -320,12 +320,47 @@ function showResultOfSelectedClass() {
         }
       });
     });
+
+    
 }
 //[END] фільтрація класів за вибором
+
+//[START] фільтрація підгрупи за вибором
+function showResultOfSelectedSubGroup() {
+  document
+    .getElementById("selectSubGroup")
+    .addEventListener("change", function (event) {
+      var selectedValue = event.target.value;
+      // console.log(selectedValue);
+
+      // Отримуємо всі елементи з класом 'userResult'
+      var userResults = document.querySelectorAll(".userResult");
+      //console.log(userResults);
+      // Перебираємо кожен елемент
+      userResults.forEach(function (userResult) {
+        userResult.style.display = "none";
+        // Отримуємо елемент з класом 'userSubGroup' в кожному блоку 'userResult'
+        var userSubGroupElement = userResult.querySelector(".userSubGroup");
+
+        // Перевіряємо, чи має 'userClass' значення '11-А'
+        if (selectedValue === "Всі") {
+          userResult.style.display = "flex";
+        }
+
+        if (userSubGroupElement.textContent.trim() === selectedValue) {
+          // Якщо так, відображаємо блок
+          userResult.style.display = "flex";
+        }
+      });
+    });
+}
+//[END] фільтрація підгрупи за вибором
+
 
 // [START] Рейтинг______________________________________
 async function showRating() {
   showResultOfSelectedClass();
+  showResultOfSelectedSubGroup()
 
   // if (uid.exists) {
   //   //----------------
@@ -373,6 +408,12 @@ async function showRating() {
   divUserClass.innerHTML = "Клас";
   userDiv.insertAdjacentElement("beforeend", divUserClass);
 
+  //Відображення підгрупи
+  let divUserSubGroup = document.createElement("div");
+  divUserSubGroup.className = "userClass";
+  divUserSubGroup.innerHTML = "Підгрупа";
+  userDiv.insertAdjacentElement("beforeend", divUserSubGroup);
+
   //Відображення заголовку зі списком уроків
   Object.entries(tasksList)
     .sort()
@@ -417,6 +458,12 @@ async function showRating() {
     divUserClass.className = "userClass";
     divUserClass.innerHTML = userDoc.userGroup;
     userDiv.insertAdjacentElement("beforeend", divUserClass);
+
+    //Відображення підгрупи
+    let divUserSubGroup = document.createElement("div");
+    divUserSubGroup.className = "userClass userSubGroup";
+    divUserSubGroup.innerHTML = userDoc.userSubGroup;
+    userDiv.insertAdjacentElement("beforeend", divUserSubGroup);
 
     //
     Object.entries(tasksList)
