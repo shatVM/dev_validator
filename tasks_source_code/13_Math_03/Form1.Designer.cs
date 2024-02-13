@@ -164,7 +164,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::Rectangular_Triangle.Properties.Resources.Rectangular_Triangle;
+            this.pictureBox1.BackgroundImage = global::Math_03.Properties.Resources.Rectangular_Triangle;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Location = new System.Drawing.Point(567, 24);
             this.pictureBox1.Name = "pictureBox1";

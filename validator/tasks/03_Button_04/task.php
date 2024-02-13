@@ -6,14 +6,18 @@ $cls_Task = new cls_Task();
 //-------------------------------------------------->
 $cls_Task->s_title = "Button_04";
 $cls_Task->s_id = "03_Button_04";
-$cls_Task->s_description = "Розміщення кнопки на формі";
+$cls_Task->s_description = "Подія при натисканні кнопки";
 
-$cls_Task->_add_step("1. Створити проект <b>Button_04</b> у рішенні <b>Button</b>.");
+$cls_Task->_add_step("1. Створити проект <b>Button_04</b> у рішенні <b>WindowsForms</b>.");
 $cls_Task->_add_step("2. Завантажити програму у <b>C-VALIDATOR</b>.");
 $cls_Task->_add_step("3. Добитися повної валідації програми.");
 $cls_Task->_add_step("4. Зберегти програму у папку <b>Production</b>.");
 
-$cls_Task->_add_screen("Вигляд програми:", "0.png");
+$cls_Task->_block_start("Зміна тексту кнопки при натисканні на неї", "_form.png");
+$cls_Task->_add_screen("Вигляд програми до натиснення на кнопку:", "0.png");
+$cls_Task->_add_screen("Вигляд програми після натиснення на кнопку:", "1.png");
+$cls_Task->_add_screen("Відео функціоналу програми:", "video.gif");
+$cls_Task->_block_end();
 
 $cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");
 $cls_Task->_add_property("Availability of Form", "Наявність форми", "");
@@ -46,7 +50,8 @@ $cls_Task->_add_code_validated("Вписати код:", "private void btn_Chang
     btn_ChangeText.Text = \"Вітаю! Напис на кнопці змінено!!!\";
 }", "");
 $cls_Task->_add_property("Text", "Текст кнопки", "Вітаю! Напис на кнопці змінено!!!");
-$cls_Task->_add_screen("Вигляд програми:", "1.png");
+$cls_Task->_add_screen("Вигляд програми до натиснення на кнопку:", "0.png");
+$cls_Task->_add_screen("Вигляд програми після натиснення на кнопку:", "1.png");
 $cls_Task->_block_end();
 
 $cls_Task->s_learn_url = "https://learn.ztu.edu.ua/mod/page/view.php?id=10041";

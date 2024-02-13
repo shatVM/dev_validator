@@ -8,11 +8,9 @@ $cls_Task->s_title = "Button_05";
 $cls_Task->s_id = "03_Button_05";
 $cls_Task->s_description = "Робота з полем для вводу тексту";
 
-$cls_Task->_add_step("1. Створити проект <b>Button_05</b> відповідно специфікації у рішенні <b>Button</b> .");
-$cls_Task->_add_step("2. Завантажити програму у <b>DEV-VALIDATOR</b>.");
-$cls_Task->_add_step("3. Добитися повної валідації програми.");
-$cls_Task->_add_step("4. Зберегти скріншот [Alt+PrintScreen] результатів у папку <b>Production</b>.");
-$cls_Task->_add_step("5. Зберегти програму у папку <b>Production</b>.");
+$cls_Task->_add_step("Створити проект <b>Button_05</b> відповідно специфікації у рішенні <b>WindowsForms</b> .");
+$cls_Task->_add_step("Завантажити програму у <b>DEV-VALIDATOR</b>.");
+$cls_Task->_add_step("Добитися повної валідації програми.");
 $cls_Task->_add_screen("Вигляд програми","target_form.png");
 
 $cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");

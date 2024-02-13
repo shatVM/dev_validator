@@ -205,7 +205,7 @@
             // 
             // pb_Image
             // 
-            this.pb_Image.BackgroundImage = global::Circle.Properties.Resources.Circle;
+            //this.pb_Image.BackgroundImage = global::Circle.Properties.Resources.Circle;
             this.pb_Image.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pb_Image.Location = new System.Drawing.Point(12, 108);
             this.pb_Image.Name = "pb_Image";

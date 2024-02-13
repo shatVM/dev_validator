@@ -42,6 +42,7 @@
             this.tb_InfoKinetic = new System.Windows.Forms.TextBox();
             this.pb_PictureKinetic = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.btn_ClearPotential = new System.Windows.Forms.Button();
             this.btn_CalculatePotential = new System.Windows.Forms.Button();
@@ -54,7 +55,6 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
             this.tc_Energy.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_PictureKinetic)).BeginInit();
@@ -210,6 +210,16 @@
             this.tabPage2.Text = "Потенціальна";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(738, 274);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(20, 24);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "2";
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -302,8 +312,9 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackgroundImage = global::_08_Energy.Properties.Resources.pot;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.ErrorImage = global::Physics_01.Properties.Resources.pot;
+            this.pictureBox2.Image = global::Physics_01.Properties.Resources.pot;
             this.pictureBox2.Location = new System.Drawing.Point(17, 184);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(222, 174);
@@ -319,16 +330,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Пружини";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(738, 274);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(20, 24);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "2";
             // 
             // Form1
             // 

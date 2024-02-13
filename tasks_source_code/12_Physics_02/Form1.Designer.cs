@@ -108,7 +108,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::Speed.Properties.Resources.car;
+            this.pictureBox1.BackgroundImage = global::Physics_01.Properties.Resources.car;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Location = new System.Drawing.Point(245, 59);
             this.pictureBox1.Name = "pictureBox1";

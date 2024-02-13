@@ -42,12 +42,9 @@ include_once("main_config.php");
               include("tasks_list/00_Lesson.php");
             ?>
 
-
-
-
             <!-- task Season_01 block start -->
             <?php
-              include("tasks_list/00_Seasons_v.1.php");
+              include("tasks_list/01_Seasons.php");
             ?>
 
             <!-- task Forms block start -->

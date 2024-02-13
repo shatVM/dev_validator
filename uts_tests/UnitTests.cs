@@ -8,7 +8,9 @@ namespace uts_tests
     [TestClass]
     public class UnitTests
     {
-        public string s_tasks_fp = "tasks_source_code";
+        //public string s_tasks_fp = "tasks_source_code";
+        public string s_tasks_fp = "validator\\tasks\\";
+
         public string s_validator_fnp = "dev_validator_C\\bin\\Debug\\validator1.exe";
 
         [ClassInitialize()]
@@ -30,6 +32,20 @@ namespace uts_tests
         {
             string s_task_id = "00_test_01";
             string s_task_exe_ft = "test_01.exe";
+            string s_result = _validate_task(s_task_id, s_task_exe_ft);
+        }
+        [TestMethod]
+        public void tm_00_Lesson_00()
+        {
+            string s_task_id = "00_Lesson_00";
+            string s_task_exe_ft = "Task_00.exe";
+            string s_result = _validate_task(s_task_id, s_task_exe_ft);
+        }
+        [TestMethod]
+        public void tm_00_Lesson_01()
+        {
+            string s_task_id = "00_Lesson_01";
+            string s_task_exe_ft = "Task_01.exe";
             string s_result = _validate_task(s_task_id, s_task_exe_ft);
         }
         [TestMethod]
@@ -128,6 +144,13 @@ namespace uts_tests
         {
             string s_task_id = "01_Form_13";
             string s_task_exe_ft = "Form_13.exe";
+            string s_result = _validate_task(s_task_id, s_task_exe_ft);
+        }
+        [TestMethod]
+        public void tm_01_Season_01()
+        {
+            string s_task_id = "01_Season_01";
+            string s_task_exe_ft = "1_Winter.exe";
             string s_result = _validate_task(s_task_id, s_task_exe_ft);
         }
         [TestMethod]

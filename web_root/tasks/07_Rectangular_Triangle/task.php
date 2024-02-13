@@ -8,13 +8,10 @@ $cls_Task->s_title = "07_Rectangular_Triangle";
 $cls_Task->s_id = "07_Rectangular_Triangle";
 $cls_Task->s_description = "Прямокутний трикутник - Rectangular Triangle";
 
-$cls_Task->_add_step("1. Створити проект <b>Rectangular_Triangle</b> відповідно специфікації у рішенні <b>Math</b> .");
-$cls_Task->_add_step("2. Завантажити програму у <b>C-VALIDATOR</b>.");
-$cls_Task->_add_step("3. Добитися повної валідації програми.");
-$cls_Task->_add_step("3. Детальна інструкція <a href=\"http://informatics.in.ua/programming_csharp/part_05.php\" target=\"_blank\">informatics.in.ua</a>.");
-$cls_Task->_add_step("5. Зберегти програму у папку <b>Production</b>.");
+$cls_Task->_add_step("Створити проект <b>Rectangular_Triangle</b> відповідно специфікації у рішенні <b>Math</b> .");
+$cls_Task->_add_step("Добитися повної валідації програми.");
+$cls_Task->_add_step("Детальна інструкція <a href=\"https://web.archive.org/web/20220709194752/https://informatics.in.ua/programming_csharp/part_05.php\" target=\"_blank\">informatics.in.ua</a>.");
 $cls_Task->_add_screen("Вигляд програми","0.png");
-
 
 
 $cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");
@@ -112,7 +109,7 @@ $cls_Task->_block_end();
 
 $cls_Task->_block_start("Написати код події <b>btn_Calculate_Click</b>:", "_add_code.png");
 $cls_Task->_add_code_validated("Вписати код:", "
-Детальна інструкція <a href=\"http://informatics.in.ua/programming_csharp/part_05.php\" target=\"_blank\">informatics.in.ua</a>
+Детальна інструкція <a href=\"https://web.archive.org/web/20220709194752/https://informatics.in.ua/programming_csharp/part_05.php\" target=\"_blank\">informatics.in.ua</a>
 ", "");
 $cls_Task->_add_screen("На даному етапі Валідатор введе випадкові дані у відправлену програму, прочитає результат і порівняє з правильним.","info.png");
 $cls_Task->_add_property("lb_SideC.Text", "Текст ", "<i>Розраховані програмою значення</i>");

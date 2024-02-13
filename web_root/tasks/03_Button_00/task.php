@@ -8,12 +8,12 @@ $cls_Task->s_title = "Button_00";
 $cls_Task->s_id = "03_Button_00";
 $cls_Task->s_description = "Додавання кнопки на форму";
 
-$cls_Task->_add_step("1. Створити проект <b>Button_00</b> у рішенні <b>Button</b>.");
+$cls_Task->_add_step("1. Створити проект <b>Button_00</b> у рішенні <b>WindowsForms</b>.");
 $cls_Task->_add_step("2. Створити форму відповідно специфікації.");
 $cls_Task->_add_step("3. Додати на форму кнопку з <b>Панелі елементів</b>.");
-$cls_Task->_add_step("4. Завантажити програму у <b>C-VALIDATOR</b>.");
+$cls_Task->_add_step("4. Завантажити програму у <b>DEV-VALIDATOR</b>.");
 $cls_Task->_add_step("5. Добитися повної валідації програми.");
-$cls_Task->_add_step("6. Зберегти програму у папку <b>Production</b>.");
+
 
 $cls_Task->_add_screen("Вигляд програми:", "0.png");
 
