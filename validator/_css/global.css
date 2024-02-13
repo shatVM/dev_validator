@@ -10,6 +10,7 @@ html {
 body {
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 16px;
 }
 
@@ -510,7 +511,7 @@ progress {
 
 .userName {
   /* align-self: flex-start; */
-  width: 190px;
+  width: 200px;
   background-color: rgba(196, 196, 196, 0.25);
 }
 

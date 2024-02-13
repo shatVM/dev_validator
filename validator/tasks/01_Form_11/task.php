@@ -8,14 +8,12 @@ $cls_Task->s_title = "Form_11";
 $cls_Task->s_id = "01_Form_11";
 $cls_Task->s_description = "Форма з фоновим малюнком";
 
-$cls_Task->_add_step("1. Додати новий проект <b>Form_11</b> у створене рішення <b>WindowsForms</b>.");
-$cls_Task->_add_step("2. Створити Windows форму відповідно специфікації.");
-$cls_Task->_add_step("3. Фоновий малюнок на тему Природа імпортувати в <b>Файл ресурсов проекта - Resourses</b>.");
-$cls_Task->_add_step("4. Завантажити програму у <b>DEV-VALIDATOR</b>.");
-$cls_Task->_add_step("5. Добитися повної валідації програми.");
-$cls_Task->_add_step("6. Зберегти скріншот <b>[Alt+PrintScreen]</b> результатів у папку <b>Production</b>.");
-$cls_Task->_add_step("7. Скопіювати програму у папку <b>Production</b>.");
-$cls_Task->_add_step("8. Зберегти проект та закрити рішення.");
+$cls_Task->_add_step("Додати новий проект <b>Form_11</b> у створене рішення <b>WindowsForms</b>.");
+$cls_Task->_add_step("Створити Windows форму відповідно специфікації.");
+$cls_Task->_add_step("Фоновий малюнок на тему Природа імпортувати в <b>Файл ресурсов проекта - Resourses</b>.");
+$cls_Task->_add_step("Завантажити програму у <b>DEV-VALIDATOR</b>.");
+$cls_Task->_add_step("Добитися повної валідації програми.");
+$cls_Task->_add_step("Зберегти проект.");
 
 $cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");
 $cls_Task->_add_property("Availability of Form", "Наявність форми", "");
