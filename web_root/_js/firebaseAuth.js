@@ -151,14 +151,26 @@ async function getUserData(uid) {
 async function showModalResults(uid) {
   //
   document.getElementById("userNameModal").innerText = userLocal.userName
-    ? userLocal.userName + " " + userLocal.userGroup + " " + userLocal.userSubGroup
+    ? userLocal.userName 
     : "Невідомий користувач";
   document.getElementById("userPhotoModal").src = userLocal.userPhoto
     ? userLocal.userPhoto
     : "_img/anonymous.png";
+    document.getElementById("userClassModal").innerText = userLocal.userGroup
+    ? userLocal.userGroup + " " + userLocal.userSubGroup
+    : "";
+    
+
+    //textSuccess
 
   // selectedClass = document.getElementById('selectClass')
-  // //console.log('-------------selectedClass')
+  if (document.getElementById("progress") && document.getElementById("progress").innerText == "Твій прогрес: 100%"){
+    console.log(100)
+    document.getElementById("Success").style.display = "block";
+  } else {
+    console.log(0)
+    document.getElementById("Success").style.display = "none";
+  }
   // selectedClass.addEventListener('change', event => {
   //   //showModalResults(uid, value)
   //   console.log(event.target.value)
@@ -176,6 +188,7 @@ async function showModalResults(uid) {
       .sort()
       .forEach((property) => {
         let lessonsList = document.getElementById("userResult");
+        
 
         //https://learn.javascript.ru/modifying-document Изменение документа
         //контейнер для відображення результатів
@@ -389,7 +402,7 @@ async function showRating() {
 
   ////контейнер для відображення результатів
   const parentNode = document.querySelector("#userList");
-
+  parentNode.innerText = ''
   //побудова заголовку таблиці
   let userDiv = document.createElement("div");
   userDiv.className = "userResult";

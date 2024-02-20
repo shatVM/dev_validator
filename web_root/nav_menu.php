@@ -6,7 +6,9 @@ $countUp = '';
 for ($i = 0; $i < count($cur_dir_fp) - 4; $i++) {
   $countUp = '../' . $countUp;
 }
+
 $s_rip = $countUp . "_img/c-sharp-logo4.png";
+$img_folder = $countUp . "_img/"
 
 //$s_rip = $s_domain."/validator/_img/c-sharp-logo4.png";
 ?>
@@ -33,11 +35,11 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
           </a></li>
         <li><a href="#" id="userName" data-toggle="modal" data-target="#myModal">Невідомий користувач</a>
         </li>
-        <li><img src="_img/anonymous.png" id = "userPhoto" alt="" width = "50px" height ="50px" >
-        <!-- <li><a href="#" id="loginBtn" class=" btn-info" type="button">Увійти </a></li> -->
-        <!-- <li> -->
-                    <!-- <a href="#" id="btnReg" type="button" class="btn-info" data-toggle="modal" -->
-            <!-- data-target="#myModalReg">Зареєструватися</a> -->
+        <li><img src="_img/anonymous.png" id="userPhoto" alt="" width="50px" height="50px">
+          <!-- <li><a href="#" id="loginBtn" class=" btn-info" type="button">Увійти </a></li> -->
+          <!-- <li> -->
+          <!-- <a href="#" id="btnReg" type="button" class="btn-info" data-toggle="modal" -->
+          <!-- data-target="#myModalReg">Зареєструватися</a> -->
           <!-- <a href="#"  class=" btn-info" style="margin-left: 100px" type="button" data-target="#myModalReg">Зареєструватися</a> -->
         </li>
 
@@ -56,11 +58,23 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
 
             <!-- content-->
             <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="userNameModal">Користувач:</h4>
-                <img src="_img/anonymous.png" class="modal-title" id="userPhotoModal" width=100px height=100px>
-                <h4 class="modal-title" id="userClassModal">Користувач:</h4>
+              <div class="modal-header" id="headerModal">
+                <div id="userInfoModal">
+                  
+                  <img src=<?php echo ($img_folder."anonymous.png"); ?> class="modal-title" id="userPhotoModal" width=100px height=100px>
+                  <h3 class="modal-title" id="userNameModal">Користувач:</h3>
+                  <h4 class="modal-title" id="userClassModal"></h4>
+                </div>
+                <div id="Success">
+                  <div class='task-completed-img'><img id='imgSuccess' src='../../_img/rocket.png' /></div>
+                  <h3 class="modal-title" id="textSuccess">Ви виконали завдання на 100%</h3>
+                  <h4 class="modal-title">Зроблено ще один крок до успіху у програмуванні!</h4>
+                </div>
+                
+                <!-- <div><button type="button" class="close" data-dismiss="modal">&times;</button></div> -->
+
+
+
               </div>
               <div class="modal-body modal-task-complete">
                 <div class="user-result " id="userResult">
@@ -118,23 +132,27 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
       <!-- modal REGISTRATION msg end -------------------------------------->
 
       <!-- modal SUCCESS msg start ------------------------------------>
-      <div class="container">
+      <!-- <div class="container">
         <div class="modal fade" id="myModalSuccess" role="dialog">
-          
-          <div class="modal-dialog">
 
-            <!-- content-->
+          <div class="modal-dialog">
+            -->
+
+      <!-- content-->
+      <!--
             <div class="modal-content">
               <div class="modal-header">
+                
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Вітаємо із маленькою перемогою!</h4>
               </div>
               <div class="modal-body modal-task-complete">
-                <!-- <div class='task-completed-img'><img id='imgSuccess' src='../../_img/task-completed.png' /></div> -->
+                
 
                 <div class='task-completed-img'><img id='imgSuccess' src='' /></div>
                 <div>Завдання виконано на 100%!</div>
                 <div>Програмуй наступне!</div>
+                <div class="user-result " id="userResultSuccess">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal"
@@ -147,7 +165,7 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
           </div>
         </div>
 
-      </div>
+      </div> -->
       <!-- modal SUCCESS msg end -------------------------------------->
 
       <!-- modal RANK msg start ------------------------------------>
@@ -175,7 +193,7 @@ $s_rip = $countUp . "_img/c-sharp-logo4.png";
                     <option value="Всі">Всі</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
-                    <option value="Інше">Інше</option>                    
+                    <option value="Інше">Інше</option>
                   </select>
                 </div>
               </div>

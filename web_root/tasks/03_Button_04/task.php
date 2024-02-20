@@ -32,7 +32,7 @@ $cls_Task->_block_end();
 $cls_Task->_block_start("Додати об'єкт: Button", "_add_object.png");
 $cls_Task->_add_property("Exists", "Наявність", "");
 $cls_Task->_add_property("Name", "Ім'я кнопки", "btn_ChangeText");
-$cls_Task->_add_property("Text", "Текст кнопки", "Натисни для зміни напису кнопки");
+$cls_Task->_add_property("Text", "Текст кнопки", "Натисни для зміни напису кнопки!");
 $cls_Task->_add_property("Width", "Ширина кнопки", "250");
 $cls_Task->_add_property("Height", "Висота кнопки", "50");
 $cls_Task->_block_end();

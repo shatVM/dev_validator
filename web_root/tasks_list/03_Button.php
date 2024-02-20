@@ -11,6 +11,7 @@
             <div class="row pic-centered task_desc_row"><a href="/validator/tasks/03_Button_02/task.php">Завдання 2: Зміна імені кнопки</a></div>
             <div class="row pic-centered task_desc_row"><a href="/validator/tasks/03_Button_03/task.php">Завдання 3: Розміщення кнопки на формі</a></div>
             <div class="row pic-centered task_desc_row"><a href="/validator/tasks/03_Button_04/task.php">Завдання 4: Подія на кнопці</a></div>
+            <div class="row pic-centered task_desc_row"><a href="/validator/tasks/03_Button_05/task.php">Завдання 5: Робота з полем для вводу тексту</a></div>
         </div>
     </div>
 </div>

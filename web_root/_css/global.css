@@ -430,6 +430,18 @@ body {
   width: 90vw;
 }
 
+#headerModal {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  
+}
+
+#userPhotoModal{
+
+}
+
 /* https://materializecss.com/ */
 .user-result {
   /* border: 1px solid #000; */
@@ -547,3 +559,6 @@ progress {
   font-weight: bold;
   margin: 3px 5px 0px 0px;
 }
+
+
+/*  */

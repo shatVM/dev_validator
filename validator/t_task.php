@@ -405,7 +405,8 @@ if(isset($_SESSION["vr_percent"])){
   if($_SESSION["vr_percent"] == 100){
     //destory session vars with validation results:
     //show completed screen:
-    echo("$('#myModalSuccess').modal('show');");
+    //echo("$('#myModalSuccess').modal('show');");
+    echo("$('#myModal').modal('show');");
   }
   //zero the score to prevent new modal screen:
   $_SESSION["vr_percent"] = "0";
