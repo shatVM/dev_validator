@@ -1,8 +1,17 @@
 <?php
 $b_is_local = true;
+$is_local = 0;
+$s_domain;
 
-$s_domain = "https://dev-validator.ztu.edu.ua/";  //remote server
-//$s_domain = "http://localhost/";  //local server
+if ($is_local == 1) {
+  $s_domain = "http://localhost/";  //local server
+}else {
+
+  $s_domain = "https://dev-validator.ztu.edu.ua/";  //remote server
+ 
+}
+
+
 
 $b_use_access_wall = true;   //login required
 $b_do_debug = false;		 //do debug global
