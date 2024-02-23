@@ -149,26 +149,27 @@ async function getUserData(uid) {
 //Get all documents in a collection
 // async function showModalResults(uid, selectedClass) {
 async function showModalResults(uid) {
-  //
+  console.log('Запуск події showModalResults(uid) ' + userLocal.userName + ' ' + userLocal.uid)
+  
   document.getElementById("userNameModal").innerText = userLocal.userName
-    ? userLocal.userName 
+    ? userLocal.userName
     : "Невідомий користувач";
   document.getElementById("userPhotoModal").src = userLocal.userPhoto
     ? userLocal.userPhoto
     : "_img/anonymous.png";
-    document.getElementById("userClassModal").innerText = userLocal.userGroup
+  document.getElementById("userClassModal").innerText = userLocal.userGroup
     ? userLocal.userGroup + " " + userLocal.userSubGroup
     : "";
-    
 
-    //textSuccess
+
+  //textSuccess
 
   // selectedClass = document.getElementById('selectClass')
-  if (document.getElementById("progress") && document.getElementById("progress").innerText == "Твій прогрес: 100%"){
-    console.log(100)
+  if (document.getElementById("progress") && document.getElementById("progress").innerText == "Твій прогрес: 100%") {
+    //console.log(100)
     document.getElementById("Success").style.display = "block";
   } else {
-    console.log(0)
+    //console.log(0)
     document.getElementById("Success").style.display = "none";
   }
   // selectedClass.addEventListener('change', event => {
@@ -183,12 +184,14 @@ async function showModalResults(uid) {
   if (templateDoc.exists) {
     // console.log('Document data:', templateDoc.data());
 
+    let lessonsList = document.getElementById("userResult");
+    lessonsList.innerText = '' //Очищення модального вікна 
+
     var tasksList = templateDoc.data().tasks;
     Object.entries(tasksList)
       .sort()
       .forEach((property) => {
-        let lessonsList = document.getElementById("userResult");
-        
+
 
         //https://learn.javascript.ru/modifying-document Изменение документа
         //контейнер для відображення результатів
@@ -334,7 +337,7 @@ function showResultOfSelectedClass() {
       });
     });
 
-    
+
 }
 //[END] фільтрація класів за вибором
 

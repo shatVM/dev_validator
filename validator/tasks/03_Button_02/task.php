@@ -8,16 +8,16 @@ $cls_Task->s_title = "Button_02";
 $cls_Task->s_id = "03_Button_02";
 $cls_Task->s_description = "Зміна імені кнопки";
 
-$cls_Task->_add_step("1. Створити проект <b>Button_02</b> у рішенні <b>WindowsForms</b> .");
-$cls_Task->_add_step("2. Завантажити програму у <b>С-VALIDATOR</b>.");
-$cls_Task->_add_step("3. Добитися повної валідації програми.");
-$cls_Task->_add_step("4. Зберегти програму у папку <b>Production</b>.");
+$cls_Task->_add_step("Створити проект <b>Button_02</b> у рішенні <b>WindowsForms</b> .");
+$cls_Task->_add_step("Завантажити програму у <b>С-VALIDATOR</b>.");
+$cls_Task->_add_step("Добитися повної валідації програми.");
+$cls_Task->_add_step("Зберегти програму у папку <b>Production</b>.");
 
 $cls_Task->_add_screen("Вигляд програми:", "0.png");
 
 $cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");
 $cls_Task->_add_property("Availability of Form", "Наявність форми", "");
-$cls_Task->_add_property("Application name", "Ім'я програми", "Button_02.exe");
+$cls_Task->_add_property("Project name", "Ім'я програми", "Button_02");
 $cls_Task->_add_property("AutoScaleMode", "Режим перерахунку форми", "None");
 $cls_Task->_block_end();
 
@@ -29,9 +29,8 @@ $cls_Task->_block_end();
 
 $cls_Task->_add_screen("Вигляд програми:", "0.png");
 
-$cls_Task->s_learn_url = "https://docs.google.com/document/d/1ZZgKuX8jBzROxZpQMF0xoWBmxvjeD0nIIPz5oVXdhso/edit?usp=sharing";
-$cls_Task->s_youtube_url = "https://youtu.be/hP0UsFULLuU";
-$cls_Task->s_discuss_url = "https://www.facebook.com/groups/1487277621317029/";
+$cls_Task->s_learn_url = "https://web.archive.org/web/20220709194753/https://informatics.in.ua/programming_csharp/part_02.php";
+$cls_Task->s_youtube_url = "https://web.archive.org/web/20220709194753/https://informatics.in.ua/programming_csharp/part_02.php";
 //-------------------------------------------------->
 //run:
 include($s_v_app_root."t_task.php");

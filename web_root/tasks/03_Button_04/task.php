@@ -54,9 +54,9 @@ $cls_Task->_add_screen("Вигляд програми до натиснення 
 $cls_Task->_add_screen("Вигляд програми після натиснення на кнопку:", "1.png");
 $cls_Task->_block_end();
 
-$cls_Task->s_learn_url = "https://learn.ztu.edu.ua/mod/page/view.php?id=10041";
-$cls_Task->s_youtube_url = "https://youtu.be/hP0UsFULLuU";
-$cls_Task->s_discuss_url = "https://www.facebook.com/groups/1487277621317029/";
+$cls_Task->s_learn_url = "https://web.archive.org/web/20220709194754/https://informatics.in.ua/programming_csharp/part_03.php";
+$cls_Task->s_youtube_url = "";
+$cls_Task->s_discuss_url = "";
 
 include($s_v_app_root."t_task.php");
 ?>

@@ -8,11 +8,14 @@ $cls_Task->s_title = "Button_00";
 $cls_Task->s_id = "03_Button_00";
 $cls_Task->s_description = "Додавання кнопки на форму";
 
-$cls_Task->_add_step("1. Створити проект <b>Button_00</b> у рішенні <b>WindowsForms</b>.");
-$cls_Task->_add_step("2. Створити форму відповідно специфікації.");
-$cls_Task->_add_step("3. Додати на форму кнопку з <b>Панелі елементів</b>.");
-$cls_Task->_add_step("4. Завантажити програму у <b>DEV-VALIDATOR</b>.");
-$cls_Task->_add_step("5. Добитися повної валідації програми.");
+
+
+$cls_Task->_add_step("Створити проект <b>Button_00</b> у рішенні <b>WindowsForms</b>.");
+$cls_Task->_add_step("Створити форму відповідно специфікації.");
+$cls_Task->_add_step("Відобразити <b>Toolbox - Панель елементів</b>, для цього виконати <b>View - Toolbox</b>");
+$cls_Task->_add_step("Додати на форму кнопку з <b>Панелі елементів</b>.");
+$cls_Task->_add_step("Завантажити програму у <b>DEV-VALIDATOR</b>.");
+$cls_Task->_add_step("Добитися повної валідації програми.");
 
 
 $cls_Task->_add_screen("Вигляд програми:", "0.png");
@@ -29,9 +32,9 @@ $cls_Task->_add_property("Name", "Ім'я кнопки", "button1");
 $cls_Task->_add_property("Text", "Текст кнопки", "button1");
 $cls_Task->_add_screen("Вигляд програми:", "0.png");
 
-$cls_Task->s_learn_url = "https://docs.google.com/document/d/1ZZgKuX8jBzROxZpQMF0xoWBmxvjeD0nIIPz5oVXdhso/edit?usp=sharing";
-$cls_Task->s_youtube_url = "https://youtu.be/hP0UsFULLuU";
-$cls_Task->s_discuss_url = "https://www.facebook.com/groups/1487277621317029/";
+$cls_Task->s_learn_url = "https://web.archive.org/web/20220709194753/https://informatics.in.ua/programming_csharp/part_02.php";
+$cls_Task->s_youtube_url = "https://web.archive.org/web/20220709194753/https://informatics.in.ua/programming_csharp/part_02.php";
+
 //-------------------------------------------------->
 //run:
 include($s_v_app_root."t_task.php");
