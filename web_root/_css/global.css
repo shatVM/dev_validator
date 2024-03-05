@@ -14,6 +14,8 @@ body {
   font-size: 16px;
 }
 
+
+
 .btn-browse {
   width: 200px !important;
   margin-left: 46px;
@@ -568,3 +570,6 @@ progress {
 
 
 /*  */
+.theory {
+  text-align: center;
+}

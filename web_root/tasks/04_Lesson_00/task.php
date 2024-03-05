@@ -133,7 +133,7 @@ $cls_Task->_add_step("<div class='container'>
 <table class='table table-striped table-bordered'>
     <tbody><tr align='center'>
         <th width='120'>Оператор</th>
-        <th width='400'>Опис</th>
+        <th width='320'>Опис</th>
         <th width='*'>Приклади</th>
     </tr>
     <tr>
@@ -186,30 +186,22 @@ $cls_Task->_add_step("<p class='container'>
 
 <b><i>Приклади оголошення змінних:</b></i><br>
 
-<pre >
-    <code class='cs hljs'>
-        byte a; <br>
-        int s, t; <br>
-        double v; <br>
-    </code>
-</pre>		
-
+<code>
+    byte a; <br>
+    int s, t; <br>
+    double v; <br>
+</code>
+			
 Надання змінній початкового значення називається ініціалізацією. Оголошення змінної та її ініціалізацію можна об’єднувати в один запис, наприклад: <br>
-
-<pre >
-    <code class='cs hljs'>
-        byte a = 7; <br>
-        int s = 130, t = 2; <br>
-    </code>	
-</pre >	
-
+<code>
+    byte a = 7; <br>
+    int s = 130, t = 2; <br>
+</code>			
 Знак “=” в мові C# називають оператором присвоювання. В загальному, операція присвоювання має такий вигляд: <br>
 
-<pre >
-    <code class='cs hljs'>
-        ім’я змінної = значення або вираз; <br>
-    </code>	
-</pre >
+<code>
+    ім’я змінної = значення або вираз; <br>
+</code>	
 
 Якщо справа від знаку “=” записано вираз, то він спочатку обчислюється, а потім результат присвоюється змінній, ім’я якої записано ліворуч.
 </p>");

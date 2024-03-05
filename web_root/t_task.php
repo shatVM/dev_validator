@@ -1,5 +1,3 @@
-
-
 <?php
 error_reporting(E_ALL); //debug:
 ini_set('display_errors', 1);
@@ -17,7 +15,24 @@ $_SESSION['s_task_page'] = $s_task_page;
 if($b_use_access_wall){
   include($s_v_app_root."access_wall.php");
 }
-$_SESSION["s_task_id"] = $cls_Task->s_id;
+if($cls_Task->s_id === ""){
+	//Сторінка теорії з порожнім s_id
+	//Приховується кнопку відправки завдання та смуга прогресу
+	echo "<script>";
+    echo "document.addEventListener('DOMContentLoaded', function() {";
+    echo "var btnUploadSquare = document.getElementById('btnUploadSquare');";
+    echo "if (btnUploadSquare) {";
+    echo "btnUploadSquare.style.display = 'none';";
+    echo "}";
+	echo "var progressbar = document.getElementById('progress');";
+    echo "if (progressbar) {";
+    echo "progressbar.style.display = 'none';";
+    echo "}";
+    echo "});";
+    echo "</script>";
+}else{
+	$_SESSION["s_task_id"] = $cls_Task->s_id;
+}
 
 //fix rocket flying too far:
 // if(isset($_SESSION["vr_percent"])){
@@ -123,7 +138,7 @@ $_SESSION["s_task_id"] = $cls_Task->s_id;
 		<!-- validation upload -------------------------------------------->
 
 		<hr>
-        <h2 class="centered">Теорія:</h2>
+        <h2 class="centered">Теоретична частина:</h2>
 		<br>
 		
 		<!-- steps ---------------------------------------------------------->
