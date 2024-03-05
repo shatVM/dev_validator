@@ -149,7 +149,8 @@ async function getUserData(uid) {
 //Get all documents in a collection
 // async function showModalResults(uid, selectedClass) {
 async function showModalResults(uid) {
-  //
+  console.log('Запуск події showModalResults(uid) ' + userLocal.userName + ' ' + userLocal.uid)
+  
   document.getElementById("userNameModal").innerText = userLocal.userName
     ? userLocal.userName
     : "Невідомий користувач";
@@ -182,7 +183,7 @@ async function showModalResults(uid) {
 
   if (templateDoc.exists) {
     // console.log('Document data:', templateDoc.data());
-    
+
     let lessonsList = document.getElementById("userResult");
     lessonsList.innerText = '' //Очищення модального вікна 
 
