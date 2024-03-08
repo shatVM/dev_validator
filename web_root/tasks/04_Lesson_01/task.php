@@ -8,6 +8,10 @@ $cls_Task->s_title = "Квадрат";
 $cls_Task->s_id = "01_Square";
 $cls_Task->s_description = "робота з цілими числами";
 
+$cls_Task->_add_step("<b>Опис:</b> <i>даний додаток дозволяє при введені сторони квадрату обрахувати та вивести його периметр та площу.</i>");
+$cls_Task->_add_step("Створити проект <b>task_1</b> у рішенні <b>lesson_4</b>");
+$cls_Task->_add_step("Завантажити програму у <b>DEV-VALIDATOR</b>.");
+$cls_Task->_add_step("Добитися повної валідації програми.");
 $cls_Task->_add_step("Перейдемо до практики. Напишемо програму для знаходження периметра і площі квадрату, якщо відомо його сторону (ціле число).
 
 В переважній більшості програм на обчислення можна виділити три етапи: <br>
@@ -84,7 +88,6 @@ $cls_Task->_add_step("
 
 ");
 
-$cls_Task->_add_screen("Вигляд програми","0.png");
 
 $cls_Task->_add_step("<p>
 Домовимося в текстове поле записувати за замовчуванням число 0. Окрім текстового поля вікно програми повинно містити кнопку, яка запускає обчислювальний процес, а також, написи для виведення відповідей. Перейдемо у конструктор форм і створимо інтерфейс майбутньої програми згідно зразка.
@@ -150,20 +153,16 @@ $cls_Task->_add_step("<p>
 </p>");
 
 
-$cls_Task->_add_step("<b>Опис:</b> <i>даний додаток дозволяє при введені сторони квадрату обрахувати та вивести його периметр та площу.</i>");
-$cls_Task->_add_step("Створити проект <b>task_1</b> у рішенні <b>lesson_4</b>");
-$cls_Task->_add_step("Завантажити програму у <b>DEV-VALIDATOR</b>.");
-$cls_Task->_add_step("Добитися повної валідації програми.");
 
-$cls_Task->_add_screen("Вигляд програми","0.png");
+$cls_Task->_add_screen("Вигляд програми","2.png");
 
 $cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");
 $cls_Task->_add_property("Availability of Form", "Наявність форми", "");
-$cls_Task->_add_property("Application name", "Ім'я програми", ">task_1.exe");
+$cls_Task->_add_property("Application name", "Ім'я програми", "task_1.exe");
 $cls_Task->_add_property("AutoScaleMode", "Режим перерахунку форми", "None");
 $cls_Task->_add_property("Text", "Текст Форми", "Квадрат");
-$cls_Task->_add_property("Size.Width", "Ширина форми (в пікселях)", "800");
-$cls_Task->_add_property("Size.Height", "Висота форми (в пікселях)", "600");
+$cls_Task->_add_property("Size.Width", "Ширина форми (в пікселях)", "600");
+$cls_Task->_add_property("Size.Height", "Висота форми (в пікселях)", "400");
 $cls_Task->_add_property("StartPosition", "Початкова позиція", "По центру екрана");
 $cls_Task->_add_property("Font.Size", "Розмір шрифту", "20");
 $cls_Task->_block_end();
@@ -182,32 +181,31 @@ $cls_Task->_block_start("Додати компонент: Label (напис)", "
 $cls_Task->_add_property("Exists", "Наявність", "");
 $cls_Task->_add_property("Name", "Ім'я", "lb_Perimeter");
 $cls_Task->_add_property("Text", "Текст", "Периметр = 0");
-$cls_Task->_add_property("Font.Bold", "Жирний", "true");
+//$cls_Task->_add_property("Font.Bold", "Жирний", "true");
 $cls_Task->_block_end();
 
 $cls_Task->_block_start("Додати компонент: Label (напис)", "_add_object.png");
 $cls_Task->_add_property("Exists", "Наявність", "");
 $cls_Task->_add_property("Name", "Ім'я", "lb_Square");
 $cls_Task->_add_property("Text", "Текст", "Площа = 0");
-$cls_Task->_add_property("Font.Bold", "Жирний", "true");
+//$cls_Task->_add_property("Font.Bold", "Жирний", "true");
 $cls_Task->_block_end();
 
 
 $cls_Task->_block_start("Додати компонент: Button (кнопка)", "_add_object.png");
 $cls_Task->_add_property("Exists", "Наявність", "");
-$cls_Task->_add_property("Name", "Ім'я", "button1");
-
-$cls_Task->_add_property("Text", "Текст", "обчислити");
+$cls_Task->_add_property("Name", "Ім'я", "btn_Calculate");
+$cls_Task->_add_property("Text", "Текст", "Обчислити");
 $cls_Task->_block_end();
 
-$cls_Task->_block_start("Сгенерувати подію <b>Click</b> для кнопки: <b>button1</b>", "_add_event.png");
-$cls_Task->_add_code_validated("Код події:", "private void button1_Click(object sender, EventArgs e)
+$cls_Task->_block_start("Сгенерувати подію <b>Click</b> для кнопки: <b>btn_Calculate</b>", "_add_event.png");
+$cls_Task->_add_code_validated("Код події:", "private void btn_Calculate_Click(object sender, EventArgs e)
 {
     
 }", "");
 $cls_Task->_block_end();
 
-$cls_Task->_block_start("Написати код обробника події <b>button1_Click</b>:", "_add_code.png");
+$cls_Task->_block_start("Написати код обробника події <b>btn_Calculate_Click</b>:", "_add_code.png");
 $cls_Task->_add_code_validated("Вписати код:", "
 
  //Ініціалізація сторони та її зчитування
@@ -220,17 +218,15 @@ P = 4 * Side;
 S = Side * Side;
 
 //Виведення периметра та площі квадрата
-lb_Perimeter.Text = \"Периметр = \" + p.ToString(\"#.##\");
-lb_Square.Text = \"Площа = \" + s.ToString(\"#.##\");
+lb_Perimeter.Text = \"Периметр = \" + P.ToString(\"#.##\");
+lb_Square.Text = \"Площа = \" + S.ToString(\"#.##\");
 
 ", "");
 $cls_Task->_add_property("lb_Perimeter.Text", "Текст ", "<i>Розраховані програмою значення</i>");
 $cls_Task->_add_property("lb_Square.Text", "Текст ", "<i>Розраховані програмою значення</i>");
-$cls_Task->_add_screen("Вигляд програми після введення значення та натискання на кнопку <b>Разрахувати</b>","2.png");
+$cls_Task->_add_screen("Вигляд програми після введення значення та натискання на кнопку <b>Обчислити</b>","2.png");
+$cls_Task->_add_screen("Вигляд програми після введення значення та натискання на кнопку <b>Обчислити</b>","3.png");
 $cls_Task->_block_end();
-
-
-$cls_Task->_add_screen("Вигляд програми","0.png");
 
 $cls_Task->s_learn_url = "";
 $cls_Task->s_youtube_url = "";

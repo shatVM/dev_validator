@@ -150,7 +150,7 @@ async function getUserData(uid) {
 // async function showModalResults(uid, selectedClass) {
 async function showModalResults(uid) {
   console.log('Запуск події showModalResults(uid) ' + userLocal.userName + ' ' + userLocal.uid)
-  
+
   document.getElementById("userNameModal").innerText = userLocal.userName
     ? userLocal.userName
     : "Невідомий користувач";
@@ -158,7 +158,7 @@ async function showModalResults(uid) {
     ? userLocal.userPhoto
     : "_img/anonymous.png";
   document.getElementById("userClassModal").innerText = userLocal.userGroup
-    ? userLocal.userGroup + " " + userLocal.userSubGroup
+    ? userLocal.userGroup + " " + userLocal.userSubGroup + '\nID: ' + userLocal.uid
     : "";
 
 
@@ -310,11 +310,16 @@ export { testSend, testGet };
 
 //[START] фільтрація класів за вибором
 function showResultOfSelectedClass() {
+
+  //Додати кнопку для показу групи та підгрупи
+
   document
     .getElementById("selectClass")
     .addEventListener("change", function (event) {
       var selectedValue = event.target.value;
       // console.log(selectedValue);
+
+  
 
       // Отримуємо всі елементи з класом 'userResult'
       var userResults = document.querySelectorAll(".userResult");
@@ -322,22 +327,56 @@ function showResultOfSelectedClass() {
       // Перебираємо кожен елемент
       userResults.forEach(function (userResult) {
         userResult.style.display = "none";
+       
         // Отримуємо елемент з класом 'userClass' в кожному блоку 'userResult'
         var userClassElement = userResult.querySelector(".userClass");
 
         // Перевіряємо, чи має 'userClass' значення '11-А'
         if (selectedValue === "Всі") {
           userResult.style.display = "flex";
+
         }
 
         if (userClassElement.textContent.trim() === selectedValue) {
           // Якщо так, відображаємо блок
           userResult.style.display = "flex";
+          userResult.classList.add('selectedGroup')
         }
       });
     });
 
+  //showResultOfSelectedSubGroup()
 
+  document
+    .getElementById("selectSubGroup")
+    .addEventListener("change", function (event) {
+      var selectedSubGroupValue = event.target.value;
+      console.log(selectedSubGroupValue);
+
+      // Отримуємо всі елементи з класом 'userResult'
+      var userResults = document.querySelectorAll(".selectedGroup");
+      //console.log(userResults);
+      // Перебираємо кожен елемент
+      userResults.forEach(function (userResult) {
+        //if (userResult.style.display = "flex")
+         {
+          //userResult.style.display = "none";
+          // Отримуємо елемент з класом 'userSubGroup' в кожному блоку 'userResult'
+          var userSubGroupElement = userResult.querySelector(".userSubGroup");
+
+          // Перевіряємо, чи має 'userClass' значення '11-А'
+          // if (selectedSubGroupValue === "Всі") {
+          //   userResult.style.display = "flex";
+          // }
+
+          if (userSubGroupElement.textContent.trim() != selectedSubGroupValue) {
+            // Якщо так, відображаємо блок
+            userResult.style.display = "none";
+          }
+        }
+
+      });
+    });
 }
 //[END] фільтрація класів за вибором
 
@@ -376,7 +415,7 @@ function showResultOfSelectedSubGroup() {
 // [START] Рейтинг______________________________________
 async function showRating() {
   showResultOfSelectedClass();
-  showResultOfSelectedSubGroup()
+  //showResultOfSelectedSubGroup()
 
   // if (uid.exists) {
   //   //----------------

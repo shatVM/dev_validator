@@ -11,7 +11,7 @@ $cls_Task->s_description = "Подія при натисканні кнопки"
 $cls_Task->_add_step("1. Створити проект <b>Button_04</b> у рішенні <b>WindowsForms</b>.");
 $cls_Task->_add_step("2. Завантажити програму у <b>C-VALIDATOR</b>.");
 $cls_Task->_add_step("3. Добитися повної валідації програми.");
-$cls_Task->_add_step("4. Зберегти програму у папку <b>Production</b>.");
+
 
 $cls_Task->_block_start("Зміна тексту кнопки при натисканні на неї", "_form.png");
 $cls_Task->_add_screen("Вигляд програми до натиснення на кнопку:", "0.png");

@@ -133,6 +133,24 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dev_root", "dev_root\", "{A
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "60817"
+	EndProjectSection
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_60817"
+		Debug.AspNetCompiler.PhysicalPath = "dev_root\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60817\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_60817"
+		Release.AspNetCompiler.PhysicalPath = "dev_root\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60817\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "60817"
 		SlnRelativePath = "dev_root\"
 	EndProjectSection
 EndProject
@@ -145,6 +163,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Seasons", "01_Seasons", "{9069A84F-7BFD-4E52-BEBE-668528F4EAC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1_Winter", "tasks_source_code\01_Seasons_01\1_Winter.csproj", "{99BCC9DE-F9C1-4DDF-A73B-88CD2C2B0FC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_Lesson", "04_Lesson", "{C1CE1411-942B-487A-9CC8-EE6A35A41707}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_Lesson_01", "tasks_source_code\04_Lesson_01\04_Lesson_01.csproj", "{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -458,6 +480,14 @@ Global
 		{99BCC9DE-F9C1-4DDF-A73B-88CD2C2B0FC3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{99BCC9DE-F9C1-4DDF-A73B-88CD2C2B0FC3}.Release|x86.ActiveCfg = Release|Any CPU
 		{99BCC9DE-F9C1-4DDF-A73B-88CD2C2B0FC3}.Release|x86.Build.0 = Release|Any CPU
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}.Debug|x86.Build.0 = Debug|Any CPU
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}.Release|x86.ActiveCfg = Release|Any CPU
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -506,6 +536,8 @@ Global
 		{F6D6D26E-69CB-49A3-8357-FCDBD343F093} = {71998DC1-F896-4F0D-9C47-5F085D0AD131}
 		{9069A84F-7BFD-4E52-BEBE-668528F4EAC5} = {413FB722-6CC8-4EDC-88CC-DE643CEF879F}
 		{99BCC9DE-F9C1-4DDF-A73B-88CD2C2B0FC3} = {9069A84F-7BFD-4E52-BEBE-668528F4EAC5}
+		{C1CE1411-942B-487A-9CC8-EE6A35A41707} = {413FB722-6CC8-4EDC-88CC-DE643CEF879F}
+		{6AB7774B-60D9-435B-8EF2-24CB39A0BC68} = {C1CE1411-942B-487A-9CC8-EE6A35A41707}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24A63605-5F2D-439D-81C1-5E775F49DF3C}

@@ -53,6 +53,7 @@ namespace ns_d_code
 				cls_output_controller._v_parm(btn1.Text, "Text", "Скопіювати текст");
 				//валидация: или есть ивент ("EventClick") у данного инстанса контрола (btn1):
 				cls_output_controller._v_HasEventHandler(btn1, "EventClick");
+				
 				//Перевірка події на кнопці:
 				//встановлюємо невідомий учню контрольний маркер:
 				tb1.Text = "test-value-012345";

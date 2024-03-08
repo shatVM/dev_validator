@@ -11,7 +11,7 @@ $cls_Task->s_description = "Зміна імені кнопки";
 $cls_Task->_add_step("Створити проект <b>Button_02</b> у рішенні <b>WindowsForms</b> .");
 $cls_Task->_add_step("Завантажити програму у <b>С-VALIDATOR</b>.");
 $cls_Task->_add_step("Добитися повної валідації програми.");
-$cls_Task->_add_step("Зберегти програму у папку <b>Production</b>.");
+
 
 $cls_Task->_add_screen("Вигляд програми:", "0.png");
 
