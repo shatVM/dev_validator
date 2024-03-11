@@ -24,5 +24,20 @@ namespace WindowsApplication1
             lb_Perimeter.Text = "Периметр = " + P.ToString("#.##");
             lb_Square.Text = "Площа = " + S.ToString("#.##");
         }
+
+        private void lb_Perimeter_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_Square_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tb_Input_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
