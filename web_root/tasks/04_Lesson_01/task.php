@@ -5,7 +5,7 @@ require($s_v_app_root."task_core.php");
 $cls_Task = new cls_Task();
 //-------------------------------------------------->
 $cls_Task->s_title = "Квадрат";
-$cls_Task->s_id = "01_Square";
+$cls_Task->s_id = "04_Lesson_01";
 $cls_Task->s_description = "робота з цілими числами";
 
 $cls_Task->_add_step("<b>Опис:</b> <i>даний додаток дозволяє при введені сторони квадрату обрахувати та вивести його периметр та площу.</i>");
@@ -181,14 +181,12 @@ $cls_Task->_block_start("Додати компонент: Label (напис)", "
 $cls_Task->_add_property("Exists", "Наявність", "");
 $cls_Task->_add_property("Name", "Ім'я", "lb_Perimeter");
 $cls_Task->_add_property("Text", "Текст", "Периметр = 0");
-//$cls_Task->_add_property("Font.Bold", "Жирний", "true");
 $cls_Task->_block_end();
 
 $cls_Task->_block_start("Додати компонент: Label (напис)", "_add_object.png");
 $cls_Task->_add_property("Exists", "Наявність", "");
 $cls_Task->_add_property("Name", "Ім'я", "lb_Square");
 $cls_Task->_add_property("Text", "Текст", "Площа = 0");
-//$cls_Task->_add_property("Font.Bold", "Жирний", "true");
 $cls_Task->_block_end();
 
 
@@ -222,11 +220,20 @@ lb_Perimeter.Text = \"Периметр = \" + P.ToString(\"#.##\");
 lb_Square.Text = \"Площа = \" + S.ToString(\"#.##\");
 
 ", "");
-$cls_Task->_add_property("lb_Perimeter.Text", "Текст ", "<i>Розраховані програмою значення</i>");
-$cls_Task->_add_property("lb_Square.Text", "Текст ", "<i>Розраховані програмою значення</i>");
+$cls_Task->_block_end();
+
+
+$cls_Task->_block_start("Виконати тестування програми, здійснивши введення власних даних та проаналізувавши отриманий результат:", "_form.png");
+
 $cls_Task->_add_screen("Вигляд програми після введення значення та натискання на кнопку <b>Обчислити</b>","2.png");
 $cls_Task->_add_screen("Вигляд програми після введення значення та натискання на кнопку <b>Обчислити</b>","3.png");
 $cls_Task->_block_end();
+
+$cls_Task->_block_start("Виконати валідацію програми:", "_form.png");
+$cls_Task->_add_property("lb_Perimeter.Text", "Текст ", "<i>Розраховані програмою значення</i>");
+$cls_Task->_add_property("lb_Square.Text", "Текст ", "<i>Розраховані програмою значення</i>");
+$cls_Task->_block_end();
+
 
 $cls_Task->s_learn_url = "";
 $cls_Task->s_youtube_url = "";
