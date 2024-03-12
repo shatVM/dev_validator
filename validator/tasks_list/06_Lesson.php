@@ -12,8 +12,8 @@
         target='_blank'>📄<b>PDF</b></a>
       <a href="https://web.archive.org/web/20220709194752/https://informatics.in.ua/programming_csharp/part_06.php"
         target='_blank'>🖥<b>Web</b></a>
-      <div class="row pic-centered task_desc_row"><a href="/validator/tasks/06_Lesson_01/task.php">Task_1: Мінімум</a>
-      </div>
+      <!-- <div class="row pic-centered task_desc_row"><a href="/validator/tasks/06_Lesson_01/task.php">Task_1: Мінімум</a>
+      </div> -->
 
 
 

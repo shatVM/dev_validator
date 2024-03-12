@@ -4,44 +4,89 @@ require("../../main_config.php");
 require($s_v_app_root."task_core.php");
 $cls_Task = new cls_Task();
 //-------------------------------------------------->
-//titles:
-$cls_Task->s_title = "Task_1.exe";
-$cls_Task->s_id = "02_Lesson_1";
-$cls_Task->s_description = "Task_1: Натискання на кнопку";
+$cls_Task->s_title = "Середовище розробки Microsoft Visual Studio";
+$cls_Task->s_id = "";//Порожнє значення для теорії
+$cls_Task->s_description = "";
 
-//steps:
-$cls_Task->_add_step("Створити проект <b>Lesson_2.sln</b> у власній папці <b>Документи\C#</b>");
-$cls_Task->_add_step("Вибрати шаблон <b>Windows Forms App (.Net Framework)</b>");
-$cls_Task->_add_step("Назвати проект <b>Task_1</b>");
-$cls_Task->_add_step("Цей проект буде дочірнім до <b>Lesson_2</b>");
-$cls_Task->_add_step("https://youtu.be/8uyRd-aKlSI");
-$cls_Task->_block_end();
+$cls_Task->_add_step("<p class='container '>Visual Studio – інтегроване середовище розробки програмного забезпечення від фірми
+Microsoft. Дане середовище дозволяє створювати різноманітні програмні продукти: консольні
+програми, програми з графічним інтерфейсом, наприклад віконні додатки Windows Forms, а
+також Web-додатки тощо. Середовище Visual Studio дозволяє розробляти додатки, використовуючи різні мови програмування: Visual C#, Visual Basic, Visual F#, Visual C++, Python і т.д. (рис. 1.1). Також існує
+можливість розробляти додатки не тільки під Windows, а і під інші популярні платформи: Android, iOS. Версія Visual Studio Community є абсолютно безкоштовною для учнів, студентів та розробників програм з відкритим
+програмним кодом.<br>
+▶️ Для установки на ПК Visual Studio Community за допомогою Web Installer потрібно перейти за посиланням: <a href = 'https://go.microsoft.com/fwlink/?LinkId=691978&clcid;=0x419' target='_blank'>https://go.microsoft.com/fwlink/?LinkId=691978&clcid;=0x419</a><br>
+▶️ Для завантаження іso-образу Visual Studio Community 2015 (7,1Гб) перейдіть за наступним посиланням: <a href = 'https://go.microsoft.com/fwlink/?LinkId=615448&clcid;=0x409' target='_blank'>https://go.microsoft.com/fwlink/?LinkId=615448&clcid;=0x409</a><br>
+▶️ За даним посиланням можна завантажити та встановити попередні версії програмного забезпечення Visual Studio <a href = 'https://visualstudio.microsoft.com/ru/vs/older-downloads/' target='_blank'>https://visualstudio.microsoft.com/ru/vs/older-downloads/</a></p>
+");
+
+$cls_Task->_add_step("<p class='container'><b>Властивості Форми</b></p>");
+$cls_Task->_add_step("<div class='container'>
+<table class='table table-striped table-bordered'>
+    <tbody><tr align='center'>
+					<th width='180'>Властивість</th>
+					<th width='*'>Пояснення</th>
+				</tr>
+				<tr>
+					<td>Text</td>
+					<td>Заголовок вікна</td>
+				</tr>
+				<tr>
+					<td>Size
+						<ul class='property'>
+							<li>Width</li>
+							<li>Height</li>
+						</ul>
+					</td>
+					<td>Розмір форми (ширина; висота)*</td>
+				</tr>
+				<tr>
+					<td>BackColor</td>
+					<td>Колір фону форми</td>
+				</tr>
+				<tr>
+					<td>BackgroundImage</td>
+					<td>Фоновий малюнок форми</td>
+				</tr>
+				<tr>
+					<td>BackgroundImageLayout</td>
+					<td>Спосіб відображення фонового малюнку форми:
+						<ul class='property'>
+							<li>Zoom (зображення приймає розміри форми, зберігаючи пропорції);</li>
+							<li>Stretch (зображення заповнює всю форму, при цьому пропорції не зберігаються)</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>StartPosition</td>
+					<td>Позиція форми на екрані після запуску:
+						<ul class='property'>
+							<li>Manual (лівий верхній кут форми знаходиться в координатах, заданих у властивості Location);</li>
+							<li>CenterScreen (форма з’являється в центрі екрана)</li>
+						</ul></td>
+				</tr>
+				<tr>
+					<td>Location
+						<ul class='property'>
+							<li>X</li>
+							<li>Y</li>
+						</ul></td>
+					<td>Координати лівого верхнього кута форми по відношенню до лівого верхнього кута екрану. Дана властивість працює, якщо значення властивості StartPosition= Manual</td>
+				</tr>
+				<tr>
+					<td>Opacity</td>
+					<td>Відсоток непрозорості форми</td>
+				</tr>
+			</tbody>
+</table>
+</div>");
 
 
-$cls_Task->_add_step("<b>Виконати валідацію програми</b>");
-$cls_Task->_add_step(" - Завантажити програму у <b>DEV-VALIDATOR</b>");
-$cls_Task->_add_step(" - Добитися повної валідації програми, змінюючи потрібні властивості");
-$cls_Task->_add_step("https://youtu.be/pmEmg_AU4Lw?si=6HZN688PwYChB1Vx");
+$cls_Task->_add_step("<p class='container'><b></b></p>");
+$cls_Task->_add_step("<p class='container'></p>");
 
-
-//validation blocks:
-$cls_Task->_block_start("Добитися валідації головної форми:", "_form.png");
-$cls_Task->_add_property("Availability of Form", "Наявність форми", "");
-$cls_Task->_add_property("Application name", "Ім'я програми", "Task_1");
-$cls_Task->_add_property("AutoScaleMode", "Режим перерахунку форми", "None");
-$cls_Task->_add_property("Text", "Текст Форми", "task_1");
-$cls_Task->_add_property("BackColor", "Колір Форми", "Довільний");
-$cls_Task->_add_property("Size.Width", "Довжина Форми (в пікселях)", "400");
-$cls_Task->_add_property("Size.Height", "Висота Форми (в пікселях)", "300");
-
-
-//f screen:
-$cls_Task->_add_screen("Кінцевий вигляд Форми:", "target_form.png");
-
-//help:
-$cls_Task->s_youtube_url = "https://youtu.be/xh2_WJrzxdY?si=a6U65Q9JsShYxgMJ";
-$cls_Task->s_learn_url = "https://learn.ztu.edu.ua/mod/page/view.php?id=9976";
-$cls_Task->s_discuss_url = "https://www.facebook.com/groups/1487277621317029/";
+$cls_Task->s_learn_url = "";
+$cls_Task->s_youtube_url = "";
+$cls_Task->s_discuss_url = "";
 //-------------------------------------------------->
 //run:
 include($s_v_app_root."t_task.php");

@@ -14,7 +14,7 @@
         target='_blank'>🖥<b>Web</b></a>
 
 
-        <div class="row pic-centered task_desc_row"><a
+        <!-- <div class="row pic-centered task_desc_row"><a
             href="https://drive.google.com/file/d/1baspLYKdpnJnGLCep7w4uGca8fRPonqg/view?usp=sharing"
             target='_blank'>Відеодопомога (завдання task_1)</a>
         </div>
@@ -25,7 +25,7 @@
         <div class="row pic-centered task_desc_row"><a href="/validator/tasks/05_Lesson_03/task.php">task_3: Обчислення
             площі круга з точністю 2 знаки після коми</a></div>
         <div class="row pic-centered task_desc_row"><a href="/validator/tasks/05_Lesson_04/task.php">task_4:обчислення
-            периметра, площі та діагоналі квадрата з точністю 1 знак після коми</a></div>
+            периметра, площі та діагоналі квадрата з точністю 1 знак після коми</a></div> -->
 
       </div>
     </div>

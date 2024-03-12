@@ -44,6 +44,21 @@ include_once("main_config.php");
           include("tasks_list/00_Lesson.php");
           ?>
 
+          <!-- task 01_Lesson block start -->
+          <?php
+          include("tasks_list/01_Lesson.php");
+          ?>
+
+          <!-- task 02_Lesson block start -->
+          <?php
+          include("tasks_list/02_Lesson.php");
+          ?>
+
+          <!-- task 03_Lesson block start -->
+          <?php
+          include("tasks_list/03_Lesson.php");
+          ?>
+
            <!-- task 04_Lesson block start -->
            <?php
           include("tasks_list/04_Lesson.php");
@@ -59,57 +74,72 @@ include_once("main_config.php");
           include("tasks_list/06_Lesson.php");
           ?>
 
+          <!-- task 07_Lesson block start -->
+          <?php
+          include("tasks_list/07_Lesson.php");
+          ?>
+
+          <!-- task 08_Lesson block start -->
+          <?php
+          include("tasks_list/08_Lesson.php");
+          ?>
+
+          <!-- task 09_Lesson block start -->
+          <?php
+          include("tasks_list/09_Lesson.php");
+          ?>
+
           <!-- task Season_01 block start -->
           <?php
-          include("tasks_list/01_Seasons.php");
+          include("tasks_list/00_Seasons.php");
           ?>
 
           <!-- task Forms block start -->
           <?php
-          include("tasks_list/01_Form.php");
+          include("tasks_list/11_Form.php");
           ?>
 
           <!-- task Event block start -->
           <!-- <?php
-          include("tasks_list/02_Event.php");
+          include("tasks_list/12_Event.php");
           ?> -->
 
           
           <!-- task 03_Button block start -->
           <?php
-          include("tasks_list/03_Button.php");
+          include("tasks_list/13_Button.php");
           ?>
 
          
 
           <!-- task Label block start -->
           <?php
-          include("tasks_list/04_Label.php");
+          include("tasks_list/14_Label.php");
           ?>
 
           <!-- task TextBox block start -->
           <?php
-          include("tasks_list/05_TextBox.php");
+          include("tasks_list/15_TextBox.php");
           ?>
 
           <!-- task PictureBox block start -->
           <?php
-          include("tasks_list/07_PictureBox.php");
+          include("tasks_list/17_PictureBox.php");
           ?>
 
           <!-- task Graphics block start -->
           <?php
-          include("tasks_list/06_Graphics.php");
+          include("tasks_list/29_Graphics.php");
           ?>
 
           <!-- task Math block start -->
           <?php
-          include("tasks_list/07_Math.php");
+          include("tasks_list/26_Math.php");
           ?>
 
           <!-- task Phisics block start -->
           <?php
-          include("tasks_list/08_Physics.php");
+          include("tasks_list/27_Physics.php");
           ?>
 
         </div>
