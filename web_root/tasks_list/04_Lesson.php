@@ -17,9 +17,9 @@
       </div>    
       <div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_01/task.php">task_1: Квадрат</a>
       </div>
-      <!-- <div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_02-/task.php">task_2: Середнє
+      <div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_02/task.php">task_2: Середнє
           арифметичне</a></div>
-      <div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_03-/task.php">task_3:
+      <!-- <div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_03-/task.php">task_3:
           Прямокутник</a></div>
       <div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_04-/task.php">task_4: Середина
           відрізку</a></div>

@@ -54,6 +54,11 @@ include_once("main_config.php");
           include("tasks_list/05_Lesson.php");
           ?>
 
+          <!-- task 06_Lesson block start -->
+          <?php
+          include("tasks_list/06_Lesson.php");
+          ?>
+
           <!-- task Season_01 block start -->
           <?php
           include("tasks_list/01_Seasons.php");

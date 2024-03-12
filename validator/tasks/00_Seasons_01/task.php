@@ -29,9 +29,12 @@ $cls_Task->_add_property("Application name", "Ім'я програми", "1_Wint
 $cls_Task->_add_property("AutoScaleMode", "Режим перерахунку форми", "None");
 $cls_Task->_add_property("Text", "Текст Форми", "Winter");
 $cls_Task->_add_property("BackColor", "Колір Форми", "White");
+$cls_Task->_add_property("Size.Width", "Ширина форми", "800");
+$cls_Task->_add_property("Size.Height", "Висота форми", "500");
+
 
 //f screen:
-$cls_Task->_add_screen("Кінцевий вигляд Форми:", "target_form.png");
+$cls_Task->_add_screen("Кінцевий вигляд Форми:", "1_Winter.png");
 
 //help:
 $cls_Task->s_youtube_url = "https://youtu.be/xh2_WJrzxdY?si=a6U65Q9JsShYxgMJ";
