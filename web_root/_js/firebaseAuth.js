@@ -58,42 +58,59 @@ let UsersArrayLocal = []
 let userLocal
 
 getUsersFromLocalStorage()
+//console.log('userGoogle')
 
 //Отримання локальних користувачів в масив UsersArrayLocal та окремого користувача в userLocal
 function getUsersFromLocalStorage() {
+  ////console.log('userGoogle')
+  if (JSON.parse(localStorage.getItem("userGoogleLocal"))) {
+    userGoogle = JSON.parse(localStorage.getItem("userGoogleLocal"))
+    //console.log('userGoogle' + userGoogle)
+    UsersArrayLocal.push(JSON.parse(localStorage.getItem("UsersArray")))
+    //console.log('111' + UsersArrayLocal)
+    UsersArrayLocal[0].forEach((e) => {
+      //console.log(e.userName + " " + e.uid + " " + e.userGroup)
+    })
+    //отримання локального користувача за uid з локальної бази даних 
+    userLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
+    //console.log(userLocal)
+  }
 
-  userGoogle = JSON.parse(localStorage.getItem("userGoogleLocal"))
 
-  UsersArrayLocal.push(JSON.parse(localStorage.getItem("UsersArray")))
-  //console.log(UsersArrayLocal) 
-  UsersArrayLocal[0].forEach((e) => {
-    //console.log(e.userName + " " + e.uid + " " + e.userGroup)
-  })
-  //отримання локального користувача за uid з локальної бази даних 
-  userLocal = UsersArrayLocal[0].find(obj => obj.uid === userGoogle.uid);
-  //console.log(userLocal)
 
 }
 
 
 //Виведення імені та групи локального користувача в меню
-document.getElementById("userName").innerText = userLocal.userName + " " + userLocal.userGroup + " " + userLocal.userSubGroup
-
-//Виведення фото локального користувача в меню
+if (JSON.parse(localStorage.getItem("userGoogleLocal"))){
+  document.getElementById("userName").innerText = userLocal.userName + " " + userLocal.userGroup + " " + userLocal.userSubGroup
+  //Виведення фото локального користувача в меню
 document.getElementById("userPhoto").src = userLocal.userPhoto
   ? userLocal.userPhoto
   : "_img/anonymous.png";
+}
+
+
 
 //Створення події на кнопку Користувач для виклику модального вікна результатами користувача та внесення в нього його даних (імені, фото та інше)
 document.getElementById("userName").addEventListener("click", () => {
   showModalResults(userLocal.uid);
 });
 
+
+//Приховування кнопки Рейтинг для звичайних користувачів
+
+
 //Створення події на кнопку Рейтинг для виклику модального вікна з рейтингом усіх користувачів
-document.getElementById("rank").addEventListener("click", () => {
+let btn_rank = document.getElementById("rank")
+if (userLocal.uid != "Rq6LCl02TifWTeBdg5O1eChD8pU2") {
+  btn_rank.style.display = "none";
+}
+btn_rank.addEventListener("click", () => {
   if (userLocal.uid == "Rq6LCl02TifWTeBdg5O1eChD8pU2") {
     showRating();
   } else {
+
   }
 });
 
@@ -319,7 +336,7 @@ function showResultOfSelectedClass() {
       var selectedValue = event.target.value;
       // console.log(selectedValue);
 
-  
+
 
       // Отримуємо всі елементи з класом 'userResult'
       var userResults = document.querySelectorAll(".userResult");
@@ -327,7 +344,7 @@ function showResultOfSelectedClass() {
       // Перебираємо кожен елемент
       userResults.forEach(function (userResult) {
         userResult.style.display = "none";
-       
+
         // Отримуємо елемент з класом 'userClass' в кожному блоку 'userResult'
         var userClassElement = userResult.querySelector(".userClass");
 
@@ -359,7 +376,7 @@ function showResultOfSelectedClass() {
       // Перебираємо кожен елемент
       userResults.forEach(function (userResult) {
         //if (userResult.style.display = "flex")
-         {
+        {
           //userResult.style.display = "none";
           // Отримуємо елемент з класом 'userSubGroup' в кожному блоку 'userResult'
           var userSubGroupElement = userResult.querySelector(".userSubGroup");

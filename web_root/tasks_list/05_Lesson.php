@@ -14,11 +14,11 @@
         target='_blank'>🖥<b>Web</b></a>
 
 
-        <!-- <div class="row pic-centered task_desc_row"><a
+       <div class="row pic-centered task_desc_row"><a
             href="https://drive.google.com/file/d/1baspLYKdpnJnGLCep7w4uGca8fRPonqg/view?usp=sharing"
             target='_blank'>Відеодопомога (завдання task_1)</a>
         </div>
-        <div class="row pic-centered task_desc_row"><a href="/validator/tasks/05_Lesson_01/task.php">task_1: Швидкість
+         <!-- <div class="row pic-centered task_desc_row"><a href="/validator/tasks/05_Lesson_01/task.php">task_1: Швидкість
             руху автомобіля</a></div>
         <div class="row pic-centered task_desc_row"><a href="/validator/tasks/05_Lesson_02/task.php">task_1: Обчислення
             гіпотенузи, периметра і площі трикутника</a></div>

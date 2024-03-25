@@ -14,11 +14,11 @@
           target='_blank'>🖥<b>Web</b></a>
        
       </div>
-      <!-- <div class="row pic-centered task_desc_row"><a
+     <div class="row pic-centered task_desc_row"><a
           href="  https://drive.google.com/file/d/1Bp-5mx5j3OmjRJGXmYQ_PSRt6fPAMrWT/view" target='_blank'>Відеодопомога
           (завдання task_1)</a>
       </div>
-      <div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_01/task.php">task_1: Квадрат</a>
+        <!--<div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_01/task.php">task_1: Квадрат</a>
       </div>
       <div class="row pic-centered task_desc_row"><a href="/validator/tasks/04_Lesson_02/task.php">task_2: Середнє
           арифметичне</a></div> -->
